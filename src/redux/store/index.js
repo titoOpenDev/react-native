@@ -1,13 +1,14 @@
-import { createStore, applyMiddleware } from 'redux';
-import createSagaMiddleware from 'redux-saga';
+import {createStore, combineReducers, compose, applyMiddleware} from 'redux'
+import authenticateReducer from '../ducks/authenticateDucks';
+import thunk from 'redux-thunk'
 
-import reducers from '../reducers';
-import sagas from '../sagas';
+const rootReducer = combineReducers({
+  authentication : authenticateReducer
+})
 
-export default () => {
-  const sagaMiddleware = createSagaMiddleware();
-  return {
-    ...createStore(reducers, applyMiddleware(sagaMiddleware)),
-    runSaga: sagaMiddleware.run(sagas)
-  }
-};
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+export default function generateStore(){
+  const store = createStore( rootReducer , composeEnhancers( applyMiddleware(thunk)));
+  return store;
+}

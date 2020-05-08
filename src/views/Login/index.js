@@ -2,8 +2,7 @@ import React, {useEffect, useState, Fragment} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AsyncStorage} from "react-native";
 import {Container, Content, Text, Grid, Button} from "native-base";
-import {login} from "../../redux/actions/authenticate";
-
+import {login} from '../../redux/ducks/authenticateDucks';
 
 import styles from "./style";
 import genericStyles from "../../styles";
@@ -15,8 +14,8 @@ import {
 export default function Login({navigation}) {
     const dispatch = useDispatch();
 
-    const loginData = useSelector(state => state.authenticate.login);
-    const error = useSelector(state => state.authenticate.error);
+    const loginData = useSelector(store => store.authentication.login);
+    const error = useSelector(store => store.authentication.error);
 
     const handleLoginPress = async () => {
         dispatch(login({}));

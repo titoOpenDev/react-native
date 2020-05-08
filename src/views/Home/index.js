@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Container } from "native-base";
+import { Container, Text } from "native-base";
 import { BackHandler } from "react-native";
 
 import MyHeader from "../../components/Header";
@@ -22,10 +22,12 @@ export default function Home({ navigation }) {
     return true;
   };
 
-
   return (
     <Container style={styles.container}>
       <MyHeader />
+      <Text>
+        Hola mundo!!!
+      </Text>
     </Container>
   );
 }

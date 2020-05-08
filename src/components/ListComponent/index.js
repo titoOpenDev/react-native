@@ -3,8 +3,8 @@ import { Container, Content, List, ListItem, Text, Spinner } from "native-base";
 
 import styles from "./style";
 
-export default function ListComponent({ items, onItemPress }) {
-
+export default function ListComponent ({ items, onItemPress }) {
+  
     return (
         <Container style={[styles.container]}>
             <Content>

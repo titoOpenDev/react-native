@@ -15,6 +15,8 @@ import { getItem, clearAll } from "../../utils/storage";
 import styles from "./style";
 
 export default function Profile({ navigation }) {
+
+  const dispatch = useDispatch()
   const [userInfo, setUserInfo] = useState(null);
 
   useEffect(
