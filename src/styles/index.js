@@ -7,5 +7,11 @@ export default StyleSheet.create({
   centeredGrid: {
     alignItems: "center",
     justifyContent: "center"
+  },
+  textWhite: {
+    color: '#FFF'
+  },
+  textBlack: {
+    color: '#000'
   }
 });

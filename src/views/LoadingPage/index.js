@@ -13,8 +13,7 @@ export default ({ navigation }) => {
   const redirect = async () => {
     try {
       const token = await AsyncStorage.getItem(ACCESS_TOKEN);
-      let route = token ? HOME : LOGIN;
-
+      let route = token ? LOGIN : LOGIN;
       navigation.navigate(route);
     } catch (e) {
       console.error('error al iniciar : ', e);
