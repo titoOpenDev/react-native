@@ -10,6 +10,7 @@ import genericStyles from "../../styles";
 import {
     ACCESS_TOKEN,
     LOGIN,
+    HOME,
     PASSWORD_RECOVERY,
     REGISTRATION_BEGIN
 } from "../../consts";
@@ -31,6 +32,7 @@ export default function Login({navigation}) {
 
     const handleLoginPress = async () => {
         dispatch(login({}));
+        navigation.navigate(HOME);
     };
 
     const handleTouchableOpacity = async () => {
@@ -66,7 +68,6 @@ export default function Login({navigation}) {
             alert('Ah ocurrido un error')
         }
     }
-
     return (
         <Container>
             <Content contentContainerStyle={styles.wrapperImg}>
@@ -77,7 +78,7 @@ export default function Login({navigation}) {
             <Content contentContainerStyle={[genericStyles.centeredContent, styles.content]}>
                 <Grid style={[genericStyles.centeredGrid, styles.grid]}>
                     <Text style={styles.subtitle}>INGRESO</Text>
-                    <Form style={ {width: 240} }>
+                    <Form style={genericStyles.form}>
                         <Item last>
                             <Input placeholder="Usuario" onChangeText={text => handleChangeUsername(text)}/>
                         </Item>
@@ -92,13 +93,13 @@ export default function Login({navigation}) {
             </Content>
             <Content contentContainerStyle={[genericStyles.centeredContent, styles.content]}>
                 <Grid style={[genericStyles.centeredGrid, styles.grid]}>
-                    <Button light disabled={disabled} style={[styles.loginBtn , styles.btnDefault]} onPress={handleLoginPress}>
+                    <Button light disabled={disabled} style={[styles.loginBtn , genericStyles.btnDefault]} onPress={handleLoginPress}>
                         <Text style={genericStyles.textWhite}>Iniciar sesión </Text>
                     </Button>
-                    <Button onPress={handleRegistry} light style={[styles.logUpBtn , styles.btnDefault]}>
+                    <Button onPress={handleRegistry} light style={[styles.logUpBtn , genericStyles.btnDefault]}>
                         <Text style={genericStyles.textBlack}>No tengo cuenta</Text>
                     </Button>
-                    <Button onPress={handlePasswordRecovery} dark bordered warning style={[styles.losePasswordBtn , styles.btnDefault]}>
+                    <Button onPress={handlePasswordRecovery} dark bordered warning style={[styles.losePasswordBtn , genericStyles.btnDefault]}>
                         <Text>Olvidé mi clave </Text>
                     </Button>
                 </Grid>

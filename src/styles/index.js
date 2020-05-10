@@ -1,4 +1,6 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+
+const { width } = Dimensions.get("window");
 
 export default StyleSheet.create({
   centeredContent: {
@@ -13,5 +15,14 @@ export default StyleSheet.create({
   },
   textBlack: {
     color: '#000'
+  },
+  btnDefault : {
+    marginTop: 15,
+    width: width / 1.5,
+    height: 45,
+    justifyContent: "center"
+  },
+  form: {
+    width: 300
   }
 });

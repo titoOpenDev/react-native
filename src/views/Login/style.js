@@ -1,8 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
 import Constants from "expo-constants";
 
-const { width } = Dimensions.get("window");
-
 export default StyleSheet.create({
   content: {
     flex: 1,
@@ -21,12 +19,6 @@ export default StyleSheet.create({
   },
   loginBtn: {
     backgroundColor: '#e75300',
-  },
-  btnDefault :{
-    marginTop: 15,
-    width: width / 1.5,
-    height: 45,
-    justifyContent: "center"
   },
   losePasswordBtn: {
     borderColor: '#e75300'
