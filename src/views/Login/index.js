@@ -9,8 +9,9 @@ import styles from "./style";
 import genericStyles from "../../styles";
 import {
     ACCESS_TOKEN,
-    HOME,
-    LOGIN
+    LOGIN,
+    PASSWORD_RECOVERY,
+    REGISTRATION_BEGIN
 } from "../../consts";
 
 export default function Login({navigation}) {
@@ -20,7 +21,10 @@ export default function Login({navigation}) {
     
     const [secureTextEntry, setSecureTextEntry] = useState(true);
     const [eye , setEye] = useState('md-eye')
-    
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [disabled , setDisabled] = useState(true);
+
     useEffect(() => {
         if (loginData) { setToken(); }
     });
@@ -33,6 +37,24 @@ export default function Login({navigation}) {
         const eyeName = secureTextEntry ? 'md-eye-off' : 'md-eye';
         setSecureTextEntry(!secureTextEntry);
         setEye(eyeName);
+    }
+
+    const handleChangeUsername = (text) => {
+        setUsername(text);        
+    }
+
+    const handleChangePassword = (text) => {
+        const activated = text.length > 4 ? false : true;
+        setDisabled(activated)
+        setPassword(text)
+    }
+
+    const handleRegistry = () => {
+        navigation.navigate(REGISTRATION_BEGIN);
+    }
+
+    const handlePasswordRecovery = () => {
+        navigation.navigate(PASSWORD_RECOVERY);
     }
 
     const setToken = async () => {
@@ -57,10 +79,10 @@ export default function Login({navigation}) {
                     <Text style={styles.subtitle}>INGRESO</Text>
                     <Form style={ {width: 240} }>
                         <Item last>
-                            <Input placeholder="Username" />
+                            <Input placeholder="Usuario" onChangeText={text => handleChangeUsername(text)}/>
                         </Item>
                         <Item last>
-                            <Input placeholder="Password"  secureTextEntry={secureTextEntry} />
+                            <Input placeholder="Clave" onChangeText={text => handleChangePassword(text)} secureTextEntry={secureTextEntry} />
                             <TouchableOpacity onPress={handleTouchableOpacity}>
                                 <Ionicons name={eye} size={24} color="black" />
                             </TouchableOpacity>
@@ -70,18 +92,14 @@ export default function Login({navigation}) {
             </Content>
             <Content contentContainerStyle={[genericStyles.centeredContent, styles.content]}>
                 <Grid style={[genericStyles.centeredGrid, styles.grid]}>
-                    <Button light style={styles.loginBtn} onPress={handleLoginPress}>
-                        
-                    <TouchableOpacity disabled={true}>
-                        <Text style={genericStyles.textWhite}>Ingresar </Text>
-                    </TouchableOpacity>
-                        
+                    <Button light disabled={disabled} style={[styles.loginBtn , styles.btnDefault]} onPress={handleLoginPress}>
+                        <Text style={genericStyles.textWhite}>Iniciar sesión </Text>
                     </Button>
-                    <Button light style={styles.logUpBtn}>
-                        <Text style={genericStyles.textBlack}>Registrarse</Text>
+                    <Button onPress={handleRegistry} light style={[styles.logUpBtn , styles.btnDefault]}>
+                        <Text style={genericStyles.textBlack}>No tengo cuenta</Text>
                     </Button>
-                    <Button dark bordered warning style={styles.losePasswordBtn}>
-                        <Text>Olvide mi password </Text>
+                    <Button onPress={handlePasswordRecovery} dark bordered warning style={[styles.losePasswordBtn , styles.btnDefault]}>
+                        <Text>Olvidé mi clave </Text>
                     </Button>
                 </Grid>
             </Content>

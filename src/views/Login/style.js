@@ -20,24 +20,18 @@ export default StyleSheet.create({
     fontWeight: 'bold',
   },
   loginBtn: {
-    marginTop: 15,
-    width: width / 1.5,
-    height: 45,
-    justifyContent: "center",
     backgroundColor: '#e75300',
   },
-  losePasswordBtn: {
+  btnDefault :{
     marginTop: 15,
     width: width / 1.5,
     height: 45,
-    justifyContent: "center",
+    justifyContent: "center"
+  },
+  losePasswordBtn: {
     borderColor: '#e75300'
   },
   logUpBtn :{
-    marginTop: 15,
-    width: width / 1.5,
-    height: 45,
-    justifyContent: "center",
     borderColor: '#ecf0f1'
   },
   wrapperImg: {
