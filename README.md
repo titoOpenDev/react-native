@@ -1,3 +1,1 @@
 # react-native-arq
-
-prueba
