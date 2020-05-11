@@ -4,6 +4,8 @@ import { BackHandler } from "react-native";
 
 import MyHeader from "../../components/Header";
 import styles from "./style";
+import UploadProcedure from "../../components/UploadProcedure";
+import ButtonAppBar from "../../components/ButtonAppBar";
 
 export default function Home({ navigation }) {
 
@@ -24,10 +26,8 @@ export default function Home({ navigation }) {
 
   return (
     <Container style={styles.container}>
-      <MyHeader />
-      <Text>
-        Hola mundo!!!
-      </Text>
+      <ButtonAppBar />
+      <UploadProcedure />
     </Container>
   );
 }
