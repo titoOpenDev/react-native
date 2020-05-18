@@ -10,6 +10,10 @@
       "web"
     ],
     "version": "1.0.0",
+    "android": {
+      "package": "com.opendevpro.aseventas",
+      "versionCode": 1
+    },
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
