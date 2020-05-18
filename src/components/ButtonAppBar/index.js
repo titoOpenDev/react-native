@@ -1,28 +1,9 @@
+import React from 'react'
+import ButtonAppBar from './ProfileScreen';
 
-import React from 'react';
-import { Container, Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
-
-
-export default function ButtonAppBar() {
-
-  return (
-      <Container>
-        <Header>
-          <Left>
-          <Button transparent>
-              <Icon name='menu' />
-            </Button>
-          </Left>
-          <Body>
-            <Title>ASE NACIONAL</Title>
-          </Body>
-          <Right>
-            <Button transparent>
-              <Icon name='infocircle' />
-            </Button>
-          </Right>
-        </Header>
-      </Container>
-  );
-
-}
+export const MyProcedureScreen = ({navigation}) => <ButtonAppBar navigation={navigation} name="Mis trámites" />
+export const ProspectScreen = ({navigation}) => <ButtonAppBar navigation={navigation} name="Consulta de prospecto" />
+export const CreateProcedureScreen = ({navigation}) => <ButtonAppBar navigation={navigation} name="Alta (nuevo trámite)" />
+export const NotificationScreen = ({navigation}) => <ButtonAppBar navigation={navigation} name="Notificaciones" />
+export const ContributionScreen = ({navigation}) => <ButtonAppBar navigation={navigation} name="Calculadora de aportes" />
+export const ExitScreen = ({navigation}) => <ButtonAppBar navigation={navigation} name="Salir del sistema" />
