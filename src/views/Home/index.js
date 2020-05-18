@@ -24,8 +24,8 @@ export default function Home({ navigation }) {
 
   return (
     <Container style={styles.container}>
-      <UploadProcedure />
-    {/* <ExpoCamara /> */}
+      {/* <UploadProcedure /> */}
+      <ExpoCamara />
     </Container>
   );
 }

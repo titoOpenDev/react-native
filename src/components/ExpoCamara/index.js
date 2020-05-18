@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, TouchableOpacity, Button, Image } from 'react-native';
+import { Text, View, TouchableOpacity, Button, Image, Icon, TouchableHighlight } from 'react-native';
 import { Camera } from 'expo-camera';
+import styles from './style';
 
 export default function ExpoCamara() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -69,13 +70,27 @@ export default function ExpoCamara() {
               );
             }}>
             <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flip </Text>
-            <Button
+            {/* <Button
               onPress={()=> this.snap()}
               title="Photo"
               color="#841584"
-            />
+            /> */}
           </TouchableOpacity>
         </View>
+          <TouchableOpacity
+          style={{
+              borderWidth:1,
+              borderColor:'rgba(0,0,0,0.2)',
+              alignItems:'center',
+              justifyContent:'center',
+              width:100,
+              height:100,
+              backgroundColor:'#fff',
+              borderRadius:50,
+            }}
+            onPress={()=> this.snap()}
+          >
+          </TouchableOpacity>
       </Camera>
     </View>
   );
