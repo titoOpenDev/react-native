@@ -93,7 +93,7 @@ export default function Login({navigation}) {
             </Content>
             <Content contentContainerStyle={[genericStyles.centeredContent, styles.content]}>
                 <Grid style={[genericStyles.centeredGrid, styles.grid]}>
-                    <Button light disabled={disabled} style={[styles.loginBtn , genericStyles.btnDefault]} onPress={handleLoginPress}>
+                    <Button light style={[styles.loginBtn , genericStyles.btnDefault]} onPress={handleLoginPress}>
                         <Text style={genericStyles.textWhite}>Iniciar sesión </Text>
                     </Button>
                     <Button onPress={handleRegistry} light style={[styles.logUpBtn , genericStyles.btnDefault]}>

@@ -26,14 +26,12 @@ export function MyHeader({ imageUri, showBack, navigation }) {
   return (
     <Header style={styles.header} androidStatusBarColor={PRIMARY_DARK}>
       <Left>
-        {showBack && (
           <Icon
             android="md-arrow-back"
             ios="ios-arrow-back"
             style={styles.backIcon}
             onPress={handleBackPress}
           />
-        )}
       </Left>
       <Body />
       <Right>

@@ -4,6 +4,14 @@ import { Container, Content, Button, Text, Form, Item,
         Input, Left, Header, Icon, Title, Body } from "native-base";
 import genericStyles from "../../styles";
 import styles from './style'
+import {
+  LOGIN,
+  HOME,
+  PASSWORD_RECOVERY,
+  REGISTRATION_BEGIN,
+  REGISTRATION_END
+} from "../../consts";
+
 
 export default function RegistrationBegin({navigation}) {
 
@@ -28,7 +36,7 @@ export default function RegistrationBegin({navigation}) {
   }
 
   const handleNext = () => {
-
+    navigation.navigate(REGISTRATION_END);
   }
 
   const handleGoBack = () => {
