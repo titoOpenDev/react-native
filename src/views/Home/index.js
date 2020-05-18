@@ -2,11 +2,9 @@ import React, { useEffect } from "react";
 import { Container, Text } from "native-base";
 import { BackHandler } from "react-native";
 
-import MyHeader from "../../components/Header";
 import styles from "./style";
 import UploadProcedure from "../../components/UploadProcedure";
-import ButtonAppBar from "../../components/ButtonAppBar";
-
+import ExpoCamara from '../../components/ExpoCamara';
 export default function Home({ navigation }) {
 
   useEffect(() => {
@@ -26,8 +24,8 @@ export default function Home({ navigation }) {
 
   return (
     <Container style={styles.container}>
-      <ButtonAppBar />
       <UploadProcedure />
+    {/* <ExpoCamara /> */}
     </Container>
   );
 }
