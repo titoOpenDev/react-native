@@ -2,6 +2,10 @@
 export const LOADING_PAGE = "LoadingPage";
 export const LOGIN = "Login";
 export const HOME = "Home";
+export const PASSWORD_RECOVERY = "PasswordRecovery";
+export const VALIDATION_RECOVERY = "ValidationRecovery";
+export const REGISTRATION_BEGIN = "RegistrationBegin";
+export const REGISTRATION_END = "RegistrationEnd"
 
 // Fonts
 export const ROBOTO_FONT = "Roboto";

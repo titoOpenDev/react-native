@@ -1,6 +1,6 @@
 import styles from "./style";
 import React, { useState, useEffect } from "react";
-import { Container, Form, Item, Input, Label, Body, Text, ListItem, CheckBox, Button, Image } from "native-base";
+import { View, Form, Item, Input, Label, Body, Text, ListItem, CheckBox, Button, Image } from "native-base";
 
 
 export default function UploadProcedure ({...args}) {
@@ -14,18 +14,15 @@ export default function UploadProcedure ({...args}) {
   };
 
   return (
-        <Container>
-            <Form>
+        <View style={styles.container}>
               <Item floatingLabel>
                 <Label>Completá el CUIT o nombre de empresa</Label>
                 <Input />
               </Item>
 
               <ListItem>
-                <CheckBox checked={true} />
-                <Body>
-                  <Text>Alta múltiple de la misma empresa</Text>
-                </Body>
+                <CheckBox checked={true} style={styles.icon} />
+                <Text>Alta múltiple de la misma empresa</Text>
               </ListItem>
 
               <Item floatingLabel>
@@ -33,20 +30,18 @@ export default function UploadProcedure ({...args}) {
                 <Input />
               </Item>
 
-              <Button bordered danger>
+              <Button bordered danger style={styles.buttons}>
                 <Text>TUTORIAL: FOTO AL FORMULARIO</Text>
               </Button>
 
-              <Button primary>
+              <Button primary style={styles.buttons}>
                 <Text> COMENZAR TRAMITE </Text>
               </Button>
               
-              <Button primary>
+              <Button primary style={styles.buttons}>
                 <Text> ENVIAR FORMULARIO POR EMAIL </Text>
               </Button>
-            </Form>
-        </Container>  
-        
+        </View>  
   );
 
 }
