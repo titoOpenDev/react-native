@@ -5,6 +5,8 @@ import { BackHandler } from "react-native";
 import styles from "./style";
 import UploadProcedure from "../../components/UploadProcedure";
 import ExpoCamara from '../../components/ExpoCamara';
+import MenuBar from "../../components/MenuBar";
+
 export default function Home({ navigation }) {
 
   useEffect(() => {
@@ -21,11 +23,15 @@ export default function Home({ navigation }) {
   const handleHardwareBackPress = () => {
     return true;
   };
-
+  const menu = <MenuBar navigator={navigator}/>;
+  
   return (
     <Container style={styles.container}>
       {/* <UploadProcedure /> */}
-      <ExpoCamara />
+      {/* <ExpoCamara /> */}
+      <SideMenu menu={menu}>
+        <ContentView/>
+      </SideMenu>
     </Container>
   );
 }

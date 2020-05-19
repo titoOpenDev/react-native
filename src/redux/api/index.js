@@ -1,8 +1,8 @@
 import axios from "axios";
-// import environments from '../../../environment';
+import environments from '../../../environment';
 import {AsyncStorage} from "react-native";
 
-const baseURL = 'http://localhost:8080';
+const baseURL = environments();
 
 export default async (url, method, data, headers) => {
 
