@@ -4,9 +4,10 @@ import { BackHandler } from "react-native";
 
 import styles from "./style";
 import UploadProcedure from "../../components/UploadProcedure";
-import ExpoCamara from '../../components/ExpoCamara';
+import PhotoUpload from '../../components/PhotoUpload';
 import MenuBar from "../../components/MenuBar";
-
+import HambungerHeadder from '../../components/HamburguerHeadder';
+import SideMenu from 'react-native-side-menu'
 export default function Home({ navigation }) {
 
   useEffect(() => {
@@ -23,15 +24,9 @@ export default function Home({ navigation }) {
   const handleHardwareBackPress = () => {
     return true;
   };
-  const menu = <MenuBar navigator={navigator}/>;
-  
+      // {/* <UploadProcedure /> */}
+      // {/* <PhotoUpload /> */}
   return (
-    <Container style={styles.container}>
-      {/* <UploadProcedure /> */}
-      {/* <ExpoCamara /> */}
-      <SideMenu menu={menu}>
-        <ContentView/>
-      </SideMenu>
-    </Container>
+      <HambungerHeadder />
   );
 }

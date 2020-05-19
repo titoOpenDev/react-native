@@ -3,7 +3,7 @@ import { Text, View, TouchableOpacity, Button, Image, Icon, TouchableHighlight }
 import { Camera } from 'expo-camera';
 import styles from './style';
 
-export default function ExpoCamara() {
+export default function PhotoUpload() {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [photo, setPhoto] = useState({});
