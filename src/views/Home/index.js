@@ -27,6 +27,7 @@ export default function Home({ navigation }) {
       // {/* <UploadProcedure /> */}
       // {/* <PhotoUpload /> */}
   return (
-      <HambungerHeadder />
+      <UploadProcedure />
+    //  <PhotoUpload />
   );
 }

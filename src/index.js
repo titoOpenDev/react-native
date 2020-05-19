@@ -4,6 +4,7 @@ import * as Font from 'expo-font';
 import { Spinner } from 'native-base';
 
 import Routes from './routes';
+// import Routes from './routes/drawer'
 import Store from './redux/store';
 import { ROBOTO_FONT, ROBOTO_MEDIUM_FONT } from './consts';
 
