@@ -1,22 +1,52 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {Text} from "react-native"
 import { Spinner, Container, Content, Grid, Item, Form, Picker, Button, Header, Left, Icon, Body, Title, Input, View } from "native-base";
 import genericStyles from "../../styles";
+import { requestExecutive } from '../../redux/ducks/executiveDucks';
+
 import {
   PASSWORD_RECOVERY,
   REGISTRATION_BEGIN
 } from "../../consts";
+import { useDispatch , useSelector } from "react-redux";
 
 export default function RegistrationEnd({navigation}) {
 
+  const [network, setNetwork] = useState('')
+  const [filialZone, setFilialZone] = useState('')
+  const [password, setPassword] = useState('')
+  const dispatch = useDispatch();
+
+
+  const firstName = useSelector(store => store.executive.firstName);
+  const lastName = useSelector(store => store.executive.lastName);
+  const cuil = useSelector(store => store.executive.cuil);
+  const email = useSelector(store => store.executive.email);``
 
   useEffect(() => {
     
   })
    
 
+  const handleRed = (value) => {
+       setNetwork(value);
+  }
+
+  const handleZone = (value) => {
+      setFilialZone(value);
+  }
+
+  const handleChangePassword = (value) => {
+      setPassword(value)
+  }
+
   const handleGoBack = () => {
     navigation.goBack();
+  }
+
+  const handleSend = () => {
+     const payload = { lastName, firstName, cuil, password, email, network, filialZone}
+     dispatch(requestExecutive(payload));
   }
 
   return (
@@ -45,12 +75,14 @@ export default function RegistrationEnd({navigation}) {
                 placeholder="Select your SIM"
                 placeholderStyle={{ color: "#bfc6ea" }}
                 placeholderIconColor="#007aff"
+                selectedValue={network}
+                onValueChange={ (itemValue) => handleRed(itemValue)}
               >
                 <Picker.Item label="Red" value="key0" />
-                <Picker.Item label="ATM Card" value="key1" />
-                <Picker.Item label="Debit Card" value="key2" />
-                <Picker.Item label="Credit Card" value="key3" />
-                <Picker.Item label="Net Banking" value="key4" />
+                <Picker.Item label="Red-1" value="Red-1" />
+                <Picker.Item label="Red-2" value="Red-2" />
+                <Picker.Item label="Red-3" value="Red-3" />
+                <Picker.Item label="Red-4" value="Red-4" />
               </Picker>
             </Item>
             </View>
@@ -63,18 +95,20 @@ export default function RegistrationEnd({navigation}) {
                 placeholder="Select your SIM"
                 placeholderStyle={{ color: "#bfc6ea" }}
                 placeholderIconColor="#007aff"
+                selectedValue={filialZone}
+                onValueChange={ (itemValue) => handleZone(itemValue)}
               >
                 <Picker.Item label="Zona filial" value="key0" />
-                <Picker.Item label="ATM Card" value="key1" />
-                <Picker.Item label="Debit Card" value="key2" />
-                <Picker.Item label="Credit Card" value="key3" />
-                <Picker.Item label="Net Banking" value="key4" />
+                <Picker.Item label="Zona filial ASE - 1" value="Zona filial ASE - 1" />
+                <Picker.Item label="Zona filial ASE - 2" value="Zona filial ASE - 2" />
+                <Picker.Item label="Zona filial ASE - 3" value="Zona filial ASE - 3" />
+                <Picker.Item label="Zona filial ASE - 4" value="Zona filial ASE - 4" />
               </Picker>
             </Item>
             </View>
             <View style={{flex:1}}>
             <Item>
-              <Input placeholder="Clave" />
+              <Input placeholder="Clave" onChangeText={text => handleChangePassword(text)} />
             </Item>
             </View>
             <View style={{flex:1}}>
@@ -83,7 +117,7 @@ export default function RegistrationEnd({navigation}) {
             </Item>
             </View>
             <View style={{flex:1}}>
-            <Button light style={[ {backgroundColor: '#e75300'} , genericStyles.btnDefault]}>
+            <Button onPress={() => handleSend()} light  style={[ {backgroundColor: '#e75300'} , genericStyles.btnDefault]}>
                 <Text style={genericStyles.textWhite}>Registrarme </Text>
             </Button>
             </View>

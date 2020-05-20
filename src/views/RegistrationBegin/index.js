@@ -4,6 +4,8 @@ import { Container, Content, Button, Text, Form, Item,
         Input, Left, Header, Icon, Title, Body } from "native-base";
 import genericStyles from "../../styles";
 import styles from './style'
+import {buildExecutive} from '../../redux/ducks/executiveDucks';
+
 import {
   LOGIN,
   HOME,
@@ -11,13 +13,17 @@ import {
   REGISTRATION_BEGIN,
   REGISTRATION_END
 } from "../../consts";
+import { useDispatch } from "react-redux";
 
 
 export default function RegistrationBegin({navigation}) {
 
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState("");
-  const [nombreApellido , setNombreApellido] = useState("");
-  const [CUIL , setCUIL] = useState("")
+  const [firstName , setFirstName] = useState("");
+  const [lastName , setlastName] = useState("");
+  const [cuil , setCUIL] = useState("")
 
   useEffect(() => {
    
@@ -27,8 +33,12 @@ export default function RegistrationBegin({navigation}) {
       setEmail(text);
   }
 
-  const handleChangeNombreApellido = (text) => {
-        setNombreApellido(text)
+  const handleChangeFirstName = (text) => {
+      setFirstName(text)
+  }
+
+  const handleChangeLastName = (text) => {
+      setlastName(text);
   }
 
   const handleChangeCUIL = (text) => {
@@ -36,6 +46,10 @@ export default function RegistrationBegin({navigation}) {
   }
 
   const handleNext = () => {
+
+    const payload = { lastName , firstName , email , cuil }
+
+    dispatch(buildExecutive(payload))
     navigation.navigate(REGISTRATION_END);
   }
 
@@ -55,19 +69,20 @@ export default function RegistrationBegin({navigation}) {
             <Title>Registro 1/2</Title>
           </Body>
       </Header>
-      <View style={{flex: 1, flexDirection: 'column'}}>
+      <Content>
+     {/*  <View style={{flex: 1, flexDirection: 'column'}}> */}
       <View style={{flex:1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#ecf0f1'}}>
           <Image source={require('../../../assets/ase_nacional_imagen_app.png')} 
                 style={styles.img}/>
       </View>
-      <View style={{flex:5,justifyContent: 'flex-start', alignItems:'center' }}>
+      <View style={{flex:1,justifyContent: 'flex-start', alignItems:'center' , marginTop: 50 }}>
           <Text style={styles.message}>
             Bienvenido a la App de ventas de ASE. Creando 
             tu cuenta podras realizar las consultas, acelerar
             el proceso de alta de nuevos Afiliados enviando la 
             info y obteniendo respuesta en pocos minutos</Text>
       
-          <Text style={styles.message}>
+          <Text style={[styles.message , {marginBottom : 30}]}>
             Registrate con unos pocos datos y comenza a disfrutar
             de los beneficios de ASE Ventas
           </Text>
@@ -76,27 +91,24 @@ export default function RegistrationBegin({navigation}) {
                     <Input placeholder="CUIL" onChangeText={text => handleChangeCUIL(text)} maxLength={13}/>
                 </Item>
                 <Item last>
-                    <Input placeholder="Nombre y Apellido" onChangeText={text => handleChangeNombreApellido(text)}/>
+                    <Input placeholder="Nombre" onChangeText={text => handleChangeFirstName(text)}/>
+                </Item>
+                <Item last>
+                    <Input placeholder="Apellido" onChangeText={text => handleChangeLastName(text)}/>
                 </Item>
                 <Item last>
                     <Input placeholder="E-MAIL" onChangeText={text => handleChangeEmail(text)}/>
                 </Item>
             </Form>
       </View>
-      <View style={{flex:1,height: 100, justifyContent: 'center', alignItems: 'center'}}>
+      <View style={{flex:1,height: 100, justifyContent: 'flex-end', alignItems: 'center', marginTop: 20}}>
         <Button light style={[styles.loginBtn , genericStyles.btnDefault]} onPress={handleNext} > 
             <Text style={genericStyles.textWhite}>Siguiente </Text>
         </Button>
       </View>
-      </View>
+     {/*  </View> */}
+      </Content>
   </Container>
-    
-
-
-
-
-
-
   );
 };
 

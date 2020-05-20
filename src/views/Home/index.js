@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Container, Text } from "native-base";
+import { Container, Text, Header, Left, Button, Icon, Title, Body } from "native-base";
 import { BackHandler } from "react-native";
 
 import styles from "./style";
@@ -8,6 +8,7 @@ import PhotoUpload from '../../components/PhotoUpload';
 import MenuBar from "../../components/MenuBar";
 import HambungerHeadder from '../../components/HamburguerHeadder';
 import SideMenu from 'react-native-side-menu'
+
 export default function Home({ navigation }) {
 
   useEffect(() => {
@@ -24,10 +25,26 @@ export default function Home({ navigation }) {
   const handleHardwareBackPress = () => {
     return true;
   };
+
+  const handleGoBack = () => {
+    navigation.goBack();
+  }
       // {/* <UploadProcedure /> */}
       // {/* <PhotoUpload /> */}
   return (
-      <UploadProcedure />
+    <>
+          <Header>
+            <Left>
+              <Button onPress={ handleGoBack }>
+                <Icon name='arrow-back' />
+              </Button>
+            </Left>
+            <Body>
+              <Title>NUEVO TRAMITE</Title>
+            </Body>
+          </Header>
+          <UploadProcedure />
+    </>
     //  <PhotoUpload />
   );
 }
