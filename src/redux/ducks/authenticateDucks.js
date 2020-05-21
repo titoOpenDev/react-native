@@ -4,7 +4,8 @@ import {POST_METHOD} from '../../consts';
 
 const initialState = {
   login : '',
-  error : ''
+  error : '',
+  loged: false
 }
 
 export const GET_LOGIN_START = "GET_LOGIN_START";
@@ -16,7 +17,7 @@ export default function authenticate(state = initialState, action) {
       case GET_LOGIN_START:
           return { ...state, login: null };
       case GET_LOGIN_SUCCESS:
-          return { ...state, login: action.payload };
+          return { ...state, login: action.payload,loged:true };
       case GET_LOGIN_ERROR:
           return { ...state, error: action.payload};
       default:

@@ -22,7 +22,8 @@ export default function Login({navigation}) {
     const dispatch = useDispatch();
     const loginData = useSelector(store => store.authentication.login);
     const error = useSelector(store => store.authentication.error);
-    
+    const loged = useSelector(store => store.authentication.loged);
+
     const [secureTextEntry, setSecureTextEntry] = useState(true);
     const [eye , setEye] = useState('md-eye')
     const [username, setUsername] = useState('');
@@ -31,16 +32,13 @@ export default function Login({navigation}) {
 
     useEffect(() => {
         if (loginData) { setToken(); }
-        if(error){console.log(error);}
-    },[loginData,error]);
+        if(error){alert(ERROR_MSSG);}
+        if(loged){navigation.navigate(HOME);}
+    },[loginData,error,loged]);
 
     const handleLoginPress = async () => {
         dispatch(login({username , password}));
-        if(loginData) {
-            navigation.navigate(HOME);
-        }else{
-            alert(ERROR_MSSG);
-        }
+        
     };
 
     const handleTouchableOpacity = async () => {
