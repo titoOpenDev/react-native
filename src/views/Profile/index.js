@@ -11,7 +11,7 @@ import {
 } from "native-base";
 
 import { USER_INFO, SECONDARY, LOGIN } from "../../consts";
-import { getItem, clearAll } from "../../utils/storage";
+import { getItem, clearAll } from "../../utils";
 import styles from "./style";
 
 export default function Profile({ navigation }) {

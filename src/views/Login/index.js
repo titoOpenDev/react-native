@@ -1,10 +1,12 @@
 import React, {useEffect, useState, Fragment} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {AsyncStorage , Image, TouchableOpacity} from "react-native";
+import { Image, TouchableOpacity} from "react-native";
 import {Container, Content, Text, Grid, Button, Form , Item , Input} from "native-base";
 import {login} from '../../redux/ducks/authenticateDucks';
+import {saveItem} from '../../utils';
 import { Ionicons } from '@expo/vector-icons'; 
 
+import {ERROR_MSSG} from '../../consts';
 import styles from "./style";
 import genericStyles from "../../styles";
 import {
@@ -29,14 +31,15 @@ export default function Login({navigation}) {
 
     useEffect(() => {
         if (loginData) { setToken(); }
-    });
+        if(error){console.log(error);}
+    },[loginData,error]);
 
     const handleLoginPress = async () => {
         dispatch(login({username , password}));
         if(loginData) {
             navigation.navigate(HOME);
         }else{
-            alert(error)
+            alert(ERROR_MSSG);
         }
     };
 
@@ -66,7 +69,7 @@ export default function Login({navigation}) {
 
     const setToken = async () => {
         try {
-            await AsyncStorage.setItem(ACCESS_TOKEN, loginData);
+            await saveItem(ACCESS_TOKEN, loginData);
             navigation.navigate(LOGIN);
         } catch (e) {
             console.error(e);

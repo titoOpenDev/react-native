@@ -20,3 +20,9 @@ export const PRIMARY = "#512da8";
 export const PRIMARY_DARK = "#311b92";
 export const SECONDARY = "#f5b72c";
 export const WHITE = "#FFF";
+
+//Http Methods
+export const POST_METHOD = "POST";
+
+//Error Mssg
+export const ERROR_MSSG= "Ha ocurrido un error";

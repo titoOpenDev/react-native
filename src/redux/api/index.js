@@ -1,22 +1,18 @@
 import axios from "axios";
-import environments from '../../../environment';
-import {AsyncStorage} from "react-native";
 
-const baseURL = environments();
+import {buildRequest} from '../../utils';
+import environment from '../../../environment';
 
-export default async (url, method, data, headers) => {
+const{EXECUTIVE_API_HOST} = environment();
 
-    const token = await AsyncStorage.getItem('token');
+//TODO: Si hay algun llamado a otra API y que necesite setearle
+//Algun campo del header como el Authorization crear otro metodo
+export default async (url, method, data) => {
+    let completeURL = EXECUTIVE_API_HOST;
 
-    return axios({
-        baseURL,
-        method,
-        url,
-        data,
-        headers: {
-            ...headers,
-            Authorization: token
-        }
-    });
+    if(url) completeURL = `${completeURL}${url}`;
+    const object =  buildRequest(completeURL, method, data, null);
+
+    return axios(object);
 }
 

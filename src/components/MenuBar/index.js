@@ -3,7 +3,7 @@ import {ScrollView, Text, View} from 'react-native';
 import styles from './style';
 import SideMenu from 'react-native-side-menu'
 
-export default MenuBar = ({...params}) => {
+export const MenuBar = ({...params}) => {
   
   return (
     <View >

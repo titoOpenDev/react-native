@@ -1,5 +1,6 @@
 
-import axios from 'axios';
+import apiCall from '../api';
+import {POST_METHOD} from '../../consts';
 
 const initialState = {
   login : '',
@@ -36,15 +37,18 @@ export const fetchError = (error) => {
         payload : error
     }
 }
-
+//TODO: Mejorar el manejo de errores, por ejemplo si hubiese 
+//un problema de red y el host estuviese inalcanzable, estaria tirando
+//siempre el mismo error y que no tiene nada que ver, user y pass incorrectos
 export const login = payload =>  {
     return async dispatch => {
-        const url = "http://192.168.0.218:8000/api/ejecutivos/auth/sesion"
         try {
-            let response = await axios.post(url, payload);
+            let url = '/auth/sesion';
+            let response = await apiCall( url , POST_METHOD , payload);
             dispatch(fetchLogin(response.data.email))
         } catch (error) {
-            dispatch(fetchError("USUARIO Y/O PASSWORD INCORRECTOS"))
+            console.log(error);
+            dispatch(fetchError("USUARIO Y/O PASSWORD INCORRECTOS"));
         }
     }
 }
