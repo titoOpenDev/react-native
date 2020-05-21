@@ -20,7 +20,7 @@ export default StyleSheet.create({
     marginTop: 15,
     width: width / 1.5,
     height: 45,
-    justifyContent: "center"
+    justifyContent: "center",
   },
   form: {
     width: 300

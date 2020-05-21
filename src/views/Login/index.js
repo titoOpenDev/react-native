@@ -15,7 +15,8 @@ import {
     HOME,
     PASSWORD_RECOVERY,
     REGISTRATION_BEGIN,
-    NOTIFICATION_FILTERS
+    NOTIFICATION_FILTERS,
+    CALCULATOR_RESULTS
 } from "../../consts";
 
 export default function Login({navigation}) {

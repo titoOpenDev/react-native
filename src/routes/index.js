@@ -9,7 +9,8 @@ import { LOADING_PAGE,
          VALIDATION_RECOVERY, 
          REGISTRATION_BEGIN, 
          REGISTRATION_END,
-         NOTIFICATION_FILTERS } from "../consts";
+         NOTIFICATION_FILTERS,
+         CALCULATOR_RESULTS } from "../consts";
 
 import Login from "../views/Login";
 import Home from "../views/Home";
@@ -19,6 +20,8 @@ import ValidationRecovery from "../views/ValidationRecovery";
 import RegistrationBegin from "../views/RegistrationBegin";
 import RegistrationEnd from "../views/RegistrationEnd";
 import NotificationFilters from "../views/NotificationFilters";
+import CalculatorResults from "../views/CalculatorResults";
+
 
 const AppNavigator = createStackNavigator(
   {
@@ -29,7 +32,8 @@ const AppNavigator = createStackNavigator(
     [PASSWORD_RECOVERY] : PasswordRecovery,
     [VALIDATION_RECOVERY] : ValidationRecovery,
     [REGISTRATION_BEGIN] : RegistrationBegin,
-    [REGISTRATION_END] : RegistrationEnd
+    [REGISTRATION_END] : RegistrationEnd,
+    [CALCULATOR_RESULTS] : CalculatorResults
   },
   {
     headerMode: "none"

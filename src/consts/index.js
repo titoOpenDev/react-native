@@ -7,6 +7,7 @@ export const VALIDATION_RECOVERY = "ValidationRecovery";
 export const REGISTRATION_BEGIN = "RegistrationBegin";
 export const REGISTRATION_END = "RegistrationEnd";
 export const NOTIFICATION_FILTERS = "NotificationFilters";
+export const CALCULATOR_RESULTS = "CalculatorResults";
 
 // Fonts
 export const ROBOTO_FONT = "Roboto";
