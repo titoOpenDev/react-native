@@ -38,9 +38,7 @@ export const fetchError = (error) => {
         payload : error
     }
 }
-//TODO: Mejorar el manejo de errores, por ejemplo si hubiese 
-//un problema de red y el host estuviese inalcanzable, estaria tirando
-//siempre el mismo error y que no tiene nada que ver, user y pass incorrectos
+
 export const login = payload =>  {
     return async dispatch => {
         try {
@@ -49,7 +47,7 @@ export const login = payload =>  {
             dispatch(fetchLogin(response.data.email))
         } catch (error) {
             console.log(error);
-            dispatch(fetchError("USUARIO Y/O PASSWORD INCORRECTOS"));
+            dispatch(fetchError(error));
         }
     }
 }
