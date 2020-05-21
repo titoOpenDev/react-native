@@ -44,8 +44,6 @@ export default StyleSheet.create({
   },
   scrollView: {
     flex: 1,
-    // justifyContent: 'space-between',
-    backgroundColor: 'pink',
   },
   
 });
