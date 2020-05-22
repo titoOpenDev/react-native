@@ -32,12 +32,13 @@ export default function Login({navigation}) {
     });
 
     const handleLoginPress = async () => {
-        dispatch(login({username , password}));
-        if(loginData) {
-            navigation.navigate(HOME);
-        }else{
-            alert(error)
-        }
+      navigation.navigate(HOME);
+        // dispatch(login({username , password}));
+        // if(loginData) {
+        //     navigation.navigate(HOME);
+        // }else{
+        //     alert(error)
+        // }
     };
 
     const handleTouchableOpacity = async () => {

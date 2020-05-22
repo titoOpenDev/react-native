@@ -3,7 +3,7 @@ import { Text, View, TouchableOpacity, Button, Image, Icon, TouchableHighlight }
 import { Camera } from 'expo-camera';
 import styles from './style';
 
-export default function PhotoUpload() {
+export default function PhotoUpload({navigation}) {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [photo, setPhoto] = useState({});
@@ -44,7 +44,7 @@ export default function PhotoUpload() {
 
   return (
     <View style={{ flex: 1 }}>
-      {getPreimage()}
+     {getPreimage()}
       <Camera style={{ flex: 1 }} type={type}
       ref= {ref => {
         this.camera = ref
