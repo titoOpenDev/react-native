@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import UploadProcedure from '../UploadProcedure';
-import NotificationFilters from '../../views/NotificationFilters'
 import { AntDesign } from '@expo/vector-icons'; 
 import { Text } from 'native-base';
+
+import NotificationFilters from '../../views/NotificationFilters'
+import CalculatorResults from '../../views/CalculatorResults';
 
 export default function StackScreen() {
 
@@ -43,12 +45,11 @@ export default function StackScreen() {
           title: 'Notificaciones'
         })}
       />
-      <Drawer.Screen name="calculadoraDeAportes"
-        component={() => (<Text>Mis tramites</Text>)}
+      <Drawer.Screen name="CalculatorResults"
+        component={CalculatorResults}
         options={({ navigation, route }) => ({
         title: 'Calculadora Aportes'
         })}
-      component={() => (<Text>Calculadora de aportes</Text>)}
       />
       <Drawer.Screen name="salirDelSistema"
         options={({ navigation, route }) => ({
