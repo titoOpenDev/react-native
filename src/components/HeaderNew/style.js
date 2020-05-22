@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
     header: {
-        backgroundColor: '#f16820', androidStatusBarColor: '#e45205',
+        backgroundColor: '#f16820'
     },
     leftIcon: {
         color: 'white', size: 24, name: 'md-menu',
