@@ -2,15 +2,27 @@ import React, { useState, useEffect } from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import UploadProcedure from '../UploadProcedure';
 import NotificationFilters from '../../views/NotificationFilters'
+import Login from '../../views/Login';
 import { AntDesign } from '@expo/vector-icons'; 
 import { Text } from 'native-base';
+import LoadingPage from '../../views/LoadingPage';
 
 export default function StackScreen() {
 
   const Drawer = createDrawerNavigator();
 
   return (
-    <Drawer.Navigator initialRouteName="Home">
+    <Drawer.Navigator initialRouteName="loadingPage">
+      <Drawer.Screen name="loadingPage"
+        options={({ navigation, route }) => ({
+        })}
+        component={LoadingPage}
+      />
+      <Drawer.Screen name="login"
+        options={({ navigation, route }) => ({
+        })}
+        component={Login}
+      />
       <Drawer.Screen name="misTramites"
         options={({ navigation, route }) => ({
         title: 'Alta (nuevo trámite)'
