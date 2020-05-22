@@ -6,13 +6,10 @@ import { Container, Content, Grid, Item, Form, Button } from 'native-base';
 import genericStyles from '../../styles';
 import styles from './style';
 
-import {HOME} from '../../consts';
-
 export default function CalculatorResults({navigation}){
 
-    const handleBackBttnClick= ()=>{
-        console.log('quiere volver');
-        navigation.navigate(HOME);
+    const handleBackBttnPress = () =>{
+        navigation.openDrawer();
     }
 
     return(
@@ -34,7 +31,7 @@ export default function CalculatorResults({navigation}){
                             <Text style={styles.subtitle}>    $12.129,00</Text>
                         </Item>    
                         <Button 
-                            onPress = {handleBackBttnClick}  
+                            onPress={()=>handleBackBttnPress()} 
                             style={[ {backgroundColor: '#e75300'} , genericStyles.btnDefault]}
                         >
                             <Text style={genericStyles.textWhite} >Ir a Inicio </Text>
