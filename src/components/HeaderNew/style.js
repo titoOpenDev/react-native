@@ -4,13 +4,12 @@ export default StyleSheet.create({
     header: {
         backgroundColor: '#f16820'
     },
-    leftIcon: {
-        color: 'white', size: 24, name: 'md-menu',
-    },
-    rightIcon: {
-        color: 'white', size: 24, name: 'info',
+    icon: {
+        color: 'white', 
     },
     image: {
-        width: 64, height: 24, resizeMode: 'stretch', tintColor: 'white',
+        width: 64, height: 24, 
+        resizeMode: 'stretch', 
+        tintColor: 'white',
     },
 });
