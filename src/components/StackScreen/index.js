@@ -10,14 +10,18 @@ export default function StackScreen() {
   const Drawer = createDrawerNavigator();
 
   return (
-    <Drawer.Navigator>
-      <Drawer.Screen
-        name='Mis tŕamites'
+    <Drawer.Navigator initialRouteName="Home">
+      <Drawer.Screen name="misTramites"
+        options={({ navigation, route }) => ({
+        title: 'Alta (nuevo trámite)'
+        })}
         component={() => (<Text>Mis tramites</Text>)}
       />
-      <Drawer.Screen 
-        name='Consulta de Prospecto'
-        component={() => (<Text>Prospecto</Text>)}
+      <Drawer.Screen name="consultaProspecto"
+        component={() => (<Text>Mis Prospectos</Text>)}
+        options={({ navigation, route }) => ({
+          title: 'Consulsta Prospectos'
+          })}
       />
       <Drawer.Screen name="Home" component={UploadProcedure} 
         options={({ navigation, route }) => ({
@@ -33,16 +37,24 @@ export default function StackScreen() {
         )
         })}
       />
-      <Drawer.Screen 
-        name='Notificaciones'
-        component={NotificationFilters}/>
-       <Drawer.Screen name="calculadoraDeAportes"
-        title='Calculadora de aportes'
-        component={() => (<Text>Prospecto</Text>)}
+      <Drawer.Screen name="NotificationFilters"
+        component={NotificationFilters}
+        options={({ navigation, route }) => ({
+          title: 'Notificaciones'
+        })}
       />
-      <Drawer.Screen title="salirDelSistema"
-        name='Salir del sistema'
-        component={() => (<Text>Prospecto</Text>)}
+      <Drawer.Screen name="calculadoraDeAportes"
+        component={() => (<Text>Mis tramites</Text>)}
+        options={({ navigation, route }) => ({
+        title: 'Calculadora Aportes'
+        })}
+      component={() => (<Text>Calculadora de aportes</Text>)}
+      />
+      <Drawer.Screen name="salirDelSistema"
+        options={({ navigation, route }) => ({
+        title: 'Salir del sistema'
+        })}
+      component={() => (<Text>Salir de lsistema</Text>)}
       />
     </Drawer.Navigator>
   )
