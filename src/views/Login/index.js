@@ -38,18 +38,8 @@ export default function Login({navigation}) {
     },[loginData,error,loged]);
 
     const handleLoginPress = async () => {
-<<<<<<< HEAD
         dispatch(login({username , password}));
         
-=======
-      navigation.navigate(HOME);
-        // dispatch(login({username , password}));
-        // if(loginData) {
-        //     navigation.navigate(HOME);
-        // }else{
-        //     alert(error)
-        // }
->>>>>>> react-native-ducks-001
     };
 
     const handleTouchableOpacity = async () => {
