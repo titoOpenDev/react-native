@@ -88,20 +88,20 @@ export default function Login({ navigation }) {
                                     <Item last>
                                         <Input placeholder="Clave" onChangeText={text => handleChangePassword(text)} secureTextEntry={secureTextEntry}/>
                                         <TouchableOpacity onPress={handleTouchableOpacity}>
-                                            <Ionicons name={eye} size={24} color="black" />
+                                            <Ionicons name={eye} size={24} color="gray" />
                                         </TouchableOpacity>
                                     </Item>
                                 </Form>
                             </View>
                             <View style={{ margin: 10, }}>
-                                <Button warning style={{ margin: 10, }} onPress={handleLoginPress}>
+                                <Button warning style={{ margin: 10, backgroundColor: '#f16921', }} onPress={handleLoginPress}>
                                     <Text style={{ flex: 1, textAlign: 'center' }}>Iniciar sesion</Text>
                                 </Button>
                                 <Button light style={{ margin: 10, backgroundColor: 'gray', }} onPress={handleRegistry}>
-                                    <Text style={{ color: 'black', flex: 1, textAlign: 'center' }}>No tengo cuenta</Text>
+                                    <Text style={{ color: 'white', flex: 1, textAlign: 'center' }}>No tengo cuenta</Text>
                                 </Button>
                                 <Button dark bordered warning style={{ margin: 10, borderColor: 'orange'}} onPress={handlePasswordRecovery}>
-                                    <Text style={{ color: 'orange', flex: 1, textAlign: 'center' }}>Olvide mi clave</Text>
+                                    <Text style={{ color: '#f16921', flex: 1, textAlign: 'center' }}>Olvide mi clave</Text>
                                 </Button>
                             </View>
                         </View>
