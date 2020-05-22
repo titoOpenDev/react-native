@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import {Text, Button as NativeButton} from "react-native"
 import { View, Form, Item, Input, Label, Body, ListItem, CheckBox, Button, Image, Container, Content, Textarea, Grid } from "native-base";
 import genericStyles from "../../styles";
-import Header from '../../components/HeaderNew';
 
 export default function UploadProcedure ({navigation}) {
 
