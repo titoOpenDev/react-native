@@ -6,8 +6,7 @@ import { Foundation } from '@expo/vector-icons';
 
 import styles from "./style";
 
-
-function Home() {
+export default function HeaderNew() {
     return (
       <Container>
         <Header style={styles.header} androidStatusBarColor={styles.header}>
