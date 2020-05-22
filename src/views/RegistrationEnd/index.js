@@ -21,7 +21,7 @@ export default function RegistrationEnd({navigation}) {
   const firstName = useSelector(store => store.executive.firstName);
   const lastName = useSelector(store => store.executive.lastName);
   const cuil = useSelector(store => store.executive.cuil);
-  const email = useSelector(store => store.executive.email);``
+  const email = useSelector(store => store.executive.email);
 
   useEffect(() => {
     

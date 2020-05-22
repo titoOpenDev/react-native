@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Spinner, Container, Content, Grid } from "native-base";
 import { LOGIN, HOME, ACCESS_TOKEN } from "../../consts";
-import { AsyncStorage } from "react-native";
+import { getItem } from "../../utils";
 import styles from "./style";
 
 export default ({ navigation }) => {
@@ -11,12 +11,12 @@ export default ({ navigation }) => {
 
   const redirect = async () => {
     try {
-      const token = await AsyncStorage.getItem(ACCESS_TOKEN);
+      const token = await getItem(ACCESS_TOKEN);
       /* let route = token ? HOME : LOGIN; */
       navigation.navigate(LOGIN);
     } catch (e) {
       console.error('error al iniciar : ', e);
-      alert('Hubo un error al intentar iniciar, intente nuevamente')
+      alert('Hubo un error al intentar iniciar, intente nuevamente');
     }
 
   };

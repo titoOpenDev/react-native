@@ -1,9 +1,11 @@
 
-import axios from 'axios';
+import apiCall from '../api';
+import {POST_METHOD} from '../../consts';
 
 const initialState = {
   login : '',
-  error : ''
+  error : '',
+  loged: false
 }
 
 export const GET_LOGIN_START = "GET_LOGIN_START";
@@ -15,7 +17,7 @@ export default function authenticate(state = initialState, action) {
       case GET_LOGIN_START:
           return { ...state, login: null };
       case GET_LOGIN_SUCCESS:
-          return { ...state, login: action.payload };
+          return { ...state, login: action.payload,loged:true };
       case GET_LOGIN_ERROR:
           return { ...state, error: action.payload};
       default:
@@ -39,12 +41,13 @@ export const fetchError = (error) => {
 
 export const login = payload =>  {
     return async dispatch => {
-        const url = "http://192.168.0.218:8000/api/ejecutivos/auth/sesion"
         try {
-            let response = await axios.post(url, payload);
+            let url = '/auth/sesion';
+            let response = await apiCall( url , POST_METHOD , payload);
             dispatch(fetchLogin(response.data.email))
         } catch (error) {
-            dispatch(fetchError("USUARIO Y/O PASSWORD INCORRECTOS"))
+            console.log(error);
+            dispatch(fetchError(error));
         }
     }
 }

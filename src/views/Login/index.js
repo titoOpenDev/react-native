@@ -1,10 +1,12 @@
 import React, {useEffect, useState, Fragment} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {AsyncStorage , Image, TouchableOpacity} from "react-native";
+import { Image, TouchableOpacity} from "react-native";
 import {Container, Content, Text, Grid, Button, Form , Item , Input} from "native-base";
 import {login} from '../../redux/ducks/authenticateDucks';
+import {saveItem} from '../../utils';
 import { Ionicons } from '@expo/vector-icons'; 
 
+import {ERROR_MSSG} from '../../consts';
 import styles from "./style";
 import genericStyles from "../../styles";
 import {
@@ -13,14 +15,16 @@ import {
     HOME,
     PASSWORD_RECOVERY,
     REGISTRATION_BEGIN,
-    NOTIFICATION_FILTERS
+    NOTIFICATION_FILTERS,
+    CALCULATOR_RESULTS
 } from "../../consts";
 
 export default function Login({navigation}) {
     const dispatch = useDispatch();
     const loginData = useSelector(store => store.authentication.login);
     const error = useSelector(store => store.authentication.error);
-    
+    const loged = useSelector(store => store.authentication.loged);
+
     const [secureTextEntry, setSecureTextEntry] = useState(true);
     const [eye , setEye] = useState('md-eye')
     const [username, setUsername] = useState('');
@@ -29,9 +33,15 @@ export default function Login({navigation}) {
 
     useEffect(() => {
         if (loginData) { setToken(); }
-    });
+        if(error){alert(ERROR_MSSG);}
+        if(loged){navigation.navigate(HOME);}
+    },[loginData,error,loged]);
 
     const handleLoginPress = async () => {
+<<<<<<< HEAD
+        dispatch(login({username , password}));
+        
+=======
       navigation.navigate(HOME);
         // dispatch(login({username , password}));
         // if(loginData) {
@@ -39,6 +49,7 @@ export default function Login({navigation}) {
         // }else{
         //     alert(error)
         // }
+>>>>>>> react-native-ducks-001
     };
 
     const handleTouchableOpacity = async () => {
@@ -67,7 +78,7 @@ export default function Login({navigation}) {
 
     const setToken = async () => {
         try {
-            await AsyncStorage.setItem(ACCESS_TOKEN, loginData);
+            await saveItem(ACCESS_TOKEN, loginData);
             navigation.navigate(LOGIN);
         } catch (e) {
             console.error(e);

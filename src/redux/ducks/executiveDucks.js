@@ -1,5 +1,5 @@
-
-import axios from 'axios';
+import apiCall from '../api';
+import {POST_METHOD} from '../../consts';
 
 const initialState = {
   lastName : '',
@@ -53,17 +53,16 @@ export const requestError = (data) => {
 
 export const buildExecutive = payload =>  {
     return async dispatch => {
-        dispatch(build(payload))
+        dispatch(build(payload));
     }
 }
 
 export const requestExecutive = payload =>  {
-    const url = "http://192.168.0.218:8000/api/ejecutivos"
     return async dispatch => {
         try {
-            await axios.post(url , payload)
+            await apiCall( null , POST_METHOD , payload);
         } catch (error) {
-            dispatch(requestError(error.message))
+            dispatch(requestError(error.message));
         }
 
     }
