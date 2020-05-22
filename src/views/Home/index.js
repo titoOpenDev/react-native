@@ -5,8 +5,6 @@ import { BackHandler } from "react-native";
 import styles from "./style";
 import UploadProcedure from "../../components/UploadProcedure";
 import PhotoUpload from '../../components/PhotoUpload';
-import MenuBar from "../../components/MenuBar";
-import HambungerHeadder from '../../components/HamburguerHeadder';
 import SideMenu from 'react-native-side-menu'
 
 export default function Home({ navigation }) {
@@ -32,19 +30,6 @@ export default function Home({ navigation }) {
       // {/* <UploadProcedure /> */}
       // {/* <PhotoUpload /> */}
   return (
-    <>
-          <Header>
-            <Left>
-              <Button onPress={ handleGoBack }>
-                <Icon name='arrow-back' />
-              </Button>
-            </Left>
-            <Body>
-              <Title>NUEVO TRAMITE</Title>
-            </Body>
-          </Header>
           <UploadProcedure />
-    </>
-    //  <PhotoUpload />
   );
 }

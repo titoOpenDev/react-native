@@ -1,10 +1,9 @@
 import styles from "./style";
 import React, { useState, useEffect } from "react";
-import {Text} from "react-native"
+import {Text, Button as NativeButton} from "react-native"
 import { View, Form, Item, Input, Label, Body, ListItem, CheckBox, Button, Image, Container, Content, Textarea, Grid } from "native-base";
-import {RadioGroup, RadioButton} from 'react-native-flexi-radio-button'
 import genericStyles from "../../styles";
-export default function UploadProcedure ({...args}) {
+export default function UploadProcedure ({navigation}) {
 
   const [state, setState] = useState({
     multipleCreate: false,
@@ -16,6 +15,10 @@ export default function UploadProcedure ({...args}) {
 
   return (
     <Container>
+      <NativeButton
+          title='Ir al home'
+          onPress={() => navigation.openDrawer()}
+      /> 
       <Content contentContainerStyle={{flex: 1}}>
         <Grid style={[genericStyles.centeredGrid]}>
         <Form>

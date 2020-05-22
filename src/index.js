@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Provider } from 'react-redux';
 import * as Font from 'expo-font';
 import { Spinner } from 'native-base';
+import { NavigationContainer } from '@react-navigation/native';
+import StackScreen from './components/StackScreen';
+import { Text } from 'react-native';
 
-import Routes from './routes';
-// import Routes from './routes/drawer'
 import Store from './redux/store';
 import { ROBOTO_FONT, ROBOTO_MEDIUM_FONT } from './consts';
 
@@ -36,7 +37,12 @@ export default () => {
 
   return (
     <Provider store={store}>
-      <Routes/>
+      <Text>
+        Hola mundo
+      </Text>
+      <NavigationContainer initialRouteName="Home">
+        <StackScreen />
+      </NavigationContainer>
     </Provider>
   );
 }
