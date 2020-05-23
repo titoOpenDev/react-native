@@ -23,6 +23,7 @@
     "native-base": "2.13.8",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
+    "react-idle-timer": "^4.2.12",
     "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.0.tar.gz",
     "react-native-flexi-radio-button": "^0.2.2",
     "react-native-gesture-handler": "^1.5.6",

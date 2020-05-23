@@ -5,7 +5,7 @@ import { Spinner } from 'native-base';
 import { NavigationContainer } from '@react-navigation/native';
 import StackScreen from './components/StackScreen';
 import { Text } from 'react-native';
-
+import IdleContainer from './components/IdleContainer';
 import Store from './redux/store';
 import { ROBOTO_FONT, ROBOTO_MEDIUM_FONT } from './consts';
 
@@ -37,12 +37,13 @@ export default () => {
 
   return (
     <Provider store={store}>
-      <Text>
-        Hola mundo
-      </Text>
-      <NavigationContainer initialRouteName="Home">
-        <StackScreen />
-      </NavigationContainer>
+        <Text>
+            Hola mundo
+        </Text>
+        <NavigationContainer initialRouteName="Home">
+            <StackScreen />
+            <IdleContainer/> 
+        </NavigationContainer>
     </Provider>
   );
 }

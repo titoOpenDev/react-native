@@ -25,5 +25,6 @@ export const WHITE = "#FFF";
 //Http Methods
 export const POST_METHOD = "POST";
 
-//Error Mssg
+//Mssg
 export const ERROR_MSSG= "Ha ocurrido un error";
+export const LOGOUT_MESSAGE = "Su sesion ha finalizado";
