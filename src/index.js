@@ -40,7 +40,7 @@ export default () => {
             Hola mundo
         </Text>
         <NavigationContainer initialRouteName="Home">
-            <StackScreen />
+          <StackScreen />
         </NavigationContainer>
     </Provider>
   );
