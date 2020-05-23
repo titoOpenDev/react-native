@@ -21,7 +21,7 @@ export default function IdleContainer (){
 
     return(
         <div>
-            <IdleTimer ref={idleRefTimer} timeout= {60000} onIdle={handlerIdle}> </IdleTimer>
+            <IdleTimer ref={idleRefTimer} timeout= {600000} onIdle={handlerIdle}> </IdleTimer>
             {
                 isLoggedOut && alert(LOGOUT_MESSAGE)
             }
