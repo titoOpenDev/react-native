@@ -1,17 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import UploadProcedure from '../UploadProcedure';
 import { AntDesign } from '@expo/vector-icons'; 
 import { Text } from 'native-base';
+import {useSelector} from 'react-redux';
 
 import NotificationFilters from '../../views/NotificationFilters'
 import CalculatorResults from '../../views/CalculatorResults';
+import Login from '../../views/Login';
 
-export default function StackScreen() {
+export default function  StackScreen (){
 
   const Drawer = createDrawerNavigator();
 
-  return (
+  const isLoged = useSelector(store => store.authentication.loged);
+
+  return isLoged ? (
     <Drawer.Navigator initialRouteName="Home">
       <Drawer.Screen name="misTramites"
         options={({ navigation, route }) => ({
@@ -58,5 +62,13 @@ export default function StackScreen() {
       component={() => (<Text>Salir de lsistema</Text>)}
       />
     </Drawer.Navigator>
-  )
+  ):(
+      <Drawer.Navigator initialRouteName="Login">
+        <Drawer.Screen name="Login"
+          options={({ navigation, route }) => ({
+          title: 'Login'
+          })}
+        component={Login}
+        />
+      </Drawer.Navigator>)
 }
