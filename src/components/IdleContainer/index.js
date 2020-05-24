@@ -22,11 +22,12 @@ export default function IdleContainer ({Drawer}) {
         }
     }
 
-    return(
-        <>
-            <UserInactivity timeForInactivity={600000} timeoutHandler={BackgroundTimer} onAction={isActive => {if(!isActive) handleTimeout() }}></UserInactivity>
-        </>
-    )
+    return(<UserInactivity style = {{backfaceVisibility:'hidden'}}
+                timeForInactivity={600 * 1000} 
+                timeoutHandler={BackgroundTimer} 
+                onAction={(isActive) =>{ if(!isActive) handleTimeout()}}
+           >
+           </UserInactivity>)
 }
 
 
