@@ -1,7 +1,7 @@
 
 import apiCall from '../api';
 import {POST_METHOD, ACCESS_TOKEN} from '../../consts';
-import {eraseItem,getItem} from '../../utils'
+import {eraseItem,saveItem, getItem} from '../../utils'
 
 const initialState = {
   login : '',
@@ -26,9 +26,9 @@ export default function authenticate(state = initialState, action) {
       case GET_LOGIN_ERROR:
           return { ...state, error: action.payload};
       case GET_LOGOUT_SUCCESS:
-          return { ...state, login: null, loged:false};
+          return { ...state, login: action.payload, loged:false};
       case GET_LOGOUT_ERROR:
-          return { ...state, loged:true};
+          return { ...state,error: action.payload };
       default:
           return { ...state };
   }
@@ -62,13 +62,20 @@ export const fetchLogOut = (response) => {
     }
 }
 
+//TODO: DESCOMENTAR EL LLAMADO AL SERVICIO CUANDO ESTE DISPONIBLE EL MISMO
 export const login = payload =>  {
     return async dispatch => {
         try {
             let url = '/auth/sesion';
-            let response = await apiCall( url , POST_METHOD , payload);
-            dispatch(fetchLogin(response.data.email));
-            dispatch(fetchLogin('juanmadm_88@hotmail.com'));
+            // let response = await apiCall( url , POST_METHOD , payload);
+            let response = {}
+            //TODO: BORRAR LAS 2 LINEAS SIGUIENTES
+            response.data = {};
+            response.data.email = 'juanmadm_88@hotmail.com';
+            //
+            await saveItem(ACCESS_TOKEN, JSON.stringify(response.data.email));
+            let token = await getItem(ACCESS_TOKEN)
+            dispatch(fetchLogin(response.data));
         } catch (error) {
             console.log(error);
             dispatch(fetchError(error));

@@ -9,15 +9,15 @@ import {logOut} from '../../redux/ducks/authenticateDucks';
 import {LOGOUT_MESSAGE} from '../../consts';
 import styles from "./style";
 
+//TODO: sacar el alert y meterlo en un pop up o algo mas customizado
 export default function IdleContainer ({Drawer}) {
 
     const dispatch = useDispatch();
     const isLoged = useSelector(store => store.authentication.loged);
 
     const handleTimeout =()=>{
-        
-        alert(LOGOUT_MESSAGE);
         if(isLoged){
+            alert(LOGOUT_MESSAGE);
             dispatch(logOut());
         }
     }

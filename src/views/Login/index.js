@@ -21,7 +21,7 @@ import {
 
 export default function Login({navigation}) {
     const dispatch = useDispatch();
-    const loginData = useSelector(store => store.authentication.login);
+    
     const error = useSelector(store => store.authentication.error);
     const loged = useSelector(store => store.authentication.loged);
 
@@ -32,14 +32,12 @@ export default function Login({navigation}) {
     const [disabled , setDisabled] = useState(true);
 
     useEffect(() => {
-        if (loginData) { setToken(); }
         if(error){alert(ERROR_MSSG);}
         if(loged){navigation.navigate(HOME);}
-    },[loginData,error,loged]);
+    },[error,loged]);
 
     const handleLoginPress = async () => {
         dispatch(login({username , password}));
-        
     };
 
     const handleTouchableOpacity = async () => {
@@ -66,15 +64,6 @@ export default function Login({navigation}) {
         navigation.navigate(PASSWORD_RECOVERY);
     }
 
-    const setToken = async () => {
-        try {
-            await saveItem(ACCESS_TOKEN, loginData);
-            navigation.navigate(LOGIN);
-        } catch (e) {
-            console.error(e);
-            alert('Ah ocurrido un error')
-        }
-    }
     return (
         <Container>
             <Content contentContainerStyle={styles.wrapperImg}>
