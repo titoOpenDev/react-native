@@ -35,6 +35,13 @@ export default StyleSheet.create({
   img : {
     width: 180,
     height: 60
-  }
+  },
   
+  container: {
+    flex: 1,
+    marginTop: Constants.statusBarHeight,
+  },
+  scrollView: {
+    flex: 1,
+  },
 });
