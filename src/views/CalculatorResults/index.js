@@ -8,6 +8,10 @@ import styles from './style';
 
 export default function CalculatorResults({navigation}){
 
+    const handleBackBttnPress = () =>{
+        navigation.openDrawer();
+    }
+
     return(
         <Container>
             {/* <Content contentContainerStyle={styles.wrapperImg}>
@@ -26,8 +30,11 @@ export default function CalculatorResults({navigation}){
                         <Text style={styles.textColor}>    NETO ASE: </Text>
                             <Text style={styles.subtitle}>    $12.129,00</Text>
                         </Item>    
-                        <Button  style={[ {backgroundColor: '#e75300'} , genericStyles.btnDefault]}>
-                            <Text style={genericStyles.textWhite}>Ir a Inicio </Text>
+                        <Button 
+                            onPress={()=>handleBackBttnPress()} 
+                            style={[ {backgroundColor: '#e75300'} , genericStyles.btnDefault]}
+                        >
+                            <Text style={genericStyles.textWhite} >Ir a Inicio </Text>
                         </Button>
                         <Button  style={ genericStyles.btnDefault} bordered light>
                             <Text style={genericStyles.textWhite}>Volver a la Calculadora </Text>

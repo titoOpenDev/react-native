@@ -21,7 +21,7 @@ import {
 
 export default function Login({ navigation }) {
     const dispatch = useDispatch();
-    const loginData = useSelector(store => store.authentication.login);
+    
     const error = useSelector(store => store.authentication.error);
     const loged = useSelector(store => store.authentication.loged);
 
@@ -34,19 +34,13 @@ export default function Login({ navigation }) {
     const [disabled, setDisabled] = useState(true);
 
     useEffect(() => {
-        if (loginData) { setToken(); }
-        if (error) { alert(ERROR_MSSG); }
-        if (loged) { navigation.navigate(HOME); }
-    }, [loginData, error, loged]);
+        if(error){alert(ERROR_MSSG);}
+        if(loged){navigation.navigate(HOME);}
+    },[error,loged]);
 
     const handleLoginPress = async () => {
-      navigation.navigate('Home');
-        // dispatch(login({username , password}));
-        // if(loginData) {
-        //     navigation.navigate(HOME);
-        // }else{
-        //     alert(error)
-        // }
+        dispatch(login({username , password}));
+        navigation.navigate('Home');
     };
 
     const handleTouchableOpacity = async () => {
@@ -73,15 +67,6 @@ export default function Login({ navigation }) {
         navigation.navigate(PASSWORD_RECOVERY);
     }
 
-    const setToken = async () => {
-        try {
-            await saveItem(ACCESS_TOKEN, loginData);
-            navigation.navigate(LOGIN);
-        } catch (e) {
-            console.error(e);
-            alert('Ah ocurrido un error')
-        }
-    }
     return (
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS == "ios" ? "padding" : "height"} keyboardVerticalOffset={Platform.OS == "ios" ? 50 : -100}>
