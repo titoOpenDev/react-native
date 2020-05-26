@@ -40,7 +40,7 @@ export default function Login({ navigation }) {
     }, [loginData, error, loged]);
 
     const handleLoginPress = async () => {
-        navigation.navigate(HOME);
+      navigation.navigate('Home');
         // dispatch(login({username , password}));
         // if(loginData) {
         //     navigation.navigate(HOME);

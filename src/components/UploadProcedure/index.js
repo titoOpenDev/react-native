@@ -1,8 +1,9 @@
-import styles from "./style";
 import React, { useState, useEffect } from "react";
 import {Text, Button as NativeButton} from "react-native"
 import { View, Form, Item, Input, Label, Body, ListItem, CheckBox, Button, Image, Container, Content, Textarea, Grid } from "native-base";
 import genericStyles from "../../styles";
+import MenuBar from '../MenuBar'
+
 export default function UploadProcedure ({navigation}) {
 
   const [state, setState] = useState({
@@ -15,10 +16,9 @@ export default function UploadProcedure ({navigation}) {
 
   return (
     <Container>
-      <NativeButton
-          title='Ir al home'
-          onPress={() => navigation.openDrawer()}
-      /> 
+      <MenuBar 
+        onPress={() => navigation.openDrawer()}
+      />
       <Content contentContainerStyle={{flex: 1}}>
         <Grid style={[genericStyles.centeredGrid]}>
         <Form>

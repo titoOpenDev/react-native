@@ -4,10 +4,12 @@ import * as Font from 'expo-font';
 import { Spinner } from 'native-base';
 import { NavigationContainer } from '@react-navigation/native';
 import StackScreen from './components/StackScreen';
-import { Text } from 'react-native';
+import { AsyncStorage } from 'react-native';
 
 import Store from './redux/store';
 import { ROBOTO_FONT, ROBOTO_MEDIUM_FONT } from './consts';
+import UploadProcedure from './components/UploadProcedure';
+import LoadingPage from './views/LoadingPage';
 
 const store = Store();
 const ROBOTO = require('../node_modules/native-base/Fonts/Roboto.ttf');
@@ -37,9 +39,6 @@ export default () => {
 
   return (
     <Provider store={store}>
-      <Text>
-        Hola mundo
-      </Text>
       <NavigationContainer initialRouteName="Home">
         <StackScreen />
       </NavigationContainer>
