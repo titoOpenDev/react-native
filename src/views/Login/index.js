@@ -35,12 +35,10 @@ export default function Login({ navigation }) {
 
     useEffect(() => {
         if(error){alert(ERROR_MSSG);}
-        if(loged){navigation.navigate(HOME);}
-    },[error,loged]);
+    },[error]);
 
     const handleLoginPress = async () => {
         dispatch(login({username , password}));
-        navigation.navigate('Home');
     };
 
     const handleTouchableOpacity = async () => {
