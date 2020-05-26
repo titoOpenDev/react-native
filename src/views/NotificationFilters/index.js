@@ -4,6 +4,8 @@ import { Container, Content, Grid, Item, Form, Picker, Button,  Icon,  Input, Vi
 
 import genericStyles from '../../styles';
 import styles from './style';
+import MenuBar from '../../components/MenuBar'
+
 
 //TODO: hacer los handlers de los pickers, las variables de los pickers,
 // las validaciones y el metodo para submitear el form
@@ -39,6 +41,9 @@ export default function NotificationFilters({navigation}){
                 <Image source={require('../../../assets/ase_nacional_imagen_app.png')} 
                     style={styles.img}/>
             </Content> */}
+             <MenuBar 
+                onPress={() => navigation.openDrawer()}
+              />
             <Content contentContainerStyle={[styles.content]}>
                 <Grid style={genericStyles.centeredGrid}>
                     <Form style={genericStyles.form}>
