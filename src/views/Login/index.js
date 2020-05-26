@@ -1,29 +1,24 @@
 import React, { useEffect, useState, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Image, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, ScrollView, View, Platform, Dimensions } from "react-native";
-import { Container, Content, Text, Grid, Button, Form, Item, Input } from "native-base";
+import { Text, Button, Form, Item, Input } from "native-base";
 import { login } from '../../redux/ducks/authenticateDucks';
-import { saveItem } from '../../utils';
 import { Ionicons } from '@expo/vector-icons';
 
 import { ERROR_MSSG } from '../../consts';
 import styles from "./style";
-import genericStyles from "../../styles";
+
 import {
-    ACCESS_TOKEN,
-    LOGIN,
-    HOME,
     PASSWORD_RECOVERY,
     REGISTRATION_BEGIN,
-    NOTIFICATION_FILTERS,
-    CALCULATOR_RESULTS
+    EMPTY_PASSWORD,
+    EMPTY_USERNAME
 } from "../../consts";
 
 export default function Login({ navigation }) {
     const dispatch = useDispatch();
     
     const error = useSelector(store => store.authentication.error);
-    const loged = useSelector(store => store.authentication.loged);
 
     const { height } = Dimensions.get('window');
 
@@ -38,8 +33,27 @@ export default function Login({ navigation }) {
     },[error]);
 
     const handleLoginPress = async () => {
-        dispatch(login({username , password}));
+        let mssg = errorMssg();
+        if(mssg){
+            alert(mssg);
+            return;
+        }else{
+            dispatch(login({username , password}));
+        }
     };
+
+    const errorMssg=() =>{
+        let mssg = '';
+        
+        if(!username.trim()){
+            return EMPTY_USERNAME;
+        }
+    
+        if(!password.trim()){
+            return EMPTY_PASSWORD;
+        }
+        return mssg;
+    }
 
     const handleTouchableOpacity = async () => {
         const eyeName = secureTextEntry ? 'md-eye-off' : 'md-eye';
