@@ -13,7 +13,7 @@ export default ({ navigation }) => {
     try {
       const token = await getItem(ACCESS_TOKEN);
       /* let route = token ? HOME : LOGIN; */
-      navigation.navigate(LOGIN);
+      navigation.navigate('login');
     } catch (e) {
       console.error('error al iniciar : ', e);
       alert('Hubo un error al intentar iniciar, intente nuevamente');

@@ -8,6 +8,7 @@ import {useSelector} from 'react-redux';
 import NotificationFilters from '../../views/NotificationFilters'
 import CalculatorResults from '../../views/CalculatorResults';
 import Login from '../../views/Login';
+import LoadingPage from '../../views/LoadingPage';
 
 export default function  StackScreen (){
 
@@ -60,7 +61,7 @@ export default function  StackScreen (){
           options={({ navigation, route }) => ({
           title: 'Salir del sistema'
           })}
-        component={() => (<Text>Salir de lsistema</Text>)}
+          component={() => (<Text>Salir de lsistema</Text>)}
         />
       </Drawer.Navigator>
     </>

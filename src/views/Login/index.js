@@ -38,6 +38,7 @@ export default function Login({navigation}) {
 
     const handleLoginPress = async () => {
         dispatch(login({username , password}));
+        navigation.navigate('Home');
     };
 
     const handleTouchableOpacity = async () => {
@@ -76,7 +77,7 @@ export default function Login({navigation}) {
                     <Text style={styles.subtitle}>INGRESO</Text>
                     <Form style={genericStyles.form}>
                         <Item last>
-                            <Input placeholder="Usuario" onChangeText={text => handleChangeUsername(text)}/>
+                            <Input placeholer="Usuario" onChangeText={text => handleChangeUsername(text)}/>
                         </Item>
                         <Item last>
                             <Input placeholder="Clave" onChangeText={text => handleChangePassword(text)} secureTextEntry={secureTextEntry} />

@@ -37,9 +37,6 @@ export default () => {
 
   return (
     <Provider store={store}>
-        <Text>
-            Hola mundo
-        </Text>
         <NavigationContainer initialRouteName="Home">
           <IdleContainer></IdleContainer>
             <StackScreen/>
