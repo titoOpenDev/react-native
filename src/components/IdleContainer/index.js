@@ -1,7 +1,6 @@
 import React from 'react';
 import UserInactivity from 'react-native-user-inactivity';
 import {BackgroundTimer} from 'react-native-user-inactivity/lib/BackgroundTimer';
-import { Container, Content} from "native-base";
 
 import {useDispatch,useSelector} from 'react-redux';
 import {logOut} from '../../redux/ducks/authenticateDucks';

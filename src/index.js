@@ -7,6 +7,7 @@ import StackScreen from './components/StackScreen';
 import { Text } from 'react-native';
 import Store from './redux/store';
 import { ROBOTO_FONT, ROBOTO_MEDIUM_FONT } from './consts';
+import IdleContainer from './components/IdleContainer';
 
 const store = Store();
 const ROBOTO = require('../node_modules/native-base/Fonts/Roboto.ttf');
@@ -40,7 +41,8 @@ export default () => {
             Hola mundo
         </Text>
         <NavigationContainer initialRouteName="Home">
-          <StackScreen />
+          <IdleContainer></IdleContainer>
+            <StackScreen/>
         </NavigationContainer>
     </Provider>
   );

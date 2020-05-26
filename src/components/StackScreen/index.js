@@ -9,9 +9,6 @@ import NotificationFilters from '../../views/NotificationFilters'
 import CalculatorResults from '../../views/CalculatorResults';
 import Login from '../../views/Login';
 
-import IdleContainer from '../../components/IdleContainer';
-
-
 export default function  StackScreen (){
 
   const Drawer = createDrawerNavigator();
@@ -20,7 +17,6 @@ export default function  StackScreen (){
 
   return isLoged ? (
   <>  
-    <IdleContainer></IdleContainer> 
       <Drawer.Navigator initialRouteName="Home">
         <Drawer.Screen name="misTramites"
           options={({ navigation, route }) => ({
@@ -70,7 +66,6 @@ export default function  StackScreen (){
     </>
   ):(
       <>
-        <IdleContainer></IdleContainer>
         <Drawer.Navigator initialRouteName="Login">
           <Drawer.Screen name="Login"
             options={({ navigation, route }) => ({
