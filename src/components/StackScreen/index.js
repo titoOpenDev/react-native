@@ -12,27 +12,31 @@ export default function StackScreen() {
   const Drawer = createDrawerNavigator();
 
   return (
-    <Drawer.Navigator initialRouteName="loadingPage">
+    <Drawer.Navigator initialRouteName='loadingPage'>
       <Drawer.Screen name="loadingPage"
         options={({ navigation, route }) => ({
+          drawerLabel: () => null,
+          title: null,
+          drawerIcon: () => null
         })}
         component={LoadingPage}
       />
       <Drawer.Screen name="login"
         options={({ navigation, route }) => ({
+          drawerLabel: () => null
         })}
         component={Login}
       />
       <Drawer.Screen name="misTramites"
         options={({ navigation, route }) => ({
-        title: 'Alta (nuevo trámite)'
+        title: 'Mis tramites'
         })}
         component={() => (<Text>Mis tramites</Text>)}
       />
       <Drawer.Screen name="consultaProspecto"
         component={() => (<Text>Mis Prospectos</Text>)}
         options={({ navigation, route }) => ({
-          title: 'Consulsta Prospectos'
+          title: 'Consulta Prospectos'
           })}
       />
       <Drawer.Screen name="Home" component={UploadProcedure} 
