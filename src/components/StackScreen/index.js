@@ -11,6 +11,8 @@ import Login from '../../views/Login';
 import Confirmation from '../ConfirmationScreen';
 import RegistrationBegin from '../../views/RegistrationBegin';
 import RegistrationEnd from '../../views/RegistrationEnd';
+import EmailNotification from '../../views/EmailNotification';
+import AccountActivation from '../../views/AccountActivation';
 
 export default function StackScreen (){
   const Drawer = createDrawerNavigator();
@@ -84,6 +86,18 @@ export default function StackScreen (){
           title: 'Fin registracion'
           })}
           component={RegistrationEnd}
+        />
+        <Drawer.Screen name="AccountActivation"
+          component={AccountActivation}
+          options={({ navigation, route }) => ({
+          title: 'Activacion Cuenta'
+          })}
+        />
+        <Drawer.Screen name="EmailNotification"
+          component={EmailNotification}
+          options={({ navigation, route }) => ({
+          title: 'Email de Notificacion'
+          })}
         />
         <Drawer.Screen name="salirDelSistema"
           options={({ navigation, route }) => ({
