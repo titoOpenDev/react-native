@@ -8,29 +8,16 @@ import {useSelector} from 'react-redux';
 import NotificationFilters from '../../views/NotificationFilters'
 import CalculatorResults from '../../views/CalculatorResults';
 import Login from '../../views/Login';
-import LoadingPage from '../../views/LoadingPage';
+import Confirmation from '../ConfirmationScreen';
+import RegistrationBegin from '../../views/RegistrationBegin';
 
-export default function  StackScreen (){
-
+export default function StackScreen (){
   const Drawer = createDrawerNavigator();
 
   const isLoged = useSelector(store => store.authentication.loged);
 
   return isLoged ? (
-  <>  
-      <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen name="misTramites"
-          options={({ navigation, route }) => ({
-          title: 'Alta (nuevo trámite)'
-          })}
-          component={() => (<Text>Mis tramites</Text>)}
-        />
-        <Drawer.Screen name="consultaProspecto"
-          component={() => (<Text>Mis Prospectos</Text>)}
-          options={({ navigation, route }) => ({
-            title: 'Consulsta Prospectos'
-            })}
-        />
+      <Drawer.Navigator initialRouteName="NotificationFilters">
         <Drawer.Screen name="Home" component={UploadProcedure} 
           options={({ navigation, route }) => ({
           title: 'Alta (nuevo trámite)',
@@ -44,6 +31,18 @@ export default function  StackScreen (){
             color="black" size={23} />
           )
           })}
+        />
+        <Drawer.Screen name="misTramites"
+          options={({ navigation, route }) => ({
+          title: 'Alta (nuevo trámite)'
+          })}
+          component={() => (<Text>Mis tramites</Text>)}
+        />
+        <Drawer.Screen name="consultaProspecto"
+          component={() => (<Text>Mis Prospectos</Text>)}
+          options={({ navigation, route }) => ({
+            title: 'Consulta Prospectos'
+            })}
         />
         <Drawer.Screen name="NotificationFilters"
           component={NotificationFilters}
@@ -59,22 +58,32 @@ export default function  StackScreen (){
         />
         <Drawer.Screen name="salirDelSistema"
           options={({ navigation, route }) => ({
-          title: 'Salir del sistema'
+          title: 'Salir del Sistema'
           })}
-          component={() => (<Text>Salir de lsistema</Text>)}
+          component={Confirmation}
         />
       </Drawer.Navigator>
-    </>
   ):(
-      <>
-        <Drawer.Navigator initialRouteName="Login">
-          <Drawer.Screen name="Login"
-            options={({ navigation, route }) => ({
-            title: 'Login'
-            })}
+      <Drawer.Navigator initialRouteName="Login">
+        <Drawer.Screen name="Login"
+          options={({ navigation, route }) => ({
+          title: 'Login',
+          gestureEnabled: false,
+          })}
           component={Login}
-          />
-        </Drawer.Navigator>
-      </>
+        />
+        <Drawer.Screen name="RegistrationBegin"
+          options={({ navigation, route }) => ({
+          title: 'No tengo cuenta'
+          })}
+          component={RegistrationBegin}
+        />
+        <Drawer.Screen name="salirDelSistema"
+          options={({ navigation, route }) => ({
+          title: 'Salir del Sistema'
+          })}
+          component={Confirmation}
+        />
+      </Drawer.Navigator>
     )
 }

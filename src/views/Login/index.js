@@ -40,7 +40,6 @@ export default function Login({ navigation }) {
 
     const handleLoginPress = async () => {
         dispatch(login({username , password}));
-        navigation.navigate('Home');
     };
 
     const handleTouchableOpacity = async () => {
