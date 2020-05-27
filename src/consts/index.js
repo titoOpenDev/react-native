@@ -27,4 +27,7 @@ export const POST_METHOD = "POST";
 
 //Mssg
 export const ERROR_MSSG= "Ha ocurrido un error";
-export const LOGOUT_MESSAGE = "Su sesion ha finalizado";
+export const TIME_OUT_MESSAGE = "Sesión vencida. Por favor volvé a loguearte";
+export const EMPTY_USERNAME = "El campo usuario se encuentra vacio";
+export const EMPTY_PASSWORD = "El campo password se encuentra vacio";
+

@@ -74,7 +74,6 @@ export const login = payload =>  {
             response.data.email = 'juanmadm_88@hotmail.com';
             //
             await saveItem(ACCESS_TOKEN, JSON.stringify(response.data.email));
-            let token = await getItem(ACCESS_TOKEN)
             dispatch(fetchLogin(response.data));
         } catch (error) {
             console.log(error);
