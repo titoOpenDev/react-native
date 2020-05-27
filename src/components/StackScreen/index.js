@@ -10,6 +10,7 @@ import CalculatorResults from '../../views/CalculatorResults';
 import Login from '../../views/Login';
 import Confirmation from '../ConfirmationScreen';
 import RegistrationBegin from '../../views/RegistrationBegin';
+import RegistrationEnd from '../../views/RegistrationEnd';
 
 export default function StackScreen (){
   const Drawer = createDrawerNavigator();
@@ -64,7 +65,7 @@ export default function StackScreen (){
         />
       </Drawer.Navigator>
   ):(
-      <Drawer.Navigator initialRouteName="Login">
+      <Drawer.Navigator initialRouteName="Login" screenOptions={{ gestureEnabled: false }}>
         <Drawer.Screen name="Login"
           options={({ navigation, route }) => ({
           title: 'Login',
@@ -77,6 +78,12 @@ export default function StackScreen (){
           title: 'No tengo cuenta'
           })}
           component={RegistrationBegin}
+        />
+         <Drawer.Screen name="RegistrationEnd"
+          options={({ navigation, route }) => ({
+          title: 'Fin registracion'
+          })}
+          component={RegistrationEnd}
         />
         <Drawer.Screen name="salirDelSistema"
           options={({ navigation, route }) => ({
