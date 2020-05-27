@@ -5,7 +5,7 @@ import {BackgroundTimer} from 'react-native-user-inactivity/lib/BackgroundTimer'
 import {useDispatch,useSelector} from 'react-redux';
 import {logOut} from '../../redux/ducks/authenticateDucks';
 
-import {LOGOUT_MESSAGE} from '../../consts';
+import {TIME_OUT_MESSAGE} from '../../consts';
 import styles from "./style";
 
 //TODO: sacar el alert y meterlo en un pop up o algo mas customizado
