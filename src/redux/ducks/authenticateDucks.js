@@ -41,7 +41,7 @@ export const fetchLogin = (response) => {
     }
 }
 
-export const fetchError = (error) => {
+export const fetchLoginError = (error) => {
     return {
         type : GET_LOGIN_ERROR,
         payload : error
@@ -77,7 +77,7 @@ export const login = payload =>  {
             dispatch(fetchLogin(response.data));
         } catch (error) {
             console.log(error);
-            dispatch(fetchError(error));
+            dispatch(fetchLoginError(error));
         }
     }
 }

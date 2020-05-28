@@ -8,7 +8,8 @@ import { Ionicons } from '@expo/vector-icons';
 
 import {
   PASSWORD_RECOVERY,
-  REGISTRATION_BEGIN
+  REGISTRATION_BEGIN,
+  EMAIL_NOTIFICATION
 } from "../../consts";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -47,8 +48,9 @@ export default function RegistrationEnd({ navigation }) {
   }
 
   const handleSend = () => {
-    const payload = { lastName, firstName, cuil, password, email, network, filialZone }
-    dispatch(requestExecutive(payload));
+     const payload = { lastName, firstName, cuil, password, email, network, filialZone}
+     dispatch(requestExecutive(payload));
+     navigation.navigate(EMAIL_NOTIFICATION);
   }
 
   const { height } = Dimensions.get('window');
