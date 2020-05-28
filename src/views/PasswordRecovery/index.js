@@ -1,19 +1,35 @@
 import React, { useEffect, useState } from "react";
-import { Image} from "react-native";
-import { Container, Content, Grid, Button, Text, Form, Item,Input, Left, Header, Icon, Title, Right, Body } from "native-base";
+import {
+  Platform,
+  Dimensions,
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+  Image,
+  View,
+  Switch,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+} from "react-native";
+import { Container, Content, Text, Grid, Button, Form, Item, Input, Card, CardItem, Picker } from "native-base";
+import { Header, Left, Body, Right, Icon, Title } from 'native-base';
+import { Ionicons } from '@expo/vector-icons';
+import Constants from "expo-constants";
+
 import genericStyles from "../../styles";
+
 import styles from './style'
 
-export default function PasswordRecovery({navigation}) {
+export default function PasswordRecovery({ navigation }) {
 
   const [email, setEmail] = useState("")
 
   useEffect(() => {
-   
+
   });
 
   const handleChangeEmail = (text) => {
-      setEmail(text);
+    setEmail(text);
   }
 
   const handleSendEmail = () => {
@@ -24,51 +40,42 @@ export default function PasswordRecovery({navigation}) {
     navigation.goBack();
   }
 
+  const { height } = Dimensions.get('window');
+
   return (
-    <Container>
-        <Header>
-            <Left>
-              <Button onPress={ handleGoBack }>
-                <Icon name='arrow-back' />
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS == "ios" ? "padding" : "height"} keyboardVerticalOffset={Platform.OS == "ios" ? 0 : -100}>
+        <ScrollView style={{ flex: 1 }}>
+          <View style={{ minHeight: height-Constants.statusBarHeight }}>
+            <View style={{ backgroundColor: '#7a7e7f', flex: 1, justifyContent: 'center', }}>
+              <View style={{ alignItems: 'flex-start', top: -20 }}>
+                <Ionicons style={{ marginLeft: 24 }} name="ios-arrow-back" size={24} color="white" onPress={ handleGoBack }/>
+              </View>
+              <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginBottom: 16, }}>
+                <Image source={require('../../../assets/ase_nacional_imagen_app.png')} style={{ width: 180, height: 60 }} />
+              </View>
+            </View>
+            <View style={{ flex: 0.1, justifyContent: 'center', alignContent: 'center', }}>
+              <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', }}>
+                <Text style={{ textAlign: 'center', margin: 16, fontWeight: 'bold', }}>RECUPERO DE CLAVE</Text>
+                <Text style={{ width: '75%', fontSize: 14 }}>Si ya tenés creada tu cuenta y no recordas la clave ingresá el E-Mail que usaste durante la registracion y presioná ENVIAR</Text>
+                <Text style={{ margin: 16, width: '75%', fontSize: 14, }}>En instantes te enviaremos una clave provisoria</Text>
+              </View>
+              <Form style={{ margin: 24, }}>
+                <Item last>
+                  <Input placeholder="E-MAIL" onChangeText={text => handleChangeEmail(text)}/>
+                </Item>
+              </Form>
+            </View>
+            <View style={{ flex: 0.1, justifyContent: 'flex-end', margin: 32, }}>
+              <Button style={{ backgroundColor: '#F16921', borderColor: '#f16820' }} onPress={handleSendEmail}>
+                <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase' }}>enviar</Text>
               </Button>
-            </Left>
-            <Body>
-              <Title>Recupero de clave</Title>
-            </Body>
-          </Header>
-            <Content contentContainerStyle={styles.imageContainer}>
-                <Image source={require('../../../assets/ase_nacional_imagen_app.png')} 
-                    style={styles.img}/>
-            </Content>
-           
-            <Content contentContainerStyle={{flex: 1}}>
-                <Grid style={[genericStyles.centeredGrid , styles.grid]}>
-                    <Text style={styles.message}>
-                      Si ya tenés creada tu cuenta
-                      y no recordas la clave
-                      ingresá el E-Mail que usaste
-                      durante la registracion
-                      y presioná ENVIAR</Text>
-                
-                    <Text style={styles.message}>  
-                      En instantes te enviaremos
-                      una clave provisoria
-                    </Text>
-                </Grid>
-            </Content>
-            <Content contentContainerStyle={{flex:1}}>
-                <Grid style={[genericStyles.centeredGrid , styles.grid , styles.spaceAround]}>
-                    <Form style={genericStyles.form}>
-                        <Item last>
-                            <Input placeholder="E-MAIL" onChangeText={text => handleChangeEmail(text)}/>
-                        </Item>
-                    </Form>
-                    <Button light style={[styles.loginBtn , genericStyles.btnDefault]} onPress={handleSendEmail}>
-                        <Text style={genericStyles.textWhite}>Enviar </Text>
-                    </Button>
-                </Grid>
-            </Content>
-        </Container>
+            </View>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 

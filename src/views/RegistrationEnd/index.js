@@ -57,21 +57,21 @@ export default function RegistrationEnd({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS == "ios" ? "padding" : "height"} keyboardVerticalOffset={Platform.OS == "ios" ? 50 : -100}>
-        <ScrollView style={styles.scrollView}>
-          <View style={{ minHeight: height }}>
-            <View style={{ backgroundColor: '#7a7e7f', flex: 1, justifyContent: 'center', }}>
-              <View style={{ alignItems: 'flex-start', alignContent: 'center', justifyContent: 'center', }}>
-                <Ionicons style={{ marginLeft: 24 }} name="ios-arrow-back" size={24} color="white" onPress={ handleGoBack } />
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS == "ios" ? "padding" : "height"} keyboardVerticalOffset={Platform.OS == "ios" ? 0 : -100}>
+        <ScrollView style={{ flex: 1 }}>
+          <View style={{ minHeight: 700 }}>
+            <View style={{ backgroundColor: '#7a7e7f', justifyContent: 'center', minHeight: 200, }}>
+              <View style={{ alignItems: 'flex-start', top: -20, }}>
+                <Ionicons style={{ marginLeft: 24 }} name="ios-arrow-back" size={24} color="white" onPress={handleGoBack} />
               </View>
               <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', }}>
                 <Image source={require('../../../assets/ase_nacional_imagen_app.png')} style={{ width: 180, height: 60 }} />
               </View>
             </View>
-            <View style={{ backgroundColor: 'white', flex: 1, justifyContent: 'center', alignContent: 'center', }}>
+            <View style={{ backgroundColor: 'white', flex: 1, alignContent: 'center', }}>
               <View style={{ margin: 10 }}>
-                <Text style={{ textAlign: 'center', margin: 10, }}>REGISTRO 2/2</Text>
-                <Form>
+                <Text style={{ textAlign: 'center', margin: 10, fontWeight: 'bold', }}>REGISTRO 2/2</Text>
+                <Form style={{ margin: 10, }}>
                   <Item picker>
                     <Picker mode="dropdown" iosIcon={<Icon name="arrow-down" />} style={{ width: undefined }}
                       placeholder="Red"
@@ -101,7 +101,7 @@ export default function RegistrationEnd({ navigation }) {
                 </Form>
                 <Form style={{ marginTop: 24, }}>
                   <Item last>
-                    <Input placeholder="Clave" />
+                    <Input placeholder="Clave" onChangeText={text => handleChangePassword(text)} />
                   </Item>
                   <Item last>
                     <Input placeholder="Repetir Clave" />
