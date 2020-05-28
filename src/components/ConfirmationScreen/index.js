@@ -8,8 +8,13 @@ export default function Confirmation ({navigation}){
 
   const dispatch = useDispatch();
 
-  const handleYes = () => {
-    dispatch(logOut());
+  const handleYes = async () => {
+    await dispatch(logOut());
+    navigation.navigate('Login');
+  }
+
+  const handleNo = async () => {
+    navigation.navigate('Home');
   }
 
   return (
@@ -19,7 +24,7 @@ export default function Confirmation ({navigation}){
         <Button onPress={() => handleYes()}>
           <Text>Si</Text>
         </Button>
-        <Button>
+        <Button onPress={() => handleNo()}>
           <Text>No</Text>
         </Button>
     </Container>
