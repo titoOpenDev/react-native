@@ -60,7 +60,7 @@ export default function RegistrationEnd({ navigation }) {
           <View style={{ minHeight: 700 }}>
             <View style={{ backgroundColor: '#7a7e7f', justifyContent: 'center', minHeight: 200, }}>
               <View style={{ alignItems: 'flex-start', top: -20, }}>
-                <Ionicons style={{ marginLeft: 24 }} name="ios-arrow-back" size={24} color="white" onPress={ handleGoBack } />
+                <Ionicons style={{ marginLeft: 24 }} name="ios-arrow-back" size={24} color="white" onPress={handleGoBack} />
               </View>
               <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', }}>
                 <Image source={require('../../../assets/ase_nacional_imagen_app.png')} style={{ width: 180, height: 60 }} />
@@ -99,7 +99,7 @@ export default function RegistrationEnd({ navigation }) {
                 </Form>
                 <Form style={{ marginTop: 24, }}>
                   <Item last>
-                    <Input placeholder="Clave" />
+                    <Input placeholder="Clave" onChangeText={text => handleChangePassword(text)} />
                   </Item>
                   <Item last>
                     <Input placeholder="Repetir Clave" />

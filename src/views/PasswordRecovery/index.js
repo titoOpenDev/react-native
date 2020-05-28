@@ -63,12 +63,12 @@ export default function PasswordRecovery({ navigation }) {
               </View>
               <Form style={{ margin: 24, }}>
                 <Item last>
-                  <Input placeholder="Clave" />
+                  <Input placeholder="E-MAIL" onChangeText={text => handleChangeEmail(text)}/>
                 </Item>
               </Form>
             </View>
             <View style={{ flex: 0.1, justifyContent: 'flex-end', margin: 32, }}>
-              <Button style={{ backgroundColor: '#F16921', borderColor: '#f16820' }}>
+              <Button style={{ backgroundColor: '#F16921', borderColor: '#f16820' }} onPress={handleSendEmail}>
                 <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase' }}>enviar</Text>
               </Button>
             </View>
