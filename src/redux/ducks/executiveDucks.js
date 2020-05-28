@@ -13,56 +13,49 @@ const initialState = {
 }
 
 export const CREATE_EXECUTIVE = "CREATE_EXECUTIVE";
-export const REQUEST_POST_EXECUTIVE = "REQUEST_EXECUTIVE";
-export const REQUEST_ERROR_EXECUTIVE = "REQUEST_ERROR_EXECUTIVE";
+export const CREATE_EXECUTIVE_ERROR = "CREATE_EXECUTIVE_ERROR";
 
 export default function create(state = initialState, action) {
     switch (action.type) {
         case CREATE_EXECUTIVE:
           return { ...state, ...action.payload };
-        case REQUEST_ERROR_EXECUTIVE:
+        case CREATE_EXECUTIVE_ERROR:
           return { ...state, err : action.payload };
         default:
           return { ...state };
   }
 }
 
-export const build = (data) => {
+export const fetchBuild = (data) => {
     return {
         type: CREATE_EXECUTIVE,
         payload: data
     }
 }
 
-
-export const request = (data) => {
-    return {
-        type: REQUEST_EXECUTIVE,
-        payload: data
-    }
-}
-
-
-export const requestError = (data) => {
-    return {
-        type: REQUEST_ERROR_EXECUTIVE,
-        payload: data
-    }
-}
-
-
+//TODO: SACAR EL EMAIL CUANDO EL PAYLOAD LLEGUE ARMADO BIEN DESDE LA VISTA
 export const buildExecutive = payload =>  {
     return async dispatch => {
-        dispatch(build(payload));
+        payload.email = "tudireccion@server.com.ar";
+        dispatch(fetchBuild(payload));
     }
 }
 
+export const fetchCreateError = (data) => {
+    return {
+        type: CREATE_EXECUTIVE_ERROR,
+        payload: data
+    }
+}
+
+//TODO: ARMAR BIEN LA URL DEL REQUEST POST
 export const requestExecutive = payload =>  {
+    
     return async dispatch => {
         try {
             await apiCall( null , POST_METHOD , payload);
         } catch (error) {
-            dispatch(requestError(error.message));
+            dispatch(fetchCreateError(error.message));
         }
 
     }

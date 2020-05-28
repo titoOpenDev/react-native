@@ -1,11 +1,14 @@
 import React from 'react';
 import { Container, Content, Grid, Form, Text, Button, Item } from 'native-base';
+import {useSelector} from 'react-redux';
 
 import genericStyles from '../../styles';
 import styles from './style';
 
-
 export default function EmailNotification({navigation}){
+
+    const email = useSelector(store => store.executive.email);
+
     return(
         <Container>
             <Content contentContainerStyle={styles.content}>
@@ -16,7 +19,7 @@ export default function EmailNotification({navigation}){
                         <Item style={styles.item}>
                             <Text style={styles.textColor}> 
                                     Se envió un E-Mail satisfactoriamente
-                                        a tudireccion@server.com.ar. 
+                                        a {email}.  
                             </Text>
                         </Item>
                         
