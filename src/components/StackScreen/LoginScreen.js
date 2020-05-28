@@ -6,6 +6,7 @@ import RegistrationEnd from '../../views/RegistrationEnd';
 import ConfirmationScreen from '../../components/ConfirmationScreen';
 import EmailNotification from '../../views/EmailNotification';
 import AccountActivation from '../../views/AccountActivation';
+import PasswordRecovery from '../../views/PasswordRecovery';
 
 export default ({navigation}) => {
 
@@ -49,6 +50,12 @@ export default ({navigation}) => {
         title: 'Activacion de Cuenta'
         })}
         component={AccountActivation}
+      />
+      <Drawer.Screen name="PasswordRecovery"
+        options={({ navigation, route }) => ({
+        title: 'Recupero de Contraseña'
+        })}
+        component={PasswordRecovery}
       />
     </Drawer.Navigator>
   )
