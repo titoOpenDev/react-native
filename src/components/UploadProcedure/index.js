@@ -43,10 +43,10 @@ export default function UploadProcedure({ navigation }) {
                 <Switch style={{ marginBottom: 16, marginTop: 16, }} />
                 <Text>Alta multiple de la misma empresa</Text>
               </Item>
-              <Item last>
+              <Item>
                 <Input placeholder="Completa el CUIL" />
               </Item>
-              <Item>
+              <Item last>
                 <Card style={{ height: 200, flex: 1, alignItems: 'center', alignContent: 'center', justifyContent: 'center', borderColor: 'black' }}>
                   <CardItem>
                     <Body style={{ alignItems: 'center', }}>
@@ -71,7 +71,7 @@ export default function UploadProcedure({ navigation }) {
               </Button>
             </Form>
           </ScrollView>
-          <TouchableOpacity ref={component => _textInput = component} style={{ flex: 1, backgroundColor: '#000000bb', position: 'absolute', left: 0, top: 0, height: '100%', width: '100%', }} onPress={() => { _textInput.setNativeProps({ height: 0, width: 0, opacity: 0 }); }}>
+          <TouchableOpacity ref={component => _textInput = component} style={{ flex: 1, backgroundColor: '#000000DD', position: 'absolute', left: 0, top: 0, height: '100%', width: '100%', }} onPress={() => { _textInput.setNativeProps({ height: 0, width: 0, opacity: 0 }); }}>
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
               <Text style={{ color: 'white', margin: 24 }}>CÓMO UTILIZAR LA APP ASE</Text>
               <Text style={{ color: 'white', margin: 24, width: '75%' }}>1) Buscá la empresa por nombre o ASES</Text>
