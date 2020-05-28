@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
-import {Text} from "react-native"
-import { Spinner, Container, Content, Grid, Item, Form, Picker, Button, Header, Left, Icon, Body, Title, Input, View } from "native-base";
+import { Image, View, SafeAreaView, Dimensions, KeyboardAvoidingView, ScrollView } from "react-native";
+import { Container, Content, Button, Text, Form, Item, Input, Left, Header, Icon, Title, Body, Picker } from "native-base";
 import genericStyles from "../../styles";
+import styles from './style'
 import { requestExecutive } from '../../redux/ducks/executiveDucks';
+import { Ionicons } from '@expo/vector-icons';
 
 import {
   PASSWORD_RECOVERY,
   REGISTRATION_BEGIN,
   EMAIL_NOTIFICATION
 } from "../../consts";
-import { useDispatch , useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-export default function RegistrationEnd({navigation}) {
+export default function RegistrationEnd({ navigation }) {
 
   const [network, setNetwork] = useState('')
   const [filialZone, setFilialZone] = useState('')
@@ -25,20 +27,20 @@ export default function RegistrationEnd({navigation}) {
   const email = useSelector(store => store.executive.email);
 
   useEffect(() => {
-    
+
   })
-   
+
 
   const handleRed = (value) => {
-       setNetwork(value);
+    setNetwork(value);
   }
 
   const handleZone = (value) => {
-      setFilialZone(value);
+    setFilialZone(value);
   }
 
   const handleChangePassword = (value) => {
-      setPassword(value)
+    setPassword(value)
   }
 
   const handleGoBack = () => {
@@ -51,81 +53,70 @@ export default function RegistrationEnd({navigation}) {
      navigation.navigate(EMAIL_NOTIFICATION);
   }
 
+  const { height } = Dimensions.get('window');
+
   return (
-    <Container>
-       <Header>
-          <Left>
-            <Button onPress={ handleGoBack }>
-              <Icon name='arrow-back' />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Registro 2/2</Title>
-          </Body>
-      </Header>
-      <Content contentContainerStyle={[genericStyles.centeredContent]}>
-          
-          <Grid style={[genericStyles.centeredGrid]}>
-          <Form>
-            <View style={{flex:1 , justifyContent: 'center',
-                  alignItems: 'stretch',}}>
-            <Item picker>
-              <Picker
-                mode="dropdown"
-                iosIcon={<Icon name="arrow-down" />}
-                style={{ width: undefined }}
-                placeholder="Select your SIM"
-                placeholderStyle={{ color: "#bfc6ea" }}
-                placeholderIconColor="#007aff"
-                selectedValue={network}
-                onValueChange={ (itemValue) => handleRed(itemValue)}
-              >
-                <Picker.Item label="Red" value="key0" />
-                <Picker.Item label="Red-1" value="Red-1" />
-                <Picker.Item label="Red-2" value="Red-2" />
-                <Picker.Item label="Red-3" value="Red-3" />
-                <Picker.Item label="Red-4" value="Red-4" />
-              </Picker>
-            </Item>
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS == "ios" ? "padding" : "height"} keyboardVerticalOffset={Platform.OS == "ios" ? 50 : -100}>
+        <ScrollView style={styles.scrollView}>
+          <View style={{ minHeight: height }}>
+            <View style={{ backgroundColor: '#7a7e7f', flex: 1, justifyContent: 'center', }}>
+              <View style={{ alignItems: 'flex-start', alignContent: 'center', justifyContent: 'center', }}>
+                <Ionicons style={{ marginLeft: 24 }} name="ios-arrow-back" size={24} color="white" onPress={ handleGoBack } />
+              </View>
+              <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', }}>
+                <Image source={require('../../../assets/ase_nacional_imagen_app.png')} style={{ width: 180, height: 60 }} />
+              </View>
             </View>
-            <View style={{flex:1}}>
-            <Item picker>
-              <Picker
-                mode="dropdown"
-                iosIcon={<Icon name="arrow-down" />}
-                style={{ width: undefined }}
-                placeholder="Select your SIM"
-                placeholderStyle={{ color: "#bfc6ea" }}
-                placeholderIconColor="#007aff"
-                selectedValue={filialZone}
-                onValueChange={ (itemValue) => handleZone(itemValue)}
-              >
-                <Picker.Item label="Zona filial" value="key0" />
-                <Picker.Item label="Zona filial ASE - 1" value="Zona filial ASE - 1" />
-                <Picker.Item label="Zona filial ASE - 2" value="Zona filial ASE - 2" />
-                <Picker.Item label="Zona filial ASE - 3" value="Zona filial ASE - 3" />
-                <Picker.Item label="Zona filial ASE - 4" value="Zona filial ASE - 4" />
-              </Picker>
-            </Item>
+            <View style={{ backgroundColor: 'white', flex: 1, justifyContent: 'center', alignContent: 'center', }}>
+              <View style={{ margin: 10 }}>
+                <Text style={{ textAlign: 'center', margin: 10, }}>REGISTRO 2/2</Text>
+                <Form>
+                  <Item picker>
+                    <Picker mode="dropdown" iosIcon={<Icon name="arrow-down" />} style={{ width: undefined }}
+                      placeholder="Red"
+                      placeholderStyle={{ color: "#bfc6ea" }}
+                      placeholderIconColor="#007aff"
+                      selectedValue={network} onValueChange={(itemValue) => handleRed(itemValue)}>
+                      <Picker.Item label="Red" value="key0" />
+                      <Picker.Item label="Red-1" value="Red-1" />
+                      <Picker.Item label="Red-2" value="Red-2" />
+                      <Picker.Item label="Red-3" value="Red-3" />
+                      <Picker.Item label="Red-4" value="Red-4" />
+                    </Picker>
+                  </Item>
+                  <Item picker>
+                    <Picker mode="dropdown" iosIcon={<Icon name="arrow-down" />} style={{ width: undefined }}
+                      placeholder="Filial"
+                      placeholderStyle={{ color: "#bfc6ea" }}
+                      placeholderIconColor="#007aff"
+                      selectedValue={filialZone} onValueChange={(itemValue) => handleZone(itemValue)}>
+                      <Picker.Item label="Zona filial" value="key0" />
+                      <Picker.Item label="Zona filial ASE - 1" value="Zona filial ASE - 1" />
+                      <Picker.Item label="Zona filial ASE - 2" value="Zona filial ASE - 2" />
+                      <Picker.Item label="Zona filial ASE - 3" value="Zona filial ASE - 3" />
+                      <Picker.Item label="Zona filial ASE - 4" value="Zona filial ASE - 4" />
+                    </Picker>
+                  </Item>
+                </Form>
+                <Form style={{ marginTop: 24, }}>
+                  <Item last>
+                    <Input placeholder="Clave" />
+                  </Item>
+                  <Item last>
+                    <Input placeholder="Repetir Clave" />
+                  </Item>
+                </Form>
+              </View>
+              <View style={{ flex: 0.5, justifyContent: 'flex-end', }}>
+                <Button style={{ backgroundColor: '#F16921', margin: 24, }}>
+                  <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase' }}>registrarme</Text>
+                </Button>
+              </View>
             </View>
-            <View style={{flex:1}}>
-            <Item>
-              <Input placeholder="Clave" onChangeText={text => handleChangePassword(text)} />
-            </Item>
-            </View>
-            <View style={{flex:1}}>
-            <Item last>
-              <Input placeholder="Repetir clave" />
-            </Item>
-            </View>
-            <View style={{flex:1}}>
-            <Button onPress={() => handleSend()} light  style={[ {backgroundColor: '#e75300'} , genericStyles.btnDefault]}>
-                <Text style={genericStyles.textWhite}>Registrarme </Text>
-            </Button>
-            </View>
-          </Form>
-          </Grid>
-      </Content>
-    </Container>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
