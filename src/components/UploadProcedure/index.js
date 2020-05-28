@@ -32,7 +32,7 @@ export default function UploadProcedure({ navigation }) {
         <View style={{ flex: 1, }}>
           <ScrollView style={{ flex: 1 }}>
             <Form style={{ margin: 24 }}>
-              <Text style={{ textAlign: 'center', fontWeight: 'bold', margin: 24  }}>INCIAR NUEVO TRAMITE</Text>
+              <Text style={{ marginBottom: 16,textAlign: 'center', fontWeight: 'bold'  }}>INCIAR NUEVO TRAMITE</Text>
               <Item>
                 <Input placeholder="Completa el CUIT" />
                 <TouchableOpacity>
