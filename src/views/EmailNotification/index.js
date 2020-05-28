@@ -1,18 +1,47 @@
 import React from 'react';
-import { Container, Content, Grid, Form, Text, Button, Item } from 'native-base';
+import { Container, Content, Grid, Form, Text, Button, Item,Icon } from 'native-base';
 import {useSelector} from 'react-redux';
 
 import genericStyles from '../../styles';
 import styles from './style';
 
+import { requestExecutive } from '../../redux/ducks/executiveDucks';
+import {ACCOUNT_ACTIVATION} from '../../consts';
+
+
 export default function EmailNotification({navigation}){
 
+    const firstName = useSelector(store => store.executive.firstName);
+    const lastName = useSelector(store => store.executive.lastName);
+    const cuil = useSelector(store => store.executive.cuil);
     const email = useSelector(store => store.executive.email);
+
+    const handleSend = ()=>{
+        const payload = { lastName, firstName, cuil, password, email, network, filialZone}
+        dispatch(requestExecutive(payload));
+        //TODO: A DONDE DEBERIA REDIRIGIRLO ??
+    }
+
+    const handleForwardPress = ()=>{
+        navigation.navigate(ACCOUNT_ACTIVATION);
+    }
 
     return(
         <Container>
             <Content contentContainerStyle={styles.content}>
                 <Grid style={genericStyles.centeredGrid}>
+                    {/* TODO: ESTO ES TEMPORAL, DSP SACARLO EL BUTTON */}
+                    <Button
+                        transparent
+                        style={styles.forwardButton}
+                        onPress={handleForwardPress}
+                    >
+                        <Icon
+                            android="md-arrow-forward"
+                            ios="ios-arrow-forward"
+                            style={styles.forwardIcon}
+                        />
+                    </Button>
                     <Form style={genericStyles.form}>
                         <Text style={styles.subtitle}>E-MAIL DE REGISTRO ENVIADO</Text>
                         
@@ -41,7 +70,7 @@ export default function EmailNotification({navigation}){
                             </Text>
                         </Item>
                         
-                        <Button  style={ genericStyles.btnDefault} bordered light>
+                        <Button  style={ genericStyles.btnDefault} bordered light onPress={() => handleSend()}>
                             <Text style={genericStyles.textWhite}>SOLICITAR NUEVO E-MAIL </Text>
                         </Button>
                     </Form>

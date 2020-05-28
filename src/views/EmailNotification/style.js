@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
 
+import {  WHITE } from "../../consts";
+
 export default StyleSheet.create({
     content: {
         flex: 1,
@@ -20,5 +22,13 @@ export default StyleSheet.create({
         borderColor: 'transparent',
         marginTop: 20,
         marginBottom: 20
+    },
+    forwardButton: {
+        position: "absolute",
+        top: 8,
+        left: 4
+    },
+    backIcon: {
+        color: WHITE
     }
 });
