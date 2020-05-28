@@ -5,7 +5,7 @@ const { width } = Dimensions.get("window");
 export default StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: Constants.statusBarHeight
+    // marginTop: Constants.statusBarHeight
   },
   grid: {
     flexDirection: "column"
