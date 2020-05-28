@@ -109,7 +109,7 @@ export default function RegistrationEnd({ navigation }) {
                 </Form>
               </View>
               <View style={{ flex: 0.5, justifyContent: 'flex-end', }}>
-                <Button style={{ backgroundColor: '#F16921', margin: 24, }}>
+                <Button style={{ backgroundColor: '#F16921', margin: 24, }} onPress= {handleSend} >
                   <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase' }}>registrarme</Text>
                 </Button>
               </View>

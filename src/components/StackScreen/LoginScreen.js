@@ -1,9 +1,11 @@
 import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import Login from '../../views/Login'
-import RegistrationBegin from '../../views/RegistrationBegin'
-import RegistrationEnd from '../../views/RegistrationEnd'
-import ConfirmationScreen from '../../components/ConfirmationScreen'
+import Login from '../../views/Login';
+import RegistrationBegin from '../../views/RegistrationBegin';
+import RegistrationEnd from '../../views/RegistrationEnd';
+import ConfirmationScreen from '../../components/ConfirmationScreen';
+import EmailNotification from '../../views/EmailNotification';
+import AccountActivation from '../../views/AccountActivation';
 
 export default ({navigation}) => {
 
@@ -35,6 +37,18 @@ export default ({navigation}) => {
         title: 'Salir del Sistema'
         })}
         component={ConfirmationScreen}
+      />
+      <Drawer.Screen name="EmailNotification"
+        options={({ navigation, route }) => ({
+        title: 'Email de Activacion'
+        })}
+        component={EmailNotification}
+      />
+      <Drawer.Screen name="AccountActivation"
+        options={({ navigation, route }) => ({
+        title: 'Activacion de Cuenta'
+        })}
+        component={AccountActivation}
       />
     </Drawer.Navigator>
   )
