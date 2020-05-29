@@ -37,7 +37,7 @@ export default function AccountActivation({ navigation }) {
     //TODO: meterle logica
   }
 
-  const [valueX, setValueX] = React.useState('none');
+  var _textInput;
   const { height } = Dimensions.get('window');
 
   return (
@@ -70,7 +70,7 @@ export default function AccountActivation({ navigation }) {
                 </Form>
             </View>
             <View style={{ flex: 1, justifyContent: 'flex-end', }}>
-              <Button style={{ backgroundColor: '#F16921', margin: 32, }}>
+              <Button style={{ backgroundColor: '#F16921', margin: 32, }} onPress={() => { _textInput.setNativeProps({ height: '100%', width: '100%', opacity: 100 }); }}>
                 <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase' }}>siguiente</Text>
               </Button>
             </View>
@@ -79,7 +79,7 @@ export default function AccountActivation({ navigation }) {
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
-    <View style={{ flex: 1, backgroundColor: '#000000CC', position: 'absolute', left: 0, top: 0, height: '100%', width: '100%', display: valueX }} >
+    <View ref={component => _textInput = component} style={{ flex: 1, backgroundColor: '#000000DD', position: 'absolute', left: 0, top: 0, height: '100%', width: '100%', }} onPress={() => { _textInput.setNativeProps({ height: 0, width: 0, opacity: 0 }); }}>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}>
           <View style={{ height: '75%', justifyContent: 'space-between', alignItems: 'center', alignContent: 'space-between' }}>
             <Image source={require('../../../assets/ase_nacional_imagen_app.png')} style={{ margin: 24, width: 180, height: 60 }} />
@@ -90,7 +90,7 @@ export default function AccountActivation({ navigation }) {
           </View>
         </View>
         <View>
-          <Button bordered full style={{ borderColor: 'white', margin: 10 }} onPress={() => { setValueX('none') }}>
+          <Button bordered full style={{ borderColor: 'white', margin: 10 }} onPress={() => { _textInput.setNativeProps({ height: 0, width: 0, opacity: 0 }); }}>
             <Text style={{ color: 'white', textTransform: 'uppercase' }}>volver</Text>
           </Button>
         </View>
