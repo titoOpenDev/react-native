@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Grid, Form, Text, Item,Button,Input } from 'native-base';
+import { Image, View} from "react-native";
+import { Container, Grid, Form, Text, Item,Button,Input} from 'native-base';
 
 import styles from './style';
 import genericStyles from '../../styles';
@@ -37,6 +38,9 @@ export default function KeyActivation({route, navigation}){
 
     return(
         <Container>
+             <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', }}>
+                <Image source={require('../../../assets/ase_nacional_imagen_app.png')} style={{ width: 180, height: 60 }} />
+             </View>
              <Grid style={genericStyles.centeredGrid}>
                 <Form style={genericStyles.form}>
                     {
