@@ -9,7 +9,7 @@ export const REGISTRATION_END = "RegistrationEnd";
 export const NOTIFICATION_FILTERS = "NotificationFilters";
 export const CALCULATOR_RESULTS = "CalculatorResults";
 export const EMAIL_NOTIFICATION = "EmailNotification";
-export const ACCOUNT_ACTIVATION = "AccountActivation";
+export const KEY_ACTIVATION = "KeyActivation";
 
 // Fonts
 export const ROBOTO_FONT = "Roboto";

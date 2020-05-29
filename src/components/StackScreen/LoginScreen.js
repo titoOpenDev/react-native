@@ -5,7 +5,8 @@ import RegistrationBegin from '../../views/RegistrationBegin';
 import RegistrationEnd from '../../views/RegistrationEnd';
 import ConfirmationScreen from '../../components/ConfirmationScreen';
 import EmailNotification from '../../views/EmailNotification';
-import AccountActivation from '../../views/AccountActivation';
+import KeyActivation from '../../views/KeyActivation';
+import PasswordRecovery from '../../views/PasswordRecovery';
 
 export default ({navigation}) => {
 
@@ -44,11 +45,17 @@ export default ({navigation}) => {
         })}
         component={EmailNotification}
       />
-      <Drawer.Screen name="AccountActivation"
+      <Drawer.Screen name="KeyActivation"
         options={({ navigation, route }) => ({
         title: 'Activacion de Cuenta'
         })}
-        component={AccountActivation}
+        component={KeyActivation}
+      />
+      <Drawer.Screen name="PasswordRecovery"
+        options={({ navigation, route }) => ({
+        title: 'Recupero de Password'
+        })}
+        component={PasswordRecovery}
       />
     </Drawer.Navigator>
   )

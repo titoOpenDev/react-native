@@ -4,10 +4,14 @@ import { Container, Grid, Form, Text, Item,Button,Input } from 'native-base';
 import styles from './style';
 import genericStyles from '../../styles';
 
-export default function AccountActivation({navigation}){
+export default function KeyActivation({route, navigation}){
 
     const [activationCode, setActivationCode] = useState('');
     const [disabled, setDisabled] = useState(true);
+
+    const {sourceView} = route.params;
+
+    alert(sourceView);
 
     const handleActivationCodeChange = code =>{
         if(code.trim().length > 0){

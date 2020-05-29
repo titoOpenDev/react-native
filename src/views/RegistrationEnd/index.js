@@ -7,9 +7,8 @@ import { requestExecutive } from '../../redux/ducks/executiveDucks';
 import { Ionicons } from '@expo/vector-icons';
 
 import {
-  PASSWORD_RECOVERY,
-  REGISTRATION_BEGIN,
-  EMAIL_NOTIFICATION
+  EMAIL_NOTIFICATION,
+  REGISTRATION_END
 } from "../../consts";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -50,7 +49,9 @@ export default function RegistrationEnd({ navigation }) {
   const handleSend = () => {
      const payload = { lastName, firstName, cuil, password, email, network, filialZone}
      dispatch(requestExecutive(payload));
-     navigation.navigate(EMAIL_NOTIFICATION);
+     let params = {};
+     params.sourceView = REGISTRATION_END;
+     navigation.navigate(EMAIL_NOTIFICATION, params);
   }
 
   const { height } = Dimensions.get('window');
