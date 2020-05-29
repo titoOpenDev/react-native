@@ -24,12 +24,13 @@ export default function EmailNotification({route,navigation}){
     }, [error])    
     
     const handleSend = ()=>{
-        const payload = { lastName, firstName, cuil, password, email, network, filialZone}
+        //TODO: SOLO CON EL EMAIL ALCANZA PARA HACER EL REQUEST ??
+        const payload = { email}
         dispatch(requestExecutive(payload));
     }
 
     const handleForwardPress = ()=>{
-        navigation.navigate(KEY_ACTIVATION, route);
+        navigation.navigate(KEY_ACTIVATION, route.params);
     }
 
     return(

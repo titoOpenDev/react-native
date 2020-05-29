@@ -47,7 +47,7 @@ export default ({navigation}) => {
       />
       <Drawer.Screen name="KeyActivation"
         options={({ navigation, route }) => ({
-        title: 'Activacion de Cuenta'
+        title: 'Activacion Clave'
         })}
         component={KeyActivation}
       />

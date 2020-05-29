@@ -3,6 +3,7 @@ import { Container, Grid, Form, Text, Item,Button,Input } from 'native-base';
 
 import styles from './style';
 import genericStyles from '../../styles';
+import {REGISTRATION_END} from '../../consts';
 
 export default function KeyActivation({route, navigation}){
 
@@ -10,8 +11,6 @@ export default function KeyActivation({route, navigation}){
     const [disabled, setDisabled] = useState(true);
 
     const {sourceView} = route.params;
-
-    alert(sourceView);
 
     const handleActivationCodeChange = code =>{
         if(code.trim().length > 0){
@@ -30,7 +29,14 @@ export default function KeyActivation({route, navigation}){
         <Container>
              <Grid style={genericStyles.centeredGrid}>
                 <Form style={genericStyles.form}>
-                    <Text style={styles.subtitle}>ACTIVACIÓN DE CUENTA</Text>
+                    {
+                        (sourceView ===REGISTRATION_END) ?(
+                            <Text style={styles.subtitle}>ACTIVACIÓN DE CUENTA</Text>
+                        ):(
+                            <Text style={styles.subtitle}>RECUPERO DE CLAVE</Text>
+                        )
+                    }
+                    
                     <Item style={styles.item}>
                         <Text > 
                             Si llegaste hasta esta pantalla es porque recibiste el link
