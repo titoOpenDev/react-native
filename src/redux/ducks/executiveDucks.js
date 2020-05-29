@@ -9,24 +9,31 @@ const initialState = {
   filialZone: '',
   network: '',
   password: '',
-  err: ''
+  err: '',
+  success:''
 }
 
+export const STARTING = 'STARTING';
 export const CREATE_EXECUTIVE = "CREATE_EXECUTIVE";
-export const CREATE_EXECUTIVE_ERROR = "CREATE_EXECUTIVE_ERROR";
+export const REQUEST_EXECUTIVE_ERROR = "REQUEST_EXECUTIVE_ERROR";
 export const PASSWORD_RECOVERY_ERROR = "PASSWORD_RECOVERY_ERROR";
 export const UPDATE_PASSWORD_ERROR = "UPDATE_PASSWORD_ERROR";
+export const UPDATE_PASSWORD_SUCCESS = "UPDATE_PASSWORD_SUCCESS";
 
 export default function create(state = initialState, action) {
     switch (action.type) {
+        case STARTING:
+            return { ...state, err:'', success:'' };
         case CREATE_EXECUTIVE:
-            return { ...state, ...action.payload };
-        case CREATE_EXECUTIVE_ERROR:
+            return { ...state, ...action.payload};
+        case REQUEST_EXECUTIVE_ERROR:
             return { ...state, err : action.payload };
         case PASSWORD_RECOVERY_ERROR:
-            return { ...state, err : action.payload };
+            return { ...state, err : action.payload};
         case UPDATE_PASSWORD_ERROR:
-            return { ...state, err : action.payload };
+            return { ...state, err : action.payload,success:false };
+        case UPDATE_PASSWORD_SUCCESS:
+            return { ...state, success:true };
         default:
           return { ...state };
   }
@@ -42,15 +49,22 @@ export const fetchBuild = (data) => {
 //TODO: SACAR EL EMAIL CUANDO EL PAYLOAD LLEGUE ARMADO BIEN DESDE LA VISTA
 export const buildExecutive = payload =>  {
     return async dispatch => {
+        dispatch(fetchStarting());
         payload.email = "tudireccion@server.com.ar";
         dispatch(fetchBuild(payload));
     }
 }
 
-export const fetchCreateError = (data) => {
+export const fetchRequestExecutiveError = (data) => {
     return {
-        type: CREATE_EXECUTIVE_ERROR,
+        type: REQUEST_EXECUTIVE_ERROR,
         payload: data
+    }
+}
+
+export const fetchStarting = () => {
+    return {
+        type: UPDATE_PASSWORD_START
     }
 }
 
@@ -60,10 +74,11 @@ export const requestExecutive = payload =>  {
     
     return async dispatch => {
         try {
+            dispatch(fetchStarting());
             // await apiCall( null , POST_METHOD , payload);
         } catch (error) {
             console.log(error);
-            dispatch(fetchCreateError(error.message));
+            dispatch(fetchRequestExecutiveError(error.message));
         }
 
     }
@@ -83,6 +98,7 @@ export const passwordRecovery = payload =>  {
     
     return async dispatch => {
         try {
+            dispatch(fetchStarting());
             // await apiCall( null , POST_METHOD , payload);
         } catch (error) {
             console.log(error);
@@ -98,6 +114,12 @@ export const fetchUpdatePasswordError = (error) => {
     }
 }
 
+export const fetchUpdatePasswordSuccess = () => {
+    return {
+        type: UPDATE_PASSWORD_SUCCESS
+    }
+}
+
 //TODO: ARMAR LA URL PARA LLAMAR AL SERVICIO DE LA API, CHECKEAR QUE SEA UN PUT,
 //DESCOMENTAR LLAMADO API
 //FIJARSE QUE DATA PASARLE EN EL REQUEST
@@ -105,7 +127,9 @@ export const updatePassword = payload =>  {
     
     return async dispatch => {
         try {
-            //await apiCall( null , POST_METHOD , payload);
+            dispatch(fetchStarting());
+            // await apiCall( null , POST_METHOD , payload);
+            dispatch(fetchUpdatePasswordSuccess());
         } catch (error) {
             console.log(error);
             dispatch(fetchUpdatePasswordError(error.message));

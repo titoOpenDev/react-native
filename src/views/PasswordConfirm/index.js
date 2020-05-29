@@ -34,6 +34,8 @@ export default function PasswordConfirm({navigation}){
     const dispatch = useDispatch();
     
     const error = useSelector(store=>store.executive.err);
+    
+    const success = useSelector(store=>store.executive.success);
 
     const { height } = Dimensions.get('window');
 
@@ -42,8 +44,16 @@ export default function PasswordConfirm({navigation}){
     }
 
     useEffect(() => {
-        if(error) console.log(error);
-    }, [error]);
+        if(error){
+            alert(ERROR_MSSG);
+        }
+        if(success){
+            alert(UPDATE_PASSWORD_SUCCESS);
+            setPasswordRepeated("");
+            setPassword("");
+            navigation.navigate(LOGIN);
+        }
+    }, [error,success])
 
     //TODO: NO PUEDO HACER QUE SI PINCHE ENTRE EN UN CATCH
     //POR MAS QUE LO PONGO EN UN TRY CATCH Y LA FUNCION LA DEFINO ASYNC
@@ -51,10 +61,6 @@ export default function PasswordConfirm({navigation}){
         if(passwordsAreEquals()){
             let payload = {password};
             dispatch(updatePassword(payload)); 
-            alert(UPDATE_PASSWORD_SUCCESS);
-            setPasswordRepeated("");
-            setPassword("");
-            navigation.navigate(LOGIN);
         }else{
             alert(PASSWORDS_MUST_BE_EQUALS);
         }
