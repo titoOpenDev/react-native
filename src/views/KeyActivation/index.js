@@ -18,7 +18,7 @@ import Constants from "expo-constants";
 
 import styles from './style';
 import genericStyles from '../../styles';
-import {REGISTRATION_END, LOGIN} from '../../consts';
+import {REGISTRATION_END, LOGIN,PASSWORD_CONFIRM} from '../../consts';
 
 export default function KeyActivation({route, navigation}){
 
@@ -51,7 +51,7 @@ export default function KeyActivation({route, navigation}){
         //TODO: HAY QUE CREAR UN ACTION NUEVO 
         // PARA UNA NUEVA LLAMADA A OTRO SERVICIO DE LA API ??
         setActivationCode("");
-        navigation.navigate(LOGIN);
+        navigation.navigate(PASSWORD_CONFIRM);
     }
 
     const { height } = Dimensions.get('window');

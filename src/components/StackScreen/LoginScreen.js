@@ -7,6 +7,7 @@ import ConfirmationScreen from '../../components/ConfirmationScreen';
 import EmailNotification from '../../views/EmailNotification';
 import KeyActivation from '../../views/KeyActivation';
 import PasswordRecovery from '../../views/PasswordRecovery';
+import PasswordConfirm from '../../views/PasswordConfirm';
 
 export default ({navigation}) => {
 
@@ -56,6 +57,12 @@ export default ({navigation}) => {
         title: 'Recupero de Password'
         })}
         component={PasswordRecovery}
+      />
+      <Drawer.Screen name="PasswordConfirm"
+        options={({ navigation, route }) => ({
+        title: 'Confirmacion de Password'
+        })}
+        component={PasswordConfirm}
       />
     </Drawer.Navigator>
   )
