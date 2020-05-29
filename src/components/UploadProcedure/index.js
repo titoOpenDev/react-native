@@ -17,7 +17,7 @@ export default function UploadProcedure({ navigation }) {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
-  var _textInput;
+  var _textInput, _textInput1;
 
   // const handleShow = () => {
   // }
@@ -32,7 +32,7 @@ export default function UploadProcedure({ navigation }) {
         <View style={{ flex: 1, }}>
           <ScrollView style={{ flex: 1 }}>
             <Form style={{ margin: 24 }}>
-              <Text style={{ marginBottom: 16,textAlign: 'center', fontWeight: 'bold'  }}>INCIAR NUEVO TRAMITE</Text>
+              <Text style={{ marginBottom: 16, textAlign: 'center', fontWeight: 'bold' }}>INCIAR NUEVO TRAMITE</Text>
               <Item>
                 <Input placeholder="Completa el CUIT" />
                 <TouchableOpacity>
@@ -60,26 +60,46 @@ export default function UploadProcedure({ navigation }) {
                   </CardItem>
                 </Card>
               </Item>
-              <Button warning style={{ margin: 10, backgroundColor: '#f16820' }} onPress={() => { _textInput.setNativeProps({ height: '100%', width: '100%', opacity: 100 }); }}>
+              <Button warning style={{ margin: 10, backgroundColor: '#f16820', borderRadius: 4 }} onPress={() => { _textInput1.setNativeProps({ height: '100%', width: '100%', opacity: 100 }); }}>
                 <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase', }}>comenzar tramite</Text>
               </Button>
-              <Button dark bordered warning style={{ margin: 10, borderColor: '#f16820' }}>
+              <Button dark bordered warning style={{ margin: 10, borderColor: '#f16820', borderRadius: 4 }}>
                 <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase', color: '#f16820', }}>tutorial: foto</Text>
               </Button>
-              <Button light style={{ margin: 10, backgroundColor: 'gray', }}>
+              <Button light style={{ margin: 10, backgroundColor: 'gray', borderRadius: 4 }}>
                 <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase', color: 'white', }}>enviar formulario</Text>
               </Button>
             </Form>
           </ScrollView>
-          <TouchableOpacity ref={component => _textInput = component} style={{ flex: 1, backgroundColor: '#000000DD', position: 'absolute', left: 0, top: 0, height: '100%', width: '100%', }} onPress={() => { _textInput.setNativeProps({ height: 0, width: 0, opacity: 0 }); }}>
+          <TouchableOpacity ref={component => _textInput = component} style={{ flex: 1, backgroundColor: '#000000DD', position: 'absolute', left: 0, top: 0, height: 0, width: 0, opacity: 0 }} onPress={() => { _textInput.setNativeProps({ height: 0, width: 0, opacity: 0 }); }}>
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
-              <Text style={{ color: 'white', margin: 24 }}>CÓMO UTILIZAR LA APP ASE</Text>
-              <Text style={{ color: 'white', margin: 24, width: '75%' }}>1) Buscá la empresa por nombre o ASES</Text>
-              <Text style={{ color: 'white', margin: 24, width: '75%' }}>2) Determiná si vas a cargar varias altas para la misma empresa</Text>
+              <Text style={{ color: 'white', margin: 24, fontWeight: 'bold' }}>CÓMO UTILIZAR LA APP ASE</Text>
+              <Text style={{ color: 'white', margin: 10, width: '75%' }}>1) Buscá la empresa por nombre o ASES</Text>
+              <Text style={{ color: 'white', margin: 10, width: '75%' }}>2) Determiná si vas a cargar varias altas para la misma empresa</Text>
+              <Text style={{ color: 'white', margin: 10, width: '75%' }}>3) Ingresá el CUIL de la persona</Text>
+              <Text style={{ color: 'white', margin: 10, width: '75%' }}>4) Sacá o cargá una foto del formulario 01</Text>
+              <Text style={{ color: 'white', margin: 10, width: '75%' }}>5) Determiná si vas a cargar varias altas para la misma empresa</Text>
+              <Text style={{ color: 'white', margin: 16, width: '75%' }}>Otras funciones: Seguí el estado de tus trámites y consultá las</Text>
             </View>
             <View>
-              <Button bordered full style={{ borderColor: 'white', margin: 16 }} onPress={() => { _textInput.setNativeProps({ height: 0, width: 0, opacity: 0 }); }}>
-                <Text style={{ color: 'white', textTransform: 'uppercase' }}>volver</Text>
+              <Button bordered full style={{ borderColor: 'white', margin: 16, borderRadius: 4 }} onPress={() => { _textInput.setNativeProps({ height: 0, width: 0, opacity: 0 }); }}>
+                <Text style={{ color: 'white', textTransform: 'uppercase', fontWeight: 'bold' }}>volver</Text>
+              </Button>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity ref={component => _textInput = component} style={{ flex: 1, backgroundColor: '#000000DD', position: 'absolute', left: 0, top: 0, height: 0, width: 0, opacity: 0 }} onPress={() => { _textInput.setNativeProps({ height: 0, width: 0, opacity: 0 }); }}>
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
+              <Text style={{ color: 'white', margin: 24, fontWeight: 'bold' }}>CÓMO UTILIZAR LA APP ASE</Text>
+              <Text style={{ color: 'white', margin: 10, width: '75%' }}>1) Buscá la empresa por nombre o ASES</Text>
+              <Text style={{ color: 'white', margin: 10, width: '75%' }}>2) Determiná si vas a cargar varias altas para la misma empresa</Text>
+              <Text style={{ color: 'white', margin: 10, width: '75%' }}>3) Ingresá el CUIL de la persona</Text>
+              <Text style={{ color: 'white', margin: 10, width: '75%' }}>4) Sacá o cargá una foto del formulario 01</Text>
+              <Text style={{ color: 'white', margin: 10, width: '75%' }}>5) Determiná si vas a cargar varias altas para la misma empresa</Text>
+              <Text style={{ color: 'white', margin: 16, width: '75%' }}>Otras funciones: Seguí el estado de tus trámites y consultá las</Text>
+            </View>
+            <View>
+              <Button bordered full style={{ borderColor: 'white', margin: 16, borderRadius: 4 }} onPress={() => { _textInput.setNativeProps({ height: 0, width: 0, opacity: 0 }); }}>
+                <Text style={{ color: 'white', textTransform: 'uppercase', fontWeight: 'bold' }}>volver</Text>
               </Button>
             </View>
           </TouchableOpacity>
