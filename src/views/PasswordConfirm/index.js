@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   Platform,
   Dimensions,
@@ -13,16 +14,55 @@ import { Ionicons } from '@expo/vector-icons';
 import Constants from "expo-constants";
 
 import styles from './style';
-import {LOGIN,UPDATE_PASSWORD_SUCCESS} from '../../consts';
+import {LOGIN,UPDATE_PASSWORD_SUCCESS, MSSG_ERROR} from '../../consts';
+import {updatePassword} from '../../redux/ducks/executiveDucks';
 
 export default function PasswordConfirm({navigation}){
 
+    
+    const [password, setPassword] = useState('');
+    const [passwordRepeated, setPasswordRepeated] = useState('');
+    const [disabled, setDisabled] = useState(true);
+
+    const dispatch = useDispatch();
+
+    const error = useSelector(store => store.executive.err);
+  
     const { height } = Dimensions.get('window');
 
-    const handleSaveNewPass = ()=>{
+    const handleGoBack = ()=>{
+      navigation.goBack();
+    }
 
+    useEffect(() => {
+      if(error) alert(MSSG_ERROR);
+    }, [error])
+    
+    const handleSaveNewPass = ()=>{
+      let payload = {password};
+      dispatch(updatePassword(payload));      
       alert(UPDATE_PASSWORD_SUCCESS);
+      setPassword("");
+      setPasswordRepeated("");
       navigation.navigate(LOGIN);
+    }
+
+    const handleChangePassword = (password)=>{
+      if((password.trim())&& (passwordRepeated.trim())){
+        setDisabled(false);
+      }else{
+        setDisabled(true);
+      }
+      setPassword(password);
+    }
+
+    const handleChangePasswordRepeated = (password)=>{
+      if((password.trim())&& (passwordRepeated.trim())){
+        setDisabled(false);
+      }else{
+        setDisabled(true);
+      }
+      setPasswordRepeated(password);
     }
 
     return (
@@ -45,15 +85,15 @@ export default function PasswordConfirm({navigation}){
                   </View>
                   <Form style={{ margin: 24, }}>
                     <Item last>
-                      <Input placeholder="NUEVA CLAVE"   />
+                      <Input placeholder="NUEVA CLAVE" value={password} onChangeText= {handleChangePassword} />
                     </Item>
                     <Item last>
-                      <Input placeholder="REPETIR CLAVE" />
+                      <Input placeholder="REPETIR CLAVE" value={passwordRepeated}  onChangeText= {handleChangePasswordRepeated}/>
                     </Item>
                   </Form>
                 </View>
                 <View style={{ flex: 0.1, justifyContent: 'flex-end', margin: 32, }}>
-                  <Button style={{ backgroundColor: '#F16921', borderColor: '#f16820' }} onPress={handleSaveNewPass} >
+                  <Button style={{ backgroundColor: '#F16921', borderColor: '#f16820' }} onPress={handleSaveNewPass} disabled={disabled} >
                     <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase' }}>GUARDAR NUEVA CLAVE</Text>
                   </Button>
                 </View>
