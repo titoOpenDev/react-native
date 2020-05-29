@@ -62,6 +62,7 @@ export const requestExecutive = payload =>  {
         try {
             // await apiCall( null , POST_METHOD , payload);
         } catch (error) {
+            console.log(error);
             dispatch(fetchCreateError(error.message));
         }
 
@@ -84,6 +85,7 @@ export const passwordRecovery = payload =>  {
         try {
             // await apiCall( null , POST_METHOD , payload);
         } catch (error) {
+            console.log(error);
             dispatch(fetchPasswordRecoveryError(error.message));
         }
     }
@@ -105,7 +107,8 @@ export const updatePassword = payload =>  {
         try {
             //await apiCall( null , POST_METHOD , payload);
         } catch (error) {
-            dispatch(fetchUpdatePasswordError(error));
+            console.log(error);
+            dispatch(fetchUpdatePasswordError(error.message));
         }
     }
 }
