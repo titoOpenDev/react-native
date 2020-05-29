@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Grid, Form, Text, Item,Button,Input } from 'native-base';
 
 import styles from './style';
 import genericStyles from '../../styles';
-import {REGISTRATION_END} from '../../consts';
+import {REGISTRATION_END, LOGIN} from '../../consts';
 
 export default function KeyActivation({route, navigation}){
 
@@ -22,7 +22,17 @@ export default function KeyActivation({route, navigation}){
     };
 
     const handleBttonEntry = () =>{
-        //TODO: meterle logica
+        //TODO: HAY QUE CREAR UN ACTION NUEVO 
+        // PARA UNA NUEVA LLAMADA A OTRO SERVICIO DE LA API ??
+        setActivationCode("");
+        navigation.navigate(LOGIN);
+    }
+
+    const handleBttonValidateKey = () =>{
+        //TODO: HAY QUE CREAR UN ACTION NUEVO 
+        // PARA UNA NUEVA LLAMADA A OTRO SERVICIO DE LA API ??
+        navigation.navigate(LOGIN);
+        setActivationCode("");
     }
 
     return(
@@ -56,13 +66,28 @@ export default function KeyActivation({route, navigation}){
                             onChangeText = {handleActivationCodeChange}
                         />
                     </Item>
-                    <Button 
-                        onPress={() => handleBttonEntry()} 
-                        light  style={[ {backgroundColor: '#e75300'} , genericStyles.btnDefault]}
-                        disabled={disabled}
-                    >
-                        <Text style={genericStyles.textWhite} >INGRESAR </Text>
-                    </Button>
+                    
+                    {
+                        (sourceView ===REGISTRATION_END) ?(
+                            <Button 
+                                onPress={() => handleBttonEntry()} 
+                                light  
+                                style={[ {backgroundColor: '#e75300'} , genericStyles.btnDefault]}
+                                disabled={disabled}
+                            >
+                                <Text style={genericStyles.textWhite} >INGRESAR </Text>
+                            </Button>
+                        ):(
+                            <Button 
+                                onPress={() => handleBttonValidateKey()} 
+                                light  
+                                style={[ {backgroundColor: '#e75300'} , genericStyles.btnDefault]}
+                                disabled={disabled}
+                            >
+                                <Text style={genericStyles.textWhite} >VALIDAR CÓDIGO </Text>
+                            </Button>
+                        )
+                    }
                 </Form>
             </Grid>
         </Container>

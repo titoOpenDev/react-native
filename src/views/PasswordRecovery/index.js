@@ -35,6 +35,7 @@ export default function PasswordRecovery({navigation}) {
     //TODO: ALCANZA SOLO CON EL EMAIL ??
     const payload = {email}
     dispatch(passwordRecovery(payload));
+    setEmail("");
     let params= {};
     params.sourceView = PASSWORD_RECOVERY
     navigation.navigate(EMAIL_NOTIFICATION, params);
@@ -84,6 +85,7 @@ export default function PasswordRecovery({navigation}) {
                             <Input 
                               placeholder="E-MAIL" 
                               onChangeText={text => handleChangeEmail(text)}
+                              value={email}
                             />
                         </Item>
                     </Form>
