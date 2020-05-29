@@ -91,7 +91,7 @@ export const passwordRecovery = payload =>  {
 
 export const fetchUpdatePasswordError = (error) => {
     return {
-        type: PASSWORD_RECOVERY_ERROR,
+        type: UPDATE_PASSWORD_ERROR,
         payload: error
     }
 }
@@ -103,9 +103,9 @@ export const updatePassword = payload =>  {
     
     return async dispatch => {
         try {
-            // await apiCall( null , POST_METHOD , payload);
+            //await apiCall( null , POST_METHOD , payload);
         } catch (error) {
-            dispatch(fetchUpdatePasswordError(error.message));
+            dispatch(fetchUpdatePasswordError(error));
         }
     }
 }

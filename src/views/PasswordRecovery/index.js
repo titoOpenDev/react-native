@@ -33,10 +33,6 @@ export default function PasswordRecovery({ navigation }) {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if(error) alert(ERROR_MSSG);
-  },[error]);
-
   const handleChangeEmail = (text) => {
     if(text.trim()){
       setDisabled(false);

@@ -17,12 +17,6 @@ export default function EmailNotification({route,navigation}){
     const email = useSelector(store => store.executive.email);
     const error = useSelector(store=>store.executive.err);
 
-    useEffect(() => {
-        if(error) {
-            alert(ERROR_MSSG);
-        }
-    }, [error])    
-    
     const handleSend = ()=>{
         //TODO: SOLO CON EL EMAIL ALCANZA PARA HACER EL REQUEST ??
         const payload = { email}

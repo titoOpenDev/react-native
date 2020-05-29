@@ -8,26 +8,33 @@ import {
   Image,
   View,
   KeyboardAvoidingView,
+  TouchableOpacity
 } from "react-native";
 import { Text,  Button, Form, Item, Input,  } from "native-base";
 import { Ionicons } from '@expo/vector-icons';
 import Constants from "expo-constants";
 
 import styles from './style';
-import {LOGIN,UPDATE_PASSWORD_SUCCESS, MSSG_ERROR} from '../../consts';
+import {LOGIN,UPDATE_PASSWORD_SUCCESS, ERROR_MSSG} from '../../consts';
 import {updatePassword} from '../../redux/ducks/executiveDucks';
 
 export default function PasswordConfirm({navigation}){
 
-    
+    const [eye, setEye] = useState('md-eye');
+    const [eyePasswordRepeated, setEyePasswordRepeated] = useState('md-eye');
+
+    const [secureEntry, setSecureEntry] = useState(true);
+    const [securePasswordRepeatedEntry, setSecurePasswordRepeatedEntry] = useState(true);
+
     const [password, setPassword] = useState('');
     const [passwordRepeated, setPasswordRepeated] = useState('');
+
     const [disabled, setDisabled] = useState(true);
 
     const dispatch = useDispatch();
+    
+    const error = useSelector(store=>store.executive.err);
 
-    const error = useSelector(store => store.executive.err);
-  
     const { height } = Dimensions.get('window');
 
     const handleGoBack = ()=>{
@@ -35,34 +42,49 @@ export default function PasswordConfirm({navigation}){
     }
 
     useEffect(() => {
-      if(error) alert(MSSG_ERROR);
-    }, [error])
-    
+      if(error) console.log(error);
+    }, [error]);
+
+    //TODO: NO PUEDO HACER QUE SI PINCHE ENTRE EN UN CATCH
+    //POR MAS QUE LO PONGO EN UN TRY CATCH Y LA FUNCION LA DEFINO ASYNC
     const handleSaveNewPass = ()=>{
-      let payload = {password};
-      dispatch(updatePassword(payload));      
-      alert(UPDATE_PASSWORD_SUCCESS);
-      setPassword("");
-      setPasswordRepeated("");
-      navigation.navigate(LOGIN);
+        let payload = {password};
+        dispatch(updatePassword(payload)); 
+        alert(UPDATE_PASSWORD_SUCCESS);
+        setPasswordRepeated("");
+        setPassword("");
+        navigation.navigate(LOGIN);
     }
 
     const handleChangePassword = (password)=>{
-      if((password.trim())&& (passwordRepeated.trim())){
-        setDisabled(false);
-      }else{
+      if((!password.trim()) || (!passwordRepeated.trim())){
         setDisabled(true);
+      }else{
+        setDisabled(false);
       }
       setPassword(password);
     }
 
     const handleChangePasswordRepeated = (password)=>{
-      if((password.trim())&& (passwordRepeated.trim())){
-        setDisabled(false);
-      }else{
+      if((!password.trim()) || (!passwordRepeated.trim())){
         setDisabled(true);
+      }else{
+        setDisabled(false);
       }
       setPasswordRepeated(password);
+    }
+    
+
+    const handleTouchableOpacity = async () => {
+      const eyeName = secureEntry ? 'md-eye-off' : 'md-eye';
+      setSecureEntry(!secureEntry);
+      setEye(eyeName);
+    }
+
+    const handleTouchableOpacityPasswordRepeated = async () => {
+      const eyeNamePswdRepeated = securePasswordRepeatedEntry ? 'md-eye-off' : 'md-eye';
+      setSecurePasswordRepeatedEntry(!securePasswordRepeatedEntry);
+      setEyePasswordRepeated(eyeNamePswdRepeated);
     }
 
     return (
@@ -85,10 +107,16 @@ export default function PasswordConfirm({navigation}){
                   </View>
                   <Form style={{ margin: 24, }}>
                     <Item last>
-                      <Input placeholder="NUEVA CLAVE" value={password} onChangeText= {handleChangePassword} />
+                      <Input placeholder="NUEVA CLAVE" value={password} onChangeText= {handleChangePassword} secureTextEntry={secureEntry} />
+                      <TouchableOpacity onPress={handleTouchableOpacity}>
+                        <Ionicons name={eye} size={24} color="gray" />
+                      </TouchableOpacity>
                     </Item>
                     <Item last>
-                      <Input placeholder="REPETIR CLAVE" value={passwordRepeated}  onChangeText= {handleChangePasswordRepeated}/>
+                      <Input placeholder="REPETIR CLAVE" value={passwordRepeated}  onChangeText= {handleChangePasswordRepeated} secureTextEntry={securePasswordRepeatedEntry}/>
+                        <TouchableOpacity onPress={handleTouchableOpacityPasswordRepeated}>
+                          <Ionicons name={eyePasswordRepeated} size={24} color="gray" />
+                        </TouchableOpacity>
                     </Item>
                   </Form>
                 </View>
