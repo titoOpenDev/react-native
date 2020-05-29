@@ -9,7 +9,8 @@ export const REGISTRATION_END = "RegistrationEnd";
 export const NOTIFICATION_FILTERS = "NotificationFilters";
 export const CALCULATOR_RESULTS = "CalculatorResults";
 export const EMAIL_NOTIFICATION = "EmailNotification";
-export const ACCOUNT_ACTIVATION = "AccountActivation";
+export const KEY_ACTIVATION = "KeyActivation";
+export const PASSWORD_CONFIRM = "PasswordConfirm";
 
 // Fonts
 export const ROBOTO_FONT = "Roboto";
@@ -32,4 +33,5 @@ export const ERROR_MSSG= "Ha ocurrido un error";
 export const TIME_OUT_MESSAGE = "Sesión vencida. Por favor volvé a loguearte";
 export const EMPTY_USERNAME = "El campo usuario se encuentra vacio";
 export const EMPTY_PASSWORD = "El campo password se encuentra vacio";
-
+export const UPDATE_PASSWORD_SUCCESS = "La clave se ha actualizado correctamente";
+export const PASSWORDS_MUST_BE_EQUALS = "Las claves deben coincidir";

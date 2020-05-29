@@ -29,7 +29,10 @@ export default function Login({ navigation }) {
     const [disabled, setDisabled] = useState(true);
 
     useEffect(() => {
-        if(error){alert(ERROR_MSSG);}
+        if(error){
+            alert(ERROR_MSSG)
+            console.log(error);
+        }
     },[error]);
 
     const handleLoginPress = async () => {

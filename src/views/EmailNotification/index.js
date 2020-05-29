@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect}from 'react';
 import { Container, Content, Grid, Form, Text, Button, Item,Icon } from 'native-base';
 import {useSelector} from 'react-redux';
 
@@ -6,24 +6,25 @@ import genericStyles from '../../styles';
 import styles from './style';
 
 import { requestExecutive } from '../../redux/ducks/executiveDucks';
-import {ACCOUNT_ACTIVATION} from '../../consts';
+import {KEY_ACTIVATION, ERROR_MSSG} from '../../consts';
 
 
-export default function EmailNotification({navigation}){
+export default function EmailNotification({route,navigation}){
 
     const firstName = useSelector(store => store.executive.firstName);
     const lastName = useSelector(store => store.executive.lastName);
     const cuil = useSelector(store => store.executive.cuil);
     const email = useSelector(store => store.executive.email);
+    const error = useSelector(store=>store.executive.err);
 
     const handleSend = ()=>{
-        const payload = { lastName, firstName, cuil, password, email, network, filialZone}
+        //TODO: SOLO CON EL EMAIL ALCANZA PARA HACER EL REQUEST ??
+        const payload = { email}
         dispatch(requestExecutive(payload));
-        //TODO: A DONDE DEBERIA REDIRIGIRLO ??
     }
 
     const handleForwardPress = ()=>{
-        navigation.navigate(ACCOUNT_ACTIVATION);
+        navigation.navigate(KEY_ACTIVATION, route.params);
     }
 
     return(
