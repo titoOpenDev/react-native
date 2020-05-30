@@ -77,7 +77,7 @@ export default function PasswordConfirm({navigation}){
     }
 
     const passwordsAreEquals = ()=>{
-        return (password.trim().toLowerCase()=== passwordRepeated.trim().toLowerCase());
+        return (password=== passwordRepeated);
     }
 
     const handleChangePasswordRepeated = (password)=>{
