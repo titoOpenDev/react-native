@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Image, View, SafeAreaView, Dimensions, KeyboardAvoidingView, ScrollView } from "react-native";
 import {  Button, Text, Form, Item, Input } from "native-base";
+import { RadioButton } from 'react-native-paper';
 import { Ionicons } from '@expo/vector-icons';
 
 import styles from './style'
@@ -17,7 +18,9 @@ import {
   EMPTY_USER_NAME,
   EMPTY_MESSAGE,
   EMPTY_USER_EMAIL,
-  WRONG_FORMAT_EMAIL
+  WRONG_FORMAT_EMAIL,
+  MALE_GENDER,
+  FEMALE_GENDER
 } from "../../consts";
 import { useDispatch } from "react-redux";
 
@@ -29,7 +32,9 @@ export default function RegistrationBegin({ navigation }) {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setlastName] = useState("");
-  const [cuil, setCUIL] = useState("")
+  const [cuil, setCUIL] = useState("");
+
+  const [gender, setGender] = useState(MALE_GENDER);
 
   useEffect(() => {
 
@@ -109,6 +114,25 @@ export default function RegistrationBegin({ navigation }) {
                 <Text style={{ margin: 10, fontSize: 12 }}>Bienvenido a la App de ventas de ASE. Creando tu cuenta podras realizar las consultas, acelerar el proceso de alta de nuevos Afiliados enviando la info y obteniendo respuesta en pocos minutos</Text>
                 <Text style={{ margin: 10, fontSize: 12 }}>Registrate con unos pocos datos y comenza a disfrutar de los beneficios de ASE Ventas</Text>
                 <Form>
+                  <Item last>
+                    <Text>Sexo</Text>
+                    <RadioButton
+                      value={gender}
+                      status={gender === MALE_GENDER ? 'checked' : 'unchecked'}
+                      onPress={() => { setGender(MALE_GENDER) }}
+                      color = {'black'}
+                      uncheckedColor={'red'}
+                    />
+                    <Text>{MALE_GENDER}</Text>
+                    <RadioButton
+                      value={gender}
+                      status={gender === FEMALE_GENDER ? 'checked' : 'unchecked'}
+                      onPress={() => { setGender(FEMALE_GENDER) }}
+                      color = {'black'}
+                      uncheckedColor={'red'}
+                    />
+                    <Text>{FEMALE_GENDER}</Text>  
+                  </Item>
                   <Item last>
                     <Input placeholder="CUIL"  maxLength={13} onChangeText={text => handleChangeCUIL(text)} maxLength={13} />
                   </Item>
