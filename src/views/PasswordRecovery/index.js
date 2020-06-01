@@ -44,12 +44,21 @@ export default function PasswordRecovery({ navigation }) {
 
   const handleSendEmail = () => {
     //TODO: ALCANZA SOLO CON EL EMAIL ??
-    const payload = {email}
-    dispatch(passwordRecovery(payload));
-    setEmail("");
-    let params= {};
-    params.sourceView = PASSWORD_RECOVERY
-    navigation.navigate(EMAIL_NOTIFICATION, params);
+    if(validateEmail()){
+      const payload = {email}
+      dispatch(passwordRecovery(payload));
+      setEmail("");
+      let params= {};
+      params.sourceView = PASSWORD_RECOVERY
+      navigation.navigate(EMAIL_NOTIFICATION, params);
+    }else{
+      alert(WRONG_FORMAT_EMAIL);
+    }
+  }
+
+  const validateEmail= () => {
+    let reg = /^\w+([\.-]?\w+)*@\w+(\.com\.ar)$/;
+    return (reg.test(email) !== false);
   }
 
   const handleGoBack = () => {

@@ -74,7 +74,7 @@ export default function RegistrationEnd({ navigation }) {
   }
 
     const passwordsAreEquals = ()=>{
-        return (password=== passwordRepeated);
+        return (password === passwordRepeated);
     }
 
     const handleChangePasswordRepeated = (password)=>{

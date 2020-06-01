@@ -18,7 +18,8 @@ import {
   EMPTY_USER_SURNAME,
   EMPTY_USER_NAME,
   EMPTY_MESSAGE,
-  EMPTY_USER_EMAIL
+  EMPTY_USER_EMAIL,
+  WRONG_FORMAT_EMAIL
 } from "../../consts";
 import { useDispatch } from "react-redux";
 
@@ -78,9 +79,16 @@ export default function RegistrationBegin({ navigation }) {
     }
     if(!email.trim()){
       return EMPTY_USER_EMAIL;
+    }if(!validateEmail()){
+      return WRONG_FORMAT_EMAIL;
     }
     return EMPTY_MESSAGE;
-}
+  }
+
+  const validateEmail= () => {
+    let reg = /^\w+([\.-]?\w+)*@\w+(\.com\.ar)$/;
+    return (reg.test(email) !== false);
+  }
 
   const { height } = Dimensions.get('window');
 
