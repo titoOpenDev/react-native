@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Image, View, SafeAreaView, Dimensions, KeyboardAvoidingView, ScrollView } from "react-native";
-import { Container, Content, Button, Text, Form, Item, Input, Left, Header, Icon, Title, Body } from "native-base";
+import {  Button, Text, Form, Item, Input } from "native-base";
 import { Ionicons } from '@expo/vector-icons';
-import Constants from 'expo-constants';
 
-import genericStyles from "../../styles";
 import styles from './style'
 
 import { buildExecutive } from '../../redux/ducks/executiveDucks';
