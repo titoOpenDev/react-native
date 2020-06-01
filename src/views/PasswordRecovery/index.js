@@ -20,7 +20,7 @@ import Constants from "expo-constants";
 import genericStyles from "../../styles";
 import styles from './style';
 
-import {EMAIL_NOTIFICATION,ERROR_MSSG, PASSWORD_RECOVERY} from '../../consts';
+import {EMAIL_NOTIFICATION,WRONG_FORMAT_EMAIL, PASSWORD_RECOVERY} from '../../consts';
 import {passwordRecovery} from '../../redux/ducks/executiveDucks';
 
 
