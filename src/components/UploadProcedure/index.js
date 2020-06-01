@@ -87,7 +87,21 @@ export default function UploadProcedure({ navigation }) {
               </Button>
             </View>
           </TouchableOpacity>
-
+          <TouchableOpacity ref={component => _textInput1 = component} style={{ flex: 1, backgroundColor: '#000000DD', position: 'absolute', left: 0, top: 0, height: 0, width: 0, opacity: 0 }} onPress={() => { _textInput.setNativeProps({ height: 0, width: 0, opacity: 0 }); }}>
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
+              <Text style={{ color: 'white', margin: 24, textAlign: 'center', fontWeight: 'bold' }}>RECOMENDACIONES PARA CAPTURAR LA FOTO DEL FORMULARIO</Text>
+              <Text style={{ color: 'white', margin: 10, width: '75%' }}>1) Apoyá el formulario en una mesa</Text>
+              <Text style={{ color: 'white', margin: 10, width: '75%' }}>2) Acomodá el formulario y la cámara de modo vertical</Text>
+              <Text style={{ color: 'white', margin: 10, width: '75%' }}>3) Sostené la cámara con las dos manos y obtené la foto.</Text>
+              <Text style={{ color: 'white', margin: 10, width: '75%' }}>En algunos teléfonos más avanzados, la cámara detecta si la foto está fuera de foco.</Text>
+              <Text style={{ color: 'white', margin: 10, width: '75%' }}>4) Una vez obtenida, enviá el trámite y esperá la respuesta del sistema.</Text>
+            </View>
+            <View>
+              <Button bordered full style={{ borderColor: 'white', margin: 16, borderRadius: 4 }} onPress={() => { _textInput1.setNativeProps({ height: 0, width: 0, opacity: 0 }); }}>
+                <Text style={{ color: 'white', textTransform: 'uppercase', fontWeight: 'bold' }}>volver</Text>
+              </Button>
+            </View>
+          </TouchableOpacity>
         </View>
       </Content>
     </Container>
