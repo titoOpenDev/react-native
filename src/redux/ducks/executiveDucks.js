@@ -64,7 +64,7 @@ export const fetchRequestExecutiveError = (data) => {
 
 export const fetchStarting = () => {
     return {
-        type: UPDATE_PASSWORD_START
+        type: STARTING
     }
 }
 
