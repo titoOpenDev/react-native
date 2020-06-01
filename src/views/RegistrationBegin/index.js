@@ -14,7 +14,11 @@ import {
   HOME,
   PASSWORD_RECOVERY,
   REGISTRATION_BEGIN,
-  REGISTRATION_END
+  REGISTRATION_END,
+  EMPTY_USER_SURNAME,
+  EMPTY_USER_NAME,
+  EMPTY_MESSAGE,
+  EMPTY_USER_EMAIL
 } from "../../consts";
 import { useDispatch } from "react-redux";
 
@@ -49,16 +53,34 @@ export default function RegistrationBegin({ navigation }) {
   }
 
   const handleNext = () => {
-
-    const payload = { lastName, firstName, email, cuil }
-
-    dispatch(buildExecutive(payload))
-    navigation.navigate(REGISTRATION_END);
+    let mssg = errorMssg();
+    if(mssg){
+      alert(mssg);
+      return;
+    }else{
+      const payload = { lastName, firstName, email, cuil }
+      dispatch(buildExecutive(payload))
+      navigation.navigate(REGISTRATION_END);
+    }
+      
   }
 
   const handleGoBack = () => {
     navigation.goBack();
   }
+
+  const errorMssg =() =>{
+    if(!firstName.trim()){
+        return EMPTY_USER_NAME;
+    }
+    if(!lastName.trim()){
+        return EMPTY_USER_SURNAME;
+    }
+    if(!email.trim()){
+      return EMPTY_USER_EMAIL;
+    }
+    return EMPTY_MESSAGE;
+}
 
   const { height } = Dimensions.get('window');
 
@@ -82,13 +104,13 @@ export default function RegistrationBegin({ navigation }) {
                 <Text style={{ margin: 10, fontSize: 12 }}>Registrate con unos pocos datos y comenza a disfrutar de los beneficios de ASE Ventas</Text>
                 <Form>
                   <Item last>
-                    <Input placeholder="CUIL" onChangeText={text => handleChangeCUIL(text)} maxLength={13} />
+                    <Input placeholder="CUIL"  maxLength={13} onChangeText={text => handleChangeCUIL(text)} maxLength={13} />
                   </Item>
                   <Item last>
-                    <Input placeholder="Nombre" onChangeText={text => handleChangeFirstName(text)} />
+                    <Input placeholder="Nombre" maxLength={30}  onChangeText={text => handleChangeFirstName(text)} />
                   </Item>
                   <Item last>
-                    <Input placeholder="Apellido" onChangeText={text => handleChangeLastName(text)} />
+                    <Input placeholder="Apellido" maxLength={30} onChangeText={text => handleChangeLastName(text)}/>
                   </Item>
                   <Item last>
                     <Input placeholder="Email" onChangeText={text => handleChangeEmail(text)} />
@@ -96,8 +118,8 @@ export default function RegistrationBegin({ navigation }) {
                 </Form>
               </View>
               <View style={{ margin: 10, }}>
-                <Button style={{ backgroundColor: '#F16921', margin: 10, }} onPress={handleNext}>
-                  <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase' }}>siguiente</Text>
+                <Button style={{ backgroundColor: '#F16921', margin: 10, }} onPress={handleNext} >
+                  <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase'  }}>siguiente</Text>
                 </Button>
               </View>
             </View>

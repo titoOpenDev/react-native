@@ -122,13 +122,13 @@ export default function PasswordConfirm({navigation}){
                             </View>
                             <Form style={{ margin: 24, }}>
                                 <Item last>
-                                    <Input placeholder="NUEVA CLAVE" value={password} onChangeText= {handleChangePassword} secureTextEntry={secureEntry} />
+                                    <Input placeholder="NUEVA CLAVE" value={password} onChangeText= {handleChangePassword} secureTextEntry={secureEntry} maxLength={30} />
                                     <TouchableOpacity onPress={handleTouchableOpacity}>
                                         <Ionicons name={eye} size={24} color="gray" />
                                     </TouchableOpacity>
                                 </Item>
                                 <Item last>
-                                    <Input placeholder="REPETIR CLAVE" value={passwordRepeated}  onChangeText= {handleChangePasswordRepeated} secureTextEntry={securePasswordRepeatedEntry}/>
+                                    <Input placeholder="REPETIR CLAVE" value={passwordRepeated}  onChangeText= {handleChangePasswordRepeated} secureTextEntry={securePasswordRepeatedEntry} maxLength={30}/>
                                     <TouchableOpacity onPress={handleTouchableOpacityPasswordRepeated}>
                                         <Ionicons name={eyePasswordRepeated} size={24} color="gray" />
                                     </TouchableOpacity>

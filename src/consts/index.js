@@ -31,7 +31,11 @@ export const POST_METHOD = "POST";
 //Mssg
 export const ERROR_MSSG= "Ha ocurrido un error";
 export const TIME_OUT_MESSAGE = "Sesión vencida. Por favor volvé a loguearte";
-export const EMPTY_USERNAME = "El campo usuario se encuentra vacio";
-export const EMPTY_PASSWORD = "El campo password se encuentra vacio";
+export const EMPTY_USERNAME = "El usuario se encuentra vacío";
+export const EMPTY_PASSWORD = "La contraseña se encuentra vacía";
 export const UPDATE_PASSWORD_SUCCESS = "La clave se ha actualizado correctamente";
 export const PASSWORDS_MUST_BE_EQUALS = "Las claves deben coincidir";
+export const EMPTY_MESSAGE = "";
+export const EMPTY_USER_NAME = "El nombre se encuentra vacío";
+export const EMPTY_USER_SURNAME = "El apellido se encuentra vacío";
+export const EMPTY_USER_EMAIL = "El e-mail se encuentra vacío";

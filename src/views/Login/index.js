@@ -45,17 +45,14 @@ export default function Login({ navigation }) {
         }
     };
 
-    const errorMssg=() =>{
-        let mssg = '';
-        
+    const errorMssg = () =>{
         if(!username.trim()){
             return EMPTY_USERNAME;
         }
-    
         if(!password.trim()){
             return EMPTY_PASSWORD;
         }
-        return mssg;
+        return EMPTY_MESSAGE;
     }
 
     const handleTouchableOpacity = async () => {
