@@ -25,12 +25,6 @@ export default ({navigation}) => {
         )
         })}
       />
-      <Drawer.Screen name="misTramites"
-        options={({ navigation, route }) => ({
-        title: 'Alta (nuevo trámite)'
-        })}
-        component={() => (<Text>Mis tramites</Text>)}
-      />
       <Drawer.Screen name="consultaProspecto"
         component={() => (<Text>Mis Prospectos</Text>)}
         options={({ navigation, route }) => ({
