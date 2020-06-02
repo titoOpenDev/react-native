@@ -5,7 +5,7 @@ import {  WHITE } from "../../consts";
 export default StyleSheet.create({
     content: {
         flex: 1,
-        backgroundColor: '#a9a9a9'
+        backgroundColor: '#7a7e7f'
     },
     subtitle: {
         fontSize: 16,
