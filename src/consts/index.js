@@ -41,6 +41,7 @@ export const EMPTY_USER_SURNAME = "El apellido se encuentra vacío.";
 export const EMPTY_USER_EMAIL = "El e-mail se encuentra vacío.";
 export const WRONG_FORMAT_EMAIL = "Ingresá un formato de email correcto: tudireccion@server.com.ar.";
 export const WRONG_CUIL = "El Cuil ingresado no es válido.";
+export const EMPTY_CUIL = "El Cuil se encuentra vacío.";
 
 export const MALE_GENDER = "M";
 export const FEMALE_GENDER = "F";

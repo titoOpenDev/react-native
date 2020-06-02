@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Image, View, SafeAreaView, Dimensions, KeyboardAvoidingView, ScrollView } from "react-native";
 import {  Button, Text, Form, Item, Input } from "native-base";
 import { RadioButton } from 'react-native-paper';
+import { TextInputMask} from 'react-native-masked-text';
 import { Ionicons } from '@expo/vector-icons';
 
 import styles from './style'
@@ -21,7 +22,8 @@ import {
   WRONG_FORMAT_EMAIL,
   MALE_GENDER,
   FEMALE_GENDER,
-  WRONG_CUIL
+  WRONG_CUIL,
+  EMPTY_CUIL
 } from "../../consts";
 import { useDispatch } from "react-redux";
 
@@ -54,7 +56,7 @@ export default function RegistrationBegin({ navigation }) {
   }
 
   const handleChangeCUIL = (text) => {
-    setCUIL(text)
+    setCUIL(text);
   }
 
   const handleNext = () => {
@@ -83,20 +85,59 @@ export default function RegistrationBegin({ navigation }) {
     }
     if(!email.trim()){
       return EMPTY_USER_EMAIL;
-    }if(!validateEmail()){
+    }
+    if(!validateEmail()){
       return WRONG_FORMAT_EMAIL;
-    }if(!validateCuil()){
+    }
+    if(!cuil.trim()){
+      return EMPTY_CUIL;
+    }
+    if(!validateCuil()){
       return WRONG_CUIL;
     }
     return EMPTY_MESSAGE;
   }
 
   const validateCuil = () =>{
-    if(cuil != 11) {
+    let genderCode = cuil.split('-')[0];
+    let digits = parseCuil();
+    
+    if(digits.length !== 11){
       return false;
     }
-  
-  
+    if((genderCode !== '20' && gender === MALE_GENDER) || (genderCode !== '27' && gender === FEMALE_GENDER) ){
+      return false;
+    }
+
+    let verifierDigit = digits.pop();
+
+    let calculatedDigit = calculateVerifierDigit(digits);
+
+    return (verifierDigit == calculatedDigit);
+  }
+
+  const calculateVerifierDigit = (digits) =>{
+    let acumulated = 0;
+    for(let i = 0; i < digits.length; i++) {
+      acumulated += digits[9 - i] * (2 + (i % 6));
+    }
+
+    let calculatedDigit = 11 - (acumulated % 11);
+    if(calculatedDigit === 11) {
+      calculatedDigit = 0;
+    }
+    return calculatedDigit;
+  }
+
+  const parseCuil = () =>{
+    let aux = cuil.split("");
+    let digits = [];
+    for(let digit of aux ){
+      if(digit !=='-'){
+        digits.push(digit);
+      }
+    }
+    return digits;
   }
   
   const validateEmail= () => {
@@ -145,16 +186,26 @@ export default function RegistrationBegin({ navigation }) {
                     <Text>{FEMALE_GENDER}</Text>  
                   </Item>
                   <Item last>
-                    <Input placeholder="CUIL"  maxLength={13} onChangeText={text => handleChangeCUIL(text)} maxLength={13} />
+                    <TextInputMask
+                      type={'custom'}
+                      options={{
+                        mask: '99-99999999-9'
+                      }}
+                      value={cuil}
+                      onChangeText={text => handleChangeCUIL(text)}
+                      placeholder = "CUIL"
+                      style = {"meterle estilo"}
+                  />
+                    {/* <Input placeholder="CUIL" value={cuil}  maxLength={13} onChangeText={text => handleChangeCUIL(text)} /> */}
                   </Item>
                   <Item last>
-                    <Input placeholder="Nombre" maxLength={30}  onChangeText={text => handleChangeFirstName(text)} />
+                    <Input placeholder="Nombre" value={firstName} maxLength={30}  onChangeText={text => handleChangeFirstName(text)} />
                   </Item>
                   <Item last>
-                    <Input placeholder="Apellido" maxLength={30} onChangeText={text => handleChangeLastName(text)}/>
+                    <Input placeholder="Apellido" value={lastName} maxLength={30} onChangeText={text => handleChangeLastName(text)}/>
                   </Item>
                   <Item last>
-                    <Input placeholder="Email" onChangeText={text => handleChangeEmail(text)} />
+                    <Input placeholder="Email"  value={email} onChangeText={text => handleChangeEmail(text)} />
                   </Item>
                 </Form>
               </View>
