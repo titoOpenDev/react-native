@@ -20,7 +20,8 @@ import {
   EMPTY_USER_EMAIL,
   WRONG_FORMAT_EMAIL,
   MALE_GENDER,
-  FEMALE_GENDER
+  FEMALE_GENDER,
+  WRONG_CUIL
 } from "../../consts";
 import { useDispatch } from "react-redux";
 
@@ -75,19 +76,29 @@ export default function RegistrationBegin({ navigation }) {
 
   const errorMssg =() =>{
     if(!firstName.trim()){
-        return EMPTY_USER_NAME;
+      return EMPTY_USER_NAME;
     }
     if(!lastName.trim()){
-        return EMPTY_USER_SURNAME;
+      return EMPTY_USER_SURNAME;
     }
     if(!email.trim()){
       return EMPTY_USER_EMAIL;
     }if(!validateEmail()){
       return WRONG_FORMAT_EMAIL;
+    }if(!validateCuil()){
+      return WRONG_CUIL;
     }
     return EMPTY_MESSAGE;
   }
 
+  const validateCuil = () =>{
+    if(cuil != 11) {
+      return false;
+    }
+  
+  
+  }
+  
   const validateEmail= () => {
     let reg = /^\w+([\.-]?\w+)*@\w+(\.com\.ar)$/;
     return (reg.test(email) !== false);
@@ -120,16 +131,16 @@ export default function RegistrationBegin({ navigation }) {
                       value={gender}
                       status={gender === MALE_GENDER ? 'checked' : 'unchecked'}
                       onPress={() => { setGender(MALE_GENDER) }}
-                      color = {'black'}
-                      uncheckedColor={'red'}
+                      color = {'red'}
+                      uncheckedColor={'black'}
                     />
                     <Text>{MALE_GENDER}</Text>
                     <RadioButton
                       value={gender}
                       status={gender === FEMALE_GENDER ? 'checked' : 'unchecked'}
                       onPress={() => { setGender(FEMALE_GENDER) }}
-                      color = {'black'}
-                      uncheckedColor={'red'}
+                      color = {'red'}
+                      uncheckedColor={'black'}
                     />
                     <Text>{FEMALE_GENDER}</Text>  
                   </Item>
