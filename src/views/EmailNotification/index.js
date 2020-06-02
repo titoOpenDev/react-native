@@ -23,9 +23,6 @@ import { KEY_ACTIVATION, ERROR_MSSG } from '../../consts';
 
 export default function EmailNotification({ route, navigation }) {
 
-    const firstName = useSelector(store => store.executive.firstName);
-    const lastName = useSelector(store => store.executive.lastName);
-    const cuil = useSelector(store => store.executive.cuil);
     const email = useSelector(store => store.executive.email);
     const error = useSelector(store => store.executive.err);
 

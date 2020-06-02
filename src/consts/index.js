@@ -29,9 +29,19 @@ export const WHITE = "#FFF";
 export const POST_METHOD = "POST";
 
 //Mssg
-export const ERROR_MSSG= "Ha ocurrido un error";
-export const TIME_OUT_MESSAGE = "Sesión vencida. Por favor volvé a loguearte";
-export const EMPTY_USERNAME = "El campo usuario se encuentra vacio";
-export const EMPTY_PASSWORD = "El campo password se encuentra vacio";
-export const UPDATE_PASSWORD_SUCCESS = "La clave se ha actualizado correctamente";
-export const PASSWORDS_MUST_BE_EQUALS = "Las claves deben coincidir";
+export const ERROR_MSSG= "Ha ocurrido un error.";
+export const TIME_OUT_MESSAGE = "Sesión vencida. Por favor volvé a loguearte.";
+export const EMPTY_USERNAME = "El usuario se encuentra vacío.";
+export const EMPTY_PASSWORD = "La contraseña se encuentra vacía.";
+export const UPDATE_PASSWORD_SUCCESS = "La clave se ha actualizado correctamente.";
+export const PASSWORDS_MUST_BE_EQUALS = "Las claves deben coincidir.";
+export const EMPTY_MESSAGE = "";
+export const EMPTY_USER_NAME = "El nombre se encuentra vacío.";
+export const EMPTY_USER_SURNAME = "El apellido se encuentra vacío.";
+export const EMPTY_USER_EMAIL = "El e-mail se encuentra vacío.";
+export const WRONG_FORMAT_EMAIL = "Ingresá un formato de email correcto: tudireccion@server.com.ar.";
+export const WRONG_CUIL = "El Cuil ingresado no es válido.";
+export const EMPTY_CUIL = "El Cuil se encuentra vacío.";
+
+export const MALE_GENDER = "M";
+export const FEMALE_GENDER = "F";
