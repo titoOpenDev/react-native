@@ -12,7 +12,8 @@ import {
     PASSWORD_RECOVERY,
     REGISTRATION_BEGIN,
     EMPTY_PASSWORD,
-    EMPTY_USERNAME
+    EMPTY_USERNAME,
+    EMPTY_MESSAGE
 } from "../../consts";
 
 export default function Login({ navigation }) {
