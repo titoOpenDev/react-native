@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, TouchableOpacity, Button, Image, Icon, TouchableHighlight } from 'react-native';
+import { Text, View, TouchableOpacity, Image } from 'react-native';
 import { Camera } from 'expo-camera';
 import styles from './style';
 
-export default function PhotoUpload({navigation}) {
+export default ({navigation}) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [photo, setPhoto] = useState({});
 
-  const getPreimage = () => {
-    if (photo && photo.uri) {
-      return <Image  
-              source={{
-                uri: photo.uri ,
-              }}
-              style={{height: 200, width: null, flex: 1}}
-            />
-    }
-  }
+  // const getPreimage = () => {
+  //   if (photo && photo.uri) {
+  //     return <Image  
+  //             source={{
+  //               uri: photo.uri ,
+  //             }}
+  //             style={{height: 200, width: null, flex: 1}}
+  //           />
+  //   }
+  // }
 
   useEffect(() => {
     (async () => {
@@ -44,7 +44,6 @@ export default function PhotoUpload({navigation}) {
 
   return (
     <View style={{ flex: 1 }}>
-     {getPreimage()}
       <Camera style={{ flex: 1 }} type={type}
       ref= {ref => {
         this.camera = ref
@@ -70,11 +69,6 @@ export default function PhotoUpload({navigation}) {
               );
             }}>
             <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flip </Text>
-            {/* <Button
-              onPress={()=> this.snap()}
-              title="Photo"
-              color="#841584"
-            /> */}
           </TouchableOpacity>
         </View>
           <TouchableOpacity

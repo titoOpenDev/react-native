@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import {buildRequest} from '../../utils';
+import {buildRequest, buildImageRequest} from '../../utils';
 import environment from '../../../environment';
 
 const{EXECUTIVE_API_HOST} = environment();
@@ -14,5 +14,10 @@ export default async (url, method, data) => {
     const object =  buildRequest(completeURL, method, data, null);
 
     return axios(object);
+}
+
+export async function uploadImage(url, method, photo) {
+  const requestBuilder = buildImageRequest(url, method, photo);
+  return axios(requestBuilder);
 }
 

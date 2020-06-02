@@ -4,6 +4,7 @@ import UploadProcedure from '../UploadProcedure';
 import NotificationFilters from '../../views/NotificationFilters'
 import CalculatorResults from '../../views/CalculatorResults';
 import Confirmation from '../ConfirmationScreen';
+import { Text } from 'react-native'
 
 export default ({navigation}) => {
 
@@ -27,7 +28,7 @@ export default ({navigation}) => {
       />
       <Drawer.Screen name="misTramites"
         options={({ navigation, route }) => ({
-        title: 'Alta (nuevo trámite)'
+        title: 'Mis tramites'
         })}
         component={() => (<Text>Mis tramites</Text>)}
       />

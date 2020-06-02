@@ -1,4 +1,5 @@
 import {AsyncStorage} from 'react-native';
+import FormData from 'form-data';
 
 export const saveItem = async(keyName, keyValue) =>{
     try {
@@ -53,4 +54,35 @@ const buildHeaders = async() =>{
     }catch(error){
         console.log(error);
     }
+}
+
+export const buildImageRequest = ( url, method, photo) =>{
+  // Platform.OS === "android" ? photo.uri : photo.uri.replace("file://", "")
+
+  // const photo = {
+  //   uri: path,
+  //   type: 'image/jpeg',
+  //   name: 'photo.jpg',
+  // };
+
+        // 'Authorization': 'Bearer ' + user.token
+  const photoOptions = {
+    uri: photo.uri,
+    type: 'image/jpeg',
+    name: photo.image.uri.substr(photo.image.uri.lastIndexOf('/') + 1)
+  };
+
+  const form = new FormData();
+  form.append("ProfilePicture", photoOptions);
+  const obj = {};
+  const headers = 
+    {
+      'Content-Type': 'multipart/form-data'
+    }
+  if(url) obj.url = url;   
+  if(method) obj.method = method;
+  if(photo) obj.data = form;
+  if(headers) obj.headers = headers;
+  return obj;
+
 }
