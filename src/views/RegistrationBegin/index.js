@@ -118,9 +118,6 @@ export default function RegistrationBegin({ navigation }) {
   const calculateVerifierDigit = (digits) => {
     let acumulated = 0;
     for (let i = 0; i < digits.length; i++) {
-  const calculateVerifierDigit = (digits) =>{
-    let acumulated = 0;
-    for(let i = 0; i < digits.length; i++) {
       acumulated += digits[9 - i] * (2 + (i % 6));
     }
 
