@@ -1,8 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { View, Button as NativeButton, ScrollView, TouchableOpacity, Switch, } from "react-native"
 import { Header, Left, Body, Right, Icon, Title, Container, Content, Text, Grid, Button, Form, Item, Input, Card, CardItem, Picker } from "native-base";
-import genericStyles from "../../styles";
-import MenuBar from '../MenuBar'
+import { TextInputMask} from 'react-native-masked-text';
+import { RadioButton } from 'react-native-paper';
+
+import MenuBar from '../MenuBar';
+
+import {EMPTY_MESSAGE,
+        MALE_GENDER,
+        FEMALE_GENDER,
+        WRONG_CUIL,
+        EMPTY_CUIL,
+        WRONG_CUIT,
+        EMPTY_CUIT} from '../../consts';
 
 import { Ionicons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
@@ -17,7 +27,102 @@ export default function UploadProcedure({ navigation }) {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
+  const handleSendForm = () =>{
+    let errMssg = errorMssg();
+    if(errMssg.length >0){
+      alert(errMssg);
+    }else{
+      alert("Validación OK!!");
+      //TODO: AGREGAR LOCIGA
+    }
+  }
+
+  const [cuil, setCUIL] = useState("");
+  const [cuit, setCUIT] = useState("");
+  const [gender, setGender] = useState(MALE_GENDER);
+
   var _textInput, _textInput1;
+
+  const handleChangeCUIT = (text) => {
+    setCUIT(text);
+  }
+
+  const handleChangeCUIL = (text) => {
+    setCUIL(text);
+  }
+
+  const errorMssg =() =>{
+    if(!cuil.trim()){
+      return EMPTY_CUIL;
+    }
+    if(!validateCUIL()){
+      return WRONG_CUIL;
+    }
+    if(!cuit.trim()){
+      return EMPTY_CUIT;
+    }
+    if(!validateCUIT()){
+      return WRONG_CUIT;
+    }
+    return EMPTY_MESSAGE;
+  }
+
+  //TODO:En el CUIT ingresado solo va a ser para personas juridicas ??
+  const validateCUIT =() =>{
+    let companyCode = cuit.split('-')[0];
+    if(((companyCode != 30) &&  (companyCode != 33)) && (companyCode != 34) ){
+      return false;
+    }
+    return validate(code);
+  }
+
+  const validateCUIL =() =>{
+    let genderCode = cuil.split('-')[0];
+    alert(genderCode);
+    if((genderCode != 20 && gender === MALE_GENDER) || (genderCode != 27 && gender === FEMALE_GENDER) ){
+      return false;
+    }
+    alert
+    return validate(cuil);
+  }
+
+  const validate = (code) =>{
+    
+    let digits = parseCode(code);
+    if(digits.length !== 11){
+      return false;
+    }
+
+    let verifierDigit = digits.pop();
+    
+    let calculatedDigit = calculateVerifierDigit(digits);
+
+    return (verifierDigit == calculatedDigit);
+  }
+
+  const calculateVerifierDigit = (digits) =>{
+    let acumulated = 0;
+    for(let i = 0; i < digits.length; i++) {
+      acumulated += digits[9 - i] * (2 + (i % 6));
+    }
+
+    let calculatedDigit = 11 - (acumulated % 11);
+    if(calculatedDigit === 11) {
+      calculatedDigit = 0;
+    }
+    return calculatedDigit;
+  }
+
+  const parseCode = (code) =>{
+    let aux = code.split("");
+    let digits = [];
+    for(let digit of aux ){
+      if(digit !=='-'){
+        digits.push(digit);
+      }
+    }
+    return digits;
+  }
 
   // const handleShow = () => {
   // }
@@ -32,19 +137,56 @@ export default function UploadProcedure({ navigation }) {
         <View style={{ flex: 1, }}>
           <ScrollView style={{ flex: 1 }}>
             <Form style={{ margin: 24 }}>
-              <Text style={{ marginBottom: 16, textAlign: 'center', fontWeight: 'bold' }}>INCIAR NUEVO TRAMITE</Text>
+              <Text style={{ marginBottom: 16, textAlign: 'center', fontWeight: 'bold' }}>INICIAR NUEVO TRAMITE</Text>
               <Item>
-                <Input placeholder="Completa el CUIT" />
+                <TextInputMask
+                  type={'custom'}
+                  options={{
+                    mask: '99-99999999-9'
+                  }}
+                  value={cuit}
+                  onChangeText={text => handleChangeCUIT(text)}
+                  placeholder = "Completa el CUIT"
+                  style = {"meterle estilo"}
+                />
                 <TouchableOpacity>
                   <Entypo name='cross' size={24} color="gray" />
-                </TouchableOpacity>
+                </TouchableOpacity> 
               </Item>
               <Item>
                 <Switch style={{ marginBottom: 16, marginTop: 16, }} />
                 <Text>Alta multiple de la misma empresa</Text>
               </Item>
               <Item>
-                <Input placeholder="Completa el CUIL" />
+                <Text>Sexo</Text>
+                <RadioButton
+                  value={gender}
+                  status={gender === MALE_GENDER ? 'checked' : 'unchecked'}
+                  onPress={() => { setGender(MALE_GENDER) }}
+                  color = {'red'}
+                  uncheckedColor={'black'}
+                />
+                <Text>{MALE_GENDER}</Text>
+                <RadioButton
+                  value={gender}
+                  status={gender === FEMALE_GENDER ? 'checked' : 'unchecked'}
+                  onPress={() => { setGender(FEMALE_GENDER) }}
+                  color = {'red'}
+                  uncheckedColor={'black'}
+                />
+                <Text>{FEMALE_GENDER}</Text>  
+              </Item>
+              <Item>
+                <TextInputMask
+                  type={'custom'}
+                  options={{
+                    mask: '99-99999999-9'
+                  }}
+                  value={cuil}
+                  onChangeText={text => handleChangeCUIL(text)}
+                  placeholder = "Completa el CUIL"
+                  style = {"meterle estilo"}
+                />
               </Item>
               <Item last>
                 <Card style={{ height: 200, flex: 1, alignItems: 'center', alignContent: 'center', justifyContent: 'center', borderColor: 'black' }}>
@@ -66,7 +208,7 @@ export default function UploadProcedure({ navigation }) {
               <Button dark bordered warning style={{ margin: 10, borderColor: '#f16820', borderRadius: 4 }} onPress={() => { _textInput1.setNativeProps({ height: '100%', width: '100%', opacity: 100 }); }}>
                 <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase', color: '#f16820', }}>tutorial: foto</Text>
               </Button>
-              <Button light style={{ margin: 10, backgroundColor: 'gray', borderRadius: 4 }}>
+              <Button light style={{ margin: 10, backgroundColor: 'gray', borderRadius: 4 }} onPress={handleSendForm}>
                 <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase', color: 'white', }}>enviar formulario</Text>
               </Button>
             </Form>
