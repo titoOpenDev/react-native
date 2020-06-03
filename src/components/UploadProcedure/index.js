@@ -3,10 +3,9 @@ import { View, Button as NativeButton, ScrollView, TouchableOpacity, Switch, Ima
 import { Header, Left, Body, Right, Icon, Title, Container, Content, Text, Grid, Button, Form, Item, Input, Card, CardItem } from "native-base";
 import { TextInputMask} from 'react-native-masked-text';
 import { RadioButton } from 'react-native-paper';
-import { AntDesign } from '@expo/vector-icons'; 
+import { Ionicons,AntDesign,Entypo } from '@expo/vector-icons';
 import { Camera } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
-
 
 import MenuBar from '../MenuBar';
 
@@ -18,8 +17,7 @@ import {EMPTY_MESSAGE,
         WRONG_CUIT,
         EMPTY_CUIT} from '../../consts';
 
-import { Ionicons } from '@expo/vector-icons';
-import { Entypo } from '@expo/vector-icons';
+import {validateCUIL, validateCUIT} from '../../utils';
 
 export default function UploadProcedure({ navigation }) {
 
@@ -69,73 +67,16 @@ export default function UploadProcedure({ navigation }) {
     if(!cuil.trim()){
       return EMPTY_CUIL;
     }
-    if(!validateCUIL()){
+    if(!validateCUIL(cuil,gender)){
       return WRONG_CUIL;
     }
     if(!cuit.trim()){
       return EMPTY_CUIT;
     }
-    if(!validateCUIT()){
+    if(!validateCUIT(cuil)){
       return WRONG_CUIT;
     }
     return EMPTY_MESSAGE;
-  }
-
-  //TODO:En el CUIT ingresado solo va a ser para personas juridicas ??
-  const validateCUIT =() =>{
-    let companyCode = cuit.split('-')[0];
-    if(((companyCode != 30) &&  (companyCode != 33)) && (companyCode != 34) ){
-      return false;
-    }
-    return validate(code);
-  }
-
-  const validateCUIL =() =>{
-    let genderCode = cuil.split('-')[0];
-    alert(genderCode);
-    if((genderCode != 20 && gender === MALE_GENDER) || (genderCode != 27 && gender === FEMALE_GENDER) ){
-      return false;
-    }
-    alert
-    return validate(cuil);
-  }
-
-  const validate = (code) =>{
-    
-    let digits = parseCode(code);
-    if(digits.length !== 11){
-      return false;
-    }
-
-    let verifierDigit = digits.pop();
-    
-    let calculatedDigit = calculateVerifierDigit(digits);
-
-    return (verifierDigit == calculatedDigit);
-  }
-
-  const calculateVerifierDigit = (digits) =>{
-    let acumulated = 0;
-    for(let i = 0; i < digits.length; i++) {
-      acumulated += digits[9 - i] * (2 + (i % 6));
-    }
-
-    let calculatedDigit = 11 - (acumulated % 11);
-    if(calculatedDigit === 11) {
-      calculatedDigit = 0;
-    }
-    return calculatedDigit;
-  }
-
-  const parseCode = (code) =>{
-    let aux = code.split("");
-    let digits = [];
-    for(let digit of aux ){
-      if(digit !=='-'){
-        digits.push(digit);
-      }
-    }
-    return digits;
   }
 
   // const handleShow = () => {

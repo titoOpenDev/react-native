@@ -7,13 +7,12 @@ import { Ionicons } from '@expo/vector-icons';
 
 import styles from './style'
 
+import { useDispatch } from "react-redux";
+
 import { buildExecutive } from '../../redux/ducks/executiveDucks';
+import {validateEmail,validateCUIL} from '../../utils';
 
 import {
-  LOGIN,
-  HOME,
-  PASSWORD_RECOVERY,
-  REGISTRATION_BEGIN,
   REGISTRATION_END,
   EMPTY_USER_SURNAME,
   EMPTY_USER_NAME,
@@ -25,8 +24,6 @@ import {
   WRONG_CUIL,
   EMPTY_CUIL
 } from "../../consts";
-import { useDispatch } from "react-redux";
-
 
 export default function RegistrationBegin({ navigation }) {
 
@@ -85,63 +82,16 @@ export default function RegistrationBegin({ navigation }) {
     if(!email.trim()){
       return EMPTY_USER_EMAIL;
     }
-    if(!validateEmail()){
+    if(!validateEmail(email)){
       return WRONG_FORMAT_EMAIL;
     }
     if(!cuil.trim()){
       return EMPTY_CUIL;
     }
-    if(!validateCuil()){
+    if(!validateCUIL(cuil,gender)){
       return WRONG_CUIL;
     }
     return EMPTY_MESSAGE;
-  }
-
-  const validateCuil = () =>{
-    let genderCode = cuil.split('-')[0];
-    let digits = parseCuil();
-    
-    if(digits.length !== 11){
-      return false;
-    }
-    if((genderCode !== '20' && gender === MALE_GENDER) || (genderCode !== '27' && gender === FEMALE_GENDER) ){
-      return false;
-    }
-
-    let verifierDigit = digits.pop();
-
-    let calculatedDigit = calculateVerifierDigit(digits);
-
-    return (verifierDigit == calculatedDigit);
-  }
-
-  const calculateVerifierDigit = (digits) => {
-    let acumulated = 0;
-    for (let i = 0; i < digits.length; i++) {
-      acumulated += digits[9 - i] * (2 + (i % 6));
-    }
-
-    let calculatedDigit = 11 - (acumulated % 11);
-    if(calculatedDigit === 11) {
-      calculatedDigit = 0;
-    }
-    return calculatedDigit;
-  }
-
-  const parseCuil = () =>{
-    let aux = cuil.split("");
-    let digits = [];
-    for(let digit of aux ){
-      if(digit !=='-'){
-        digits.push(digit);
-      }
-    }
-    return digits;
-  }
-  
-  const validateEmail= () => {
-    let reg = /^\w+([\.-]?\w+)*@\w+(\.com\.ar)$/;
-    return (reg.test(email) !== false);
   }
 
   const { height } = Dimensions.get('window');

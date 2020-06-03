@@ -84,7 +84,7 @@ export default function KeyActivation({route, navigation}){
                             </View>
                             <Form style={{ margin: 24, }}>
                                 <Item last>
-                                    <Input value={activationCode} keyboardType="numeric" onChangeText = {handleActivationCodeChange} />
+                                    <Input value={activationCode} keyboardType="numeric" onChangeText = {handleActivationCodeChange} maxLength={4} />
                                 </Item>
                             </Form>
                         </View>
