@@ -7,13 +7,12 @@ import { Ionicons } from '@expo/vector-icons';
 
 import styles from './style'
 
+import { useDispatch } from "react-redux";
+
 import { buildExecutive } from '../../redux/ducks/executiveDucks';
+import {validateEmail} from '../../utils';
 
 import {
-  LOGIN,
-  HOME,
-  PASSWORD_RECOVERY,
-  REGISTRATION_BEGIN,
   REGISTRATION_END,
   EMPTY_USER_SURNAME,
   EMPTY_USER_NAME,
@@ -25,8 +24,6 @@ import {
   WRONG_CUIL,
   EMPTY_CUIL
 } from "../../consts";
-import { useDispatch } from "react-redux";
-
 
 export default function RegistrationBegin({ navigation }) {
 
@@ -139,11 +136,6 @@ export default function RegistrationBegin({ navigation }) {
     return digits;
   }
   
-  const validateEmail= () => {
-    let reg = /^\w+([\.-]?\w+)*@\w+(\.com\.ar)$/;
-    return (reg.test(email) !== false);
-  }
-
   const { height } = Dimensions.get('window');
 
   return (

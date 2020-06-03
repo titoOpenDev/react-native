@@ -10,6 +10,11 @@ export const saveItem = async(keyName, keyValue) =>{
 
 }
 
+export const validateEmail= () => {
+    let reg = /^\w+([\.-]?\w+)*@\w+(\.com\.ar)$/;
+    return (reg.test(email) !== false);
+}
+
 export const getItem = async(keyName)=>{
     try {
         return await AsyncStorage.getItem(keyName);

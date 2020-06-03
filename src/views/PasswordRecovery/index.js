@@ -3,26 +3,21 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   Platform,
   Dimensions,
-  StyleSheet,
   SafeAreaView,
   ScrollView,
   Image,
   View,
-  Switch,
-  TouchableOpacity,
   KeyboardAvoidingView,
 } from "react-native";
-import { Container, Content, Text, Grid, Button, Form, Item, Input, Card, CardItem, Picker } from "native-base";
-import { Header, Left, Body, Right, Icon, Title } from 'native-base';
+import {  Text, Button, Form, Item, Input } from "native-base";
 import { Ionicons } from '@expo/vector-icons';
 import Constants from "expo-constants";
 
-import genericStyles from "../../styles";
 import styles from './style';
 
 import {EMAIL_NOTIFICATION,WRONG_FORMAT_EMAIL, PASSWORD_RECOVERY} from '../../consts';
 import {passwordRecovery} from '../../redux/ducks/executiveDucks';
-
+import {validateEmail} from '../../utils';
 
 export default function PasswordRecovery({ navigation }) {
 
@@ -54,11 +49,6 @@ export default function PasswordRecovery({ navigation }) {
     }else{
       alert(WRONG_FORMAT_EMAIL);
     }
-  }
-
-  const validateEmail= () => {
-    let reg = /^\w+([\.-]?\w+)*@\w+(\.com\.ar)$/;
-    return (reg.test(email) !== false);
   }
 
   const handleGoBack = () => {
