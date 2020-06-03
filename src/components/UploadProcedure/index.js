@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Button as NativeButton, ScrollView, TouchableOpacity, Switch, } from "react-native"
-import { Header, Left, Body, Right, Icon, Title, Container, Content, Text, Grid, Button, Form, Item, Input, Card, CardItem, Picker } from "native-base";
+import { View, Button as NativeButton, ScrollView, TouchableOpacity, Switch, Image } from "react-native"
+import { Header, Left, Body, Right, Icon, Title, Container, Content, Text, Grid, Button, Form, Item, Input, Card, CardItem } from "native-base";
 import { TextInputMask} from 'react-native-masked-text';
 import { RadioButton } from 'react-native-paper';
+import { AntDesign } from '@expo/vector-icons'; 
+import { Camera } from 'expo-camera';
+import * as ImagePicker from 'expo-image-picker';
+
 
 import MenuBar from '../MenuBar';
 
@@ -22,6 +26,16 @@ export default function UploadProcedure({ navigation }) {
   const [state, setState] = useState({
     multipleCreate: false,
   });
+
+  const [hasPermission, setHasPermission] = useState(null);
+  const [photo, setPhoto] = useState({});
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestPermissionsAsync();
+      setHasPermission(status === 'granted');
+    })();
+  }, []);
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -130,6 +144,26 @@ export default function UploadProcedure({ navigation }) {
   // const handleHide = () => {
   // }
 
+  const pickImage = async () => {
+    try {
+      // ImagePicker.launchCameraAsync(options)
+
+      let result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: false,
+        aspect: [16, 9],
+        quality: 1,
+      });
+      if (!result.cancelled) {
+        setPhoto({ image: result });
+      }
+
+      console.log(result);
+    } catch (E) {
+      console.log(E);
+    }
+  };
+
   return (
     <Container>
       <MenuBar onPress={() => navigation.openDrawer()} />
@@ -201,12 +235,19 @@ export default function UploadProcedure({ navigation }) {
                     </Body>
                   </CardItem>
                   <CardItem>
-                    <Body style={{ alignItems: 'center', }}>
-                      <Text>Cargar una imagen</Text>
-                    </Body>
+                    {
+                      (photo.image)?
+                      (<Image source={{uri: photo.image.uri}} style={{height: 200, width: null, flex: 1}}/>)
+                      :
+                      (<Text>No hay foto</Text>)
+                    }
                   </CardItem>
                 </Card>
               </Item>
+              <Button warning style={{ margin: 10, backgroundColor: '#fff', borderRadius: 4 }} onPress={pickImage}>
+                <AntDesign name="camera" size={24} color="black" />
+                <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase', color:'black'}}>cargar una imagen</Text>
+              </Button>
               <Button warning style={{ margin: 10, backgroundColor: '#f16820', borderRadius: 4 }} onPress={() => { _textInput.setNativeProps({ height: '100%', width: '100%', opacity: 100 }); }}>
                 <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase', }}>comenzar tramite</Text>
               </Button>
