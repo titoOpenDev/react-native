@@ -10,7 +10,7 @@ export const saveItem = async(keyName, keyValue) =>{
 
 }
 
-export const validateEmail= () => {
+export const validateEmail= (email) => {
     let reg = /^\w+([\.-]?\w+)*@\w+(\.com\.ar)$/;
     return (reg.test(email) !== false);
 }

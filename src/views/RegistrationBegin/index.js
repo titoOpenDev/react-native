@@ -82,7 +82,7 @@ export default function RegistrationBegin({ navigation }) {
     if(!email.trim()){
       return EMPTY_USER_EMAIL;
     }
-    if(!validateEmail()){
+    if(!validateEmail(email)){
       return WRONG_FORMAT_EMAIL;
     }
     if(!cuil.trim()){

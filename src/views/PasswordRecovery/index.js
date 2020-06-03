@@ -39,7 +39,7 @@ export default function PasswordRecovery({ navigation }) {
 
   const handleSendEmail = () => {
     //TODO: ALCANZA SOLO CON EL EMAIL ??
-    if(validateEmail()){
+    if(validateEmail(email)){
       const payload = {email}
       dispatch(passwordRecovery(payload));
       setEmail("");
