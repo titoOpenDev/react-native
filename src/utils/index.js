@@ -1,9 +1,9 @@
 import {AsyncStorage} from 'react-native';
 
-import {EMPTY_MESSAGE,
+import {
         MALE_GENDER,
         FEMALE_GENDER
-       } from '../../consts';
+       } from '../consts';
 
 export const saveItem = async(keyName, keyValue) =>{
     try {
