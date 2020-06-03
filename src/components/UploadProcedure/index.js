@@ -56,7 +56,7 @@ export default function UploadProcedure({ navigation }) {
     if(!cuil.trim()){
       return EMPTY_CUIL;
     }
-    if(!validateCUIL(cuil)){
+    if(!validateCUIL(cuil,gender)){
       return WRONG_CUIL;
     }
     if(!cuit.trim()){

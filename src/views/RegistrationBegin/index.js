@@ -88,7 +88,7 @@ export default function RegistrationBegin({ navigation }) {
     if(!cuil.trim()){
       return EMPTY_CUIL;
     }
-    if(!validateCUIL(cuil)){
+    if(!validateCUIL(cuil,gender)){
       return WRONG_CUIL;
     }
     return EMPTY_MESSAGE;

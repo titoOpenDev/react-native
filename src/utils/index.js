@@ -23,7 +23,7 @@ export const validateCUIT =(cuit) =>{
     return validate(code);
   }
 
-export const validateCUIL =(cuil) =>{
+export const validateCUIL =(cuil,gender) =>{
     let genderCode = cuil.split('-')[0];
     if((genderCode != 20 && gender === MALE_GENDER) || (genderCode != 27 && gender === FEMALE_GENDER) ){
       return false;
