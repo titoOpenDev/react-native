@@ -7,6 +7,7 @@ import genericStyles from "../../styles";
 import MenuBar from '../MenuBar'
 import { uploadImage } from '../../redux/api';
 import Axios from "axios";
+import { AntDesign } from '@expo/vector-icons'; 
 
 export default function UploadProcedure ({navigation}) {
 
@@ -50,22 +51,35 @@ export default function UploadProcedure ({navigation}) {
 
   const handleSubmit = async () => {
     try {
-      // const result = await uploadImage('http://localhost:3000/api/upload','POST', photo)
-      const photoOptions = {
-        uri: photo.uri,
-        type: 'image/png',
+
+      let body = new FormData();
+      body.append('photo', {
+        uri: photo.uri, 
         name: photo.image.uri.substr(photo.image.uri.lastIndexOf('/') + 1)
-      };
+
+      });
+      // body.append('Content-Type', 'image/jpg');
+
+      fetch('http://192.168.1.39:3000/api/upload',{ method: 'POST',headers:{  
+        'content-type': 'multipart/form-data'
+          } , body :body} )
+
+      // const result = await uploadImage('http://localhost:3000/api/upload','POST', photo)
+      // const photoOptions = {
+      //   uri: photo.uri,
+      //   type: 'image/png',
+      //   name: photo.image.uri.substr(photo.image.uri.lastIndexOf('/') + 1)
+      // };
       // console.log('filename: ',  photo.image.uri.substr(photo.image.uri.lastIndexOf('/') + 1))
       // const form = new FormData();
       // form.append("ProfilePicture", photoOptions);
       // form.append('Content-Type', 'image/jpg');
-      let form = new FormData();
-      form.append('photo', {uri: photo.uri, name: photo.image.uri.substr(photo.image.uri.lastIndexOf('/') + 1),filename :photo.image.uri.substr(photo.image.uri.lastIndexOf('/') + 1),type: 'image/jpg'});
-      form.append('Content-Type', 'image/jpg');
-      Axios('http://192.168.1.39:3000/api/upload', {method:'POST', body: form})
-      // fetch('http://localhost:3000/')
-      // uploadImage('http://192.168.1.39:3000/api/upload','POST', photo)
+      // let form = new FormData();
+      // form.append('photo', {uri: photo.uri, name: photo.image.uri.substr(photo.image.uri.lastIndexOf('/') + 1),filename :photo.image.uri.substr(photo.image.uri.lastIndexOf('/') + 1),type: 'image/jpg'});
+      // form.append('Content-Type', 'image/jpg');
+      // Axios('http://192.168.1.39:3000/api/upload', {method:'POST', body: form})
+      // // fetch('http://localhost:3000/')
+      // // uploadImage('http://192.168.1.39:3000/api/upload','POST', photo)
       .then((result) => {
         console.log('response: ', result)
       })
@@ -107,8 +121,9 @@ export default function UploadProcedure ({navigation}) {
 
           <View style={{flex:2 , 
                   alignItems: 'stretch',}}>
-            <Button style={[ genericStyles.btnDefault, { backgroundColor: '#e75300'}]} onPress={pickImage}>
-              <Text style={genericStyles.textWhite}>Adjuntar Foto</Text>
+            <Button style={[ genericStyles.btnDefault, { backgroundColor: '#fff'}]} onPress={pickImage}>
+              <AntDesign name="camera" size={24} color="black" />
+              <Text style={genericStyles.textBlack}>Cargar una imagen</Text>
             </Button>
             <Button style={[ genericStyles.btnDefault, { backgroundColor: '#e75300'}]}>
               <Text style={genericStyles.textWhite}>TUTORIAL: FOTO AL FORMULARIO</Text>
