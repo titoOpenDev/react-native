@@ -70,7 +70,7 @@ const parseCode = (code) =>{
 }
 
 export const validateEmail= (email) => {
-    let reg = /^\w+([\.-]?\w+)*@\w+(\.com\.ar)$/;
+    let reg = /^\w+([\.-]?\w+)*@\w+(\.com)$/;
     return (reg.test(email) !== false);
 }
 
