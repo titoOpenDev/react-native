@@ -143,11 +143,12 @@ export default function UploadProcedure({ navigation }) {
                   type={'custom'}
                   options={{
                     mask: '99-99999999-9'
+                    
                   }}
                   value={cuit}
                   onChangeText={text => handleChangeCUIT(text)}
                   placeholder = "Completa el CUIT"
-                  style = {"meterle estilo"}
+                  style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12 }}
                 />
                 <TouchableOpacity>
                   <Entypo name='cross' size={24} color="gray" />
@@ -158,23 +159,27 @@ export default function UploadProcedure({ navigation }) {
                 <Text>Alta multiple de la misma empresa</Text>
               </Item>
               <Item>
-                <Text>Sexo</Text>
-                <RadioButton
-                  value={gender}
-                  status={gender === MALE_GENDER ? 'checked' : 'unchecked'}
-                  onPress={() => { setGender(MALE_GENDER) }}
-                  color = {'red'}
-                  uncheckedColor={'black'}
-                />
-                <Text>{MALE_GENDER}</Text>
-                <RadioButton
-                  value={gender}
-                  status={gender === FEMALE_GENDER ? 'checked' : 'unchecked'}
-                  onPress={() => { setGender(FEMALE_GENDER) }}
-                  color = {'red'}
-                  uncheckedColor={'black'}
-                />
-                <Text>{FEMALE_GENDER}</Text>  
+                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', padding: 5 }}>
+                    <Text>Sexo</Text>
+                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', alignContent: 'flex-end', paddingRight: 16, }}>
+                      <RadioButton
+                        value={gender}
+                        status={gender === MALE_GENDER ? 'checked' : 'unchecked'}
+                        onPress={() => { setGender(MALE_GENDER) }}
+                        color = {'red'}
+                        uncheckedColor={'black'}
+                      />
+                      <Text>{MALE_GENDER}</Text>
+                      <RadioButton
+                        value={gender}
+                        status={gender === FEMALE_GENDER ? 'checked' : 'unchecked'}
+                        onPress={() => { setGender(FEMALE_GENDER) }}
+                        color = {'red'}
+                        uncheckedColor={'black'}
+                      />
+                    <Text>{FEMALE_GENDER}</Text>  
+                  </View>
+                </View>
               </Item>
               <Item>
                 <TextInputMask
@@ -185,7 +190,7 @@ export default function UploadProcedure({ navigation }) {
                   value={cuil}
                   onChangeText={text => handleChangeCUIL(text)}
                   placeholder = "Completa el CUIL"
-                  style = {"meterle estilo"}
+                  style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12 }}
                 />
               </Item>
               <Item last>
