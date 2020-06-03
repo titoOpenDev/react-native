@@ -1,10 +1,23 @@
 import React, { useState, useEffect } from "react";
-import {Text, Button as NativeButton} from "react-native"
-import { View, Form, Item, Input, Label, Body, ListItem, CheckBox, Button, Image, Container, Content, Textarea, Grid } from "native-base";
-import genericStyles from "../../styles";
-import MenuBar from '../MenuBar'
+import { View, Button as NativeButton, ScrollView, TouchableOpacity, Switch, } from "react-native"
+import { Header, Left, Body, Right, Icon, Title, Container, Content, Text, Grid, Button, Form, Item, Input, Card, CardItem, Picker } from "native-base";
+import { TextInputMask} from 'react-native-masked-text';
+import { RadioButton } from 'react-native-paper';
 
-export default function UploadProcedure ({navigation}) {
+import MenuBar from '../MenuBar';
+
+import {EMPTY_MESSAGE,
+        MALE_GENDER,
+        FEMALE_GENDER,
+        WRONG_CUIL,
+        EMPTY_CUIL,
+        WRONG_CUIT,
+        EMPTY_CUIT} from '../../consts';
+
+import { Ionicons } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
+
+export default function UploadProcedure({ navigation }) {
 
   const [state, setState] = useState({
     multipleCreate: false,
@@ -14,48 +27,224 @@ export default function UploadProcedure ({navigation}) {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
+  const handleSendForm = () =>{
+    let errMssg = errorMssg();
+    if(errMssg.length >0){
+      alert(errMssg);
+    }else{
+      alert("Validación OK!!");
+      //TODO: AGREGAR LOCIGA
+    }
+  }
+
+  const [cuil, setCUIL] = useState("");
+  const [cuit, setCUIT] = useState("");
+  const [gender, setGender] = useState(MALE_GENDER);
+
+  var _textInput, _textInput1;
+
+  const handleChangeCUIT = (text) => {
+    setCUIT(text);
+  }
+
+  const handleChangeCUIL = (text) => {
+    setCUIL(text);
+  }
+
+  const errorMssg =() =>{
+    if(!cuil.trim()){
+      return EMPTY_CUIL;
+    }
+    if(!validateCUIL()){
+      return WRONG_CUIL;
+    }
+    if(!cuit.trim()){
+      return EMPTY_CUIT;
+    }
+    if(!validateCUIT()){
+      return WRONG_CUIT;
+    }
+    return EMPTY_MESSAGE;
+  }
+
+  //TODO:En el CUIT ingresado solo va a ser para personas juridicas ??
+  const validateCUIT =() =>{
+    let companyCode = cuit.split('-')[0];
+    if(((companyCode != 30) &&  (companyCode != 33)) && (companyCode != 34) ){
+      return false;
+    }
+    return validate(code);
+  }
+
+  const validateCUIL =() =>{
+    let genderCode = cuil.split('-')[0];
+    alert(genderCode);
+    if((genderCode != 20 && gender === MALE_GENDER) || (genderCode != 27 && gender === FEMALE_GENDER) ){
+      return false;
+    }
+    alert
+    return validate(cuil);
+  }
+
+  const validate = (code) =>{
+    
+    let digits = parseCode(code);
+    if(digits.length !== 11){
+      return false;
+    }
+
+    let verifierDigit = digits.pop();
+    
+    let calculatedDigit = calculateVerifierDigit(digits);
+
+    return (verifierDigit == calculatedDigit);
+  }
+
+  const calculateVerifierDigit = (digits) =>{
+    let acumulated = 0;
+    for(let i = 0; i < digits.length; i++) {
+      acumulated += digits[9 - i] * (2 + (i % 6));
+    }
+
+    let calculatedDigit = 11 - (acumulated % 11);
+    if(calculatedDigit === 11) {
+      calculatedDigit = 0;
+    }
+    return calculatedDigit;
+  }
+
+  const parseCode = (code) =>{
+    let aux = code.split("");
+    let digits = [];
+    for(let digit of aux ){
+      if(digit !=='-'){
+        digits.push(digit);
+      }
+    }
+    return digits;
+  }
+
+  // const handleShow = () => {
+  // }
+
+  // const handleHide = () => {
+  // }
+
   return (
     <Container>
-      <MenuBar 
-        onPress={() => navigation.openDrawer()}
-      />
-      <Content contentContainerStyle={{flex: 1}}>
-        <Grid style={[genericStyles.centeredGrid]}>
-        <Form>
-        <View style={{flex:2 , justifyContent: 'space-around',
-                  alignItems: 'stretch',}}>
-          <Item>
-            <Input placeholder="Completá CUIT o Razon social" />
-          </Item>
-          <ListItem>
-            <CheckBox checked={true} />
-              <Body>
-                <Text>  Alta múltiple misma empresa</Text>
-              </Body>
-          </ListItem>
-          <Item last>
-            <Input placeholder="Completá el CUIT" />
-          </Item>
-          </View >
-          
-          <View style={{flex:1}}>
-            <Textarea rowSpan={5} bordered placeholder="Textarea" />
-          </View>
-
-          <View style={{flex:2 , 
-                  alignItems: 'stretch',}}>
-            <Button style={[ genericStyles.btnDefault, { backgroundColor: '#e75300'}]}>
-              <Text style={genericStyles.textWhite}>TUTORIAL: FOTO AL FORMULARIO</Text>
-            </Button>
-            <Button transparent style={[ genericStyles.btnDefault , {borderColor: '#ecf0f1'}]}>
-              <Text> COMENZAR TRAMITE </Text>
-            </Button>
-            <Button light style={[ genericStyles.btnDefault , { borderColor: '#e75300'}]}>
-              <Text> ENVIAR FORMULARIO POR EMAIL </Text>
-            </Button>
-          </View>
-        </Form>
-        </Grid>
+      <MenuBar onPress={() => navigation.openDrawer()} />
+      <Content contentContainerStyle={{ flex: 1 }}>
+        <View style={{ flex: 1, }}>
+          <ScrollView style={{ flex: 1 }}>
+            <Form style={{ margin: 24 }}>
+              <Text style={{ marginBottom: 16, textAlign: 'center', fontWeight: 'bold' }}>INICIAR NUEVO TRAMITE</Text>
+              <Item>
+                <TextInputMask
+                  type={'custom'}
+                  options={{
+                    mask: '99-99999999-9'
+                  }}
+                  value={cuit}
+                  onChangeText={text => handleChangeCUIT(text)}
+                  placeholder = "Completa el CUIT"
+                  style = {"meterle estilo"}
+                />
+                <TouchableOpacity>
+                  <Entypo name='cross' size={24} color="gray" />
+                </TouchableOpacity> 
+              </Item>
+              <Item>
+                <Switch style={{ marginBottom: 16, marginTop: 16, }} />
+                <Text>Alta multiple de la misma empresa</Text>
+              </Item>
+              <Item>
+                <Text>Sexo</Text>
+                <RadioButton
+                  value={gender}
+                  status={gender === MALE_GENDER ? 'checked' : 'unchecked'}
+                  onPress={() => { setGender(MALE_GENDER) }}
+                  color = {'red'}
+                  uncheckedColor={'black'}
+                />
+                <Text>{MALE_GENDER}</Text>
+                <RadioButton
+                  value={gender}
+                  status={gender === FEMALE_GENDER ? 'checked' : 'unchecked'}
+                  onPress={() => { setGender(FEMALE_GENDER) }}
+                  color = {'red'}
+                  uncheckedColor={'black'}
+                />
+                <Text>{FEMALE_GENDER}</Text>  
+              </Item>
+              <Item>
+                <TextInputMask
+                  type={'custom'}
+                  options={{
+                    mask: '99-99999999-9'
+                  }}
+                  value={cuil}
+                  onChangeText={text => handleChangeCUIL(text)}
+                  placeholder = "Completa el CUIL"
+                  style = {"meterle estilo"}
+                />
+              </Item>
+              <Item last>
+                <Card style={{ height: 200, flex: 1, alignItems: 'center', alignContent: 'center', justifyContent: 'center', borderColor: 'black' }}>
+                  <CardItem>
+                    <Body style={{ alignItems: 'center', }}>
+                      <Ionicons name="md-add" size={24} color="black" />
+                    </Body>
+                  </CardItem>
+                  <CardItem>
+                    <Body style={{ alignItems: 'center', }}>
+                      <Text>Cargar una imagen</Text>
+                    </Body>
+                  </CardItem>
+                </Card>
+              </Item>
+              <Button warning style={{ margin: 10, backgroundColor: '#f16820', borderRadius: 4 }} onPress={() => { _textInput.setNativeProps({ height: '100%', width: '100%', opacity: 100 }); }}>
+                <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase', }}>comenzar tramite</Text>
+              </Button>
+              <Button dark bordered warning style={{ margin: 10, borderColor: '#f16820', borderRadius: 4 }} onPress={() => { _textInput1.setNativeProps({ height: '100%', width: '100%', opacity: 100 }); }}>
+                <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase', color: '#f16820', }}>tutorial: foto</Text>
+              </Button>
+              <Button light style={{ margin: 10, backgroundColor: 'gray', borderRadius: 4 }} onPress={handleSendForm}>
+                <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase', color: 'white', }}>enviar formulario</Text>
+              </Button>
+            </Form>
+          </ScrollView>
+          <TouchableOpacity ref={component => _textInput = component} style={{ flex: 1, backgroundColor: '#000000DD', position: 'absolute', left: 0, top: 0, height: 0, width: 0, opacity: 0 }} onPress={() => { _textInput.setNativeProps({ height: 0, width: 0, opacity: 0 }); }}>
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
+              <Text style={{ color: 'white', margin: 24, fontWeight: 'bold' }}>CÓMO UTILIZAR LA APP ASE</Text>
+              <Text style={{ color: 'white', margin: 10, width: '75%' }}>1) Buscá la empresa por nombre o ASES</Text>
+              <Text style={{ color: 'white', margin: 10, width: '75%' }}>2) Determiná si vas a cargar varias altas para la misma empresa</Text>
+              <Text style={{ color: 'white', margin: 10, width: '75%' }}>3) Ingresá el CUIL de la persona</Text>
+              <Text style={{ color: 'white', margin: 10, width: '75%' }}>4) Sacá o cargá una foto del formulario 01</Text>
+              <Text style={{ color: 'white', margin: 10, width: '75%' }}>5) Determiná si vas a cargar varias altas para la misma empresa</Text>
+              <Text style={{ color: 'white', margin: 16, width: '75%' }}>Otras funciones: Seguí el estado de tus trámites y consultá las</Text>
+            </View>
+            <View>
+              <Button bordered full style={{ borderColor: 'white', margin: 16, borderRadius: 4 }} onPress={() => { _textInput.setNativeProps({ height: 0, width: 0, opacity: 0 }); }}>
+                <Text style={{ color: 'white', textTransform: 'uppercase', fontWeight: 'bold' }}>volver</Text>
+              </Button>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity ref={component => _textInput1 = component} style={{ flex: 1, backgroundColor: '#000000DD', position: 'absolute', left: 0, top: 0, height: 0, width: 0, opacity: 0 }} onPress={() => { _textInput.setNativeProps({ height: 0, width: 0, opacity: 0 }); }}>
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
+              <Text style={{ color: 'white', margin: 24, textAlign: 'center', fontWeight: 'bold' }}>RECOMENDACIONES PARA CAPTURAR LA FOTO DEL FORMULARIO</Text>
+              <Text style={{ color: 'white', margin: 10, width: '75%' }}>1) Apoyá el formulario en una mesa</Text>
+              <Text style={{ color: 'white', margin: 10, width: '75%' }}>2) Acomodá el formulario y la cámara de modo vertical</Text>
+              <Text style={{ color: 'white', margin: 10, width: '75%' }}>3) Sostené la cámara con las dos manos y obtené la foto.</Text>
+              <Text style={{ color: 'white', margin: 10, width: '75%' }}>En algunos teléfonos más avanzados, la cámara detecta si la foto está fuera de foco.</Text>
+              <Text style={{ color: 'white', margin: 10, width: '75%' }}>4) Una vez obtenida, enviá el trámite y esperá la respuesta del sistema.</Text>
+            </View>
+            <View>
+              <Button bordered full style={{ borderColor: 'white', margin: 16, borderRadius: 4 }} onPress={() => { _textInput1.setNativeProps({ height: 0, width: 0, opacity: 0 }); }}>
+                <Text style={{ color: 'white', textTransform: 'uppercase', fontWeight: 'bold' }}>volver</Text>
+              </Button>
+            </View>
+          </TouchableOpacity>
+        </View>
       </Content>
     </Container>
   );

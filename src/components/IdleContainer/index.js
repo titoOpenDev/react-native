@@ -6,17 +6,16 @@ import {useDispatch,useSelector} from 'react-redux';
 import {logOut} from '../../redux/ducks/authenticateDucks';
 
 import {TIME_OUT_MESSAGE} from '../../consts';
-import styles from "./style";
 
 //TODO: sacar el alert y meterlo en un pop up o algo mas customizado
-export default function IdleContainer ({Drawer}) {
+export default function IdleContainer () {
 
     const dispatch = useDispatch();
     const isLoged = useSelector(store => store.authentication.loged);
 
     const handleTimeout =()=>{
         if(isLoged){
-            alert(LOGOUT_MESSAGE);
+            alert(TIME_OUT_MESSAGE);
             dispatch(logOut());
         }
     }

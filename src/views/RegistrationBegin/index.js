@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Image, View, SafeAreaView, Dimensions, KeyboardAvoidingView, ScrollView } from "react-native";
-import { Button, Text, Form, Item, Input } from "native-base";
+import {  Button, Text, Form, Item, Input } from "native-base";
 import { RadioButton } from 'react-native-paper';
-import { TextInputMask } from 'react-native-masked-text';
+import { TextInputMask} from 'react-native-masked-text';
 import { Ionicons } from '@expo/vector-icons';
 
 import styles from './style'
@@ -61,51 +61,50 @@ export default function RegistrationBegin({ navigation }) {
 
   const handleNext = () => {
     let mssg = errorMssg();
-    if (mssg) {
+    if(mssg.length > 0){
       alert(mssg);
       return;
-    } else {
+    }else{
       const payload = { lastName, firstName, email, cuil }
       dispatch(buildExecutive(payload))
       navigation.navigate(REGISTRATION_END);
     }
-
   }
 
   const handleGoBack = () => {
     navigation.goBack();
   }
 
-  const errorMssg = () => {
-    if (!firstName.trim()) {
+   const errorMssg =() =>{
+    if(!firstName.trim()){
       return EMPTY_USER_NAME;
     }
-    if (!lastName.trim()) {
+    if(!lastName.trim()){
       return EMPTY_USER_SURNAME;
     }
-    if (!email.trim()) {
+    if(!email.trim()){
       return EMPTY_USER_EMAIL;
     }
-    if (!validateEmail()) {
+    if(!validateEmail()){
       return WRONG_FORMAT_EMAIL;
     }
-    if (!cuil.trim()) {
+    if(!cuil.trim()){
       return EMPTY_CUIL;
     }
-    if (!validateCuil()) {
+    if(!validateCuil()){
       return WRONG_CUIL;
     }
     return EMPTY_MESSAGE;
   }
 
-  const validateCuil = () => {
+  const validateCuil = () =>{
     let genderCode = cuil.split('-')[0];
     let digits = parseCuil();
-
-    if (digits.length !== 11) {
+    
+    if(digits.length !== 11){
       return false;
     }
-    if ((genderCode !== '20' && gender === MALE_GENDER) || (genderCode !== '27' && gender === FEMALE_GENDER)) {
+    if((genderCode !== '20' && gender === MALE_GENDER) || (genderCode !== '27' && gender === FEMALE_GENDER) ){
       return false;
     }
 
@@ -119,28 +118,31 @@ export default function RegistrationBegin({ navigation }) {
   const calculateVerifierDigit = (digits) => {
     let acumulated = 0;
     for (let i = 0; i < digits.length; i++) {
+  const calculateVerifierDigit = (digits) =>{
+    let acumulated = 0;
+    for(let i = 0; i < digits.length; i++) {
       acumulated += digits[9 - i] * (2 + (i % 6));
     }
 
     let calculatedDigit = 11 - (acumulated % 11);
-    if (calculatedDigit === 11) {
+    if(calculatedDigit === 11) {
       calculatedDigit = 0;
     }
     return calculatedDigit;
   }
 
-  const parseCuil = () => {
+  const parseCuil = () =>{
     let aux = cuil.split("");
     let digits = [];
-    for (let digit of aux) {
-      if (digit !== '-') {
+    for(let digit of aux ){
+      if(digit !=='-'){
         digits.push(digit);
       }
     }
     return digits;
   }
-
-  const validateEmail = () => {
+  
+  const validateEmail= () => {
     let reg = /^\w+([\.-]?\w+)*@\w+(\.com\.ar)$/;
     return (reg.test(email) !== false);
   }

@@ -12,7 +12,8 @@ import {
     PASSWORD_RECOVERY,
     REGISTRATION_BEGIN,
     EMPTY_PASSWORD,
-    EMPTY_USERNAME
+    EMPTY_USERNAME,
+    EMPTY_MESSAGE
 } from "../../consts";
 
 export default function Login({ navigation }) {
@@ -29,12 +30,15 @@ export default function Login({ navigation }) {
     const [disabled, setDisabled] = useState(true);
 
     useEffect(() => {
-        if(error){alert(ERROR_MSSG);}
+        if(error){
+            alert(ERROR_MSSG)
+            console.log(error);
+        }
     },[error]);
 
     const handleLoginPress = async () => {
         let mssg = errorMssg();
-        if(mssg){
+        if(mssg.length >0){
             alert(mssg);
             return;
         }else{
@@ -42,17 +46,14 @@ export default function Login({ navigation }) {
         }
     };
 
-    const errorMssg=() =>{
-        let mssg = '';
-        
+    const errorMssg = () =>{
         if(!username.trim()){
             return EMPTY_USERNAME;
         }
-    
         if(!password.trim()){
             return EMPTY_PASSWORD;
         }
-        return mssg;
+        return EMPTY_MESSAGE;
     }
 
     const handleTouchableOpacity = async () => {
