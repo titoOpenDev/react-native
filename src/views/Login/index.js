@@ -38,7 +38,7 @@ export default function Login({ navigation }) {
 
     const handleLoginPress = async () => {
         let mssg = errorMssg();
-        if(mssg){
+        if(mssg.length >0){
             alert(mssg);
             return;
         }else{

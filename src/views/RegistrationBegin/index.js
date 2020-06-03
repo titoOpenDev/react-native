@@ -61,7 +61,7 @@ export default function RegistrationBegin({ navigation }) {
 
   const handleNext = () => {
     let mssg = errorMssg();
-    if(mssg){
+    if(mssg.length > 0){
       alert(mssg);
       return;
     }else{
