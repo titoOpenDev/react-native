@@ -69,14 +69,13 @@ export default function RegistrationBegin({ navigation }) {
       dispatch(buildExecutive(payload))
       navigation.navigate(REGISTRATION_END);
     }
-      
   }
 
   const handleGoBack = () => {
     navigation.goBack();
   }
 
-  const errorMssg =() =>{
+   const errorMssg =() =>{
     if(!firstName.trim()){
       return EMPTY_USER_NAME;
     }
@@ -116,6 +115,9 @@ export default function RegistrationBegin({ navigation }) {
     return (verifierDigit == calculatedDigit);
   }
 
+  const calculateVerifierDigit = (digits) => {
+    let acumulated = 0;
+    for (let i = 0; i < digits.length; i++) {
   const calculateVerifierDigit = (digits) =>{
     let acumulated = 0;
     for(let i = 0; i < digits.length; i++) {
@@ -167,51 +169,34 @@ export default function RegistrationBegin({ navigation }) {
                 <Text style={{ margin: 10, fontSize: 12 }}>Registrate con unos pocos datos y comenza a disfrutar de los beneficios de ASE Ventas</Text>
                 <Form>
                   <Item last>
-                    <Text>Sexo</Text>
-                    <RadioButton
-                      value={gender}
-                      status={gender === MALE_GENDER ? 'checked' : 'unchecked'}
-                      onPress={() => { setGender(MALE_GENDER) }}
-                      color = {'red'}
-                      uncheckedColor={'black'}
-                    />
-                    <Text>{MALE_GENDER}</Text>
-                    <RadioButton
-                      value={gender}
-                      status={gender === FEMALE_GENDER ? 'checked' : 'unchecked'}
-                      onPress={() => { setGender(FEMALE_GENDER) }}
-                      color = {'red'}
-                      uncheckedColor={'black'}
-                    />
-                    <Text>{FEMALE_GENDER}</Text>  
+                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', padding: 5 }}>
+                      <Text>Sexo</Text>
+                      <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', alignContent: 'flex-end', paddingRight: 16, }}>
+                        <RadioButton value={gender} status={gender === MALE_GENDER ? 'checked' : 'unchecked'} onPress={() => { setGender(MALE_GENDER) }} color={'red'} uncheckedColor={'black'} />
+                        <Text>{MALE_GENDER}</Text>
+                        <RadioButton value={gender} status={gender === FEMALE_GENDER ? 'checked' : 'unchecked'} onPress={() => { setGender(FEMALE_GENDER) }} color={'red'} uncheckedColor={'black'} />
+                        <Text>{FEMALE_GENDER}</Text>
+                      </View>
+                    </View>
                   </Item>
                   <Item last>
-                    <TextInputMask
-                      type={'custom'}
-                      options={{
-                        mask: '99-99999999-9'
-                      }}
-                      value={cuil}
-                      onChangeText={text => handleChangeCUIL(text)}
-                      placeholder = "CUIL"
-                      style = {"meterle estilo"}
-                  />
+                    <TextInputMask type={'custom'} options={{ mask: '99-99999999-9' }} value={cuil} onChangeText={text => handleChangeCUIL(text)} placeholder="CUIL" style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12 }} placeholderTextColor='dimgrey' />
                     {/* <Input placeholder="CUIL" value={cuil}  maxLength={13} onChangeText={text => handleChangeCUIL(text)} /> */}
                   </Item>
                   <Item last>
-                    <Input placeholder="Nombre" value={firstName} maxLength={30}  onChangeText={text => handleChangeFirstName(text)} />
+                    <Input placeholder="Nombre" value={firstName} maxLength={30} onChangeText={text => handleChangeFirstName(text)} />
                   </Item>
                   <Item last>
-                    <Input placeholder="Apellido" value={lastName} maxLength={30} onChangeText={text => handleChangeLastName(text)}/>
+                    <Input placeholder="Apellido" value={lastName} maxLength={30} onChangeText={text => handleChangeLastName(text)} />
                   </Item>
                   <Item last>
-                    <Input placeholder="Email"  value={email} onChangeText={text => handleChangeEmail(text)} />
+                    <Input placeholder="Email" value={email} onChangeText={text => handleChangeEmail(text)} />
                   </Item>
                 </Form>
               </View>
               <View style={{ margin: 10, }}>
                 <Button style={{ backgroundColor: '#F16921', margin: 10, }} onPress={handleNext} >
-                  <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase'  }}>siguiente</Text>
+                  <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase' }}>siguiente</Text>
                 </Button>
               </View>
             </View>
