@@ -1,5 +1,8 @@
 import apiCall from '../api';
 import {POST_METHOD} from '../../consts';
+import environment from '../../../environment';
+
+const {EXECUTIVE_API_HOST} = environment();
 
 const initialState = {
   lastName : '',
@@ -9,6 +12,9 @@ const initialState = {
   filialZone: '',
   network: '',
   password: '',
+  gender: '',
+  locked: '',
+  active: '',
   err: '',
   success:''
 }
@@ -46,11 +52,9 @@ export const fetchBuild = (data) => {
     }
 }
 
-//TODO: SACAR EL EMAIL CUANDO EL PAYLOAD LLEGUE ARMADO BIEN DESDE LA VISTA
 export const buildExecutive = payload =>  {
     return async dispatch => {
         dispatch(fetchStarting());
-        payload.email = "tudireccion@server.com.ar";
         dispatch(fetchBuild(payload));
     }
 }
@@ -75,12 +79,12 @@ export const requestExecutive = payload =>  {
     return async dispatch => {
         try {
             dispatch(fetchStarting());
-            // await apiCall( null , POST_METHOD , payload);
+            const completeUrl = `${EXECUTIVE_API_HOST}`
+            await apiCall( completeUrl , POST_METHOD , payload);
         } catch (error) {
             console.log(error);
             dispatch(fetchRequestExecutiveError(error.message));
         }
-
     }
 }
 

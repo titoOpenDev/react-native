@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { View, Button as NativeButton, ScrollView, TouchableOpacity, Switch, Image } from "react-native"
-import { Header, Left, Body, Right, Icon, Title, Container, Content, Text, Grid, Button, Form, Item, Input, Card, CardItem } from "native-base";
+import { Body, Container, Content, Text, Toast, Button, Form, Item, Card, CardItem } from "native-base";
 import { TextInputMask} from 'react-native-masked-text';
 import { RadioButton } from 'react-native-paper';
 import { Ionicons,AntDesign,Entypo } from '@expo/vector-icons';
 import { Camera } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
+import { requestProcedure } from '../../redux/ducks/procedureDucks';
+import { useDispatch } from "react-redux";
 
 import MenuBar from '../MenuBar';
 
@@ -15,18 +17,25 @@ import {EMPTY_MESSAGE,
         WRONG_CUIL,
         EMPTY_CUIL,
         WRONG_CUIT,
-        EMPTY_CUIT} from '../../consts';
+        EMPTY_CUIT,
+        PROCEDURE_SEND_SUCCESS,
+        POSITION_BOTTOM,
+        SUCCESS_TYPE,
+        OK} from '../../consts';
 
 import {validateCUIL, validateCUIT} from '../../utils';
 
 export default function UploadProcedure({ navigation }) {
 
-  const [state, setState] = useState({
-    multipleCreate: false,
-  });
+  const dispatch = useDispatch();
 
+  const [state, setState] = useState({multipleCreate: false});
   const [hasPermission, setHasPermission] = useState(null);
   const [photo, setPhoto] = useState({});
+  const [cuil, setCUIL] = useState("");
+  const [cuit, setCUIT] = useState("");
+  const [gender, setGender] = useState(MALE_GENDER);
+  const [creationDate, setCreationDate] = useState(new Date());
 
   useEffect(() => {
     (async () => {
@@ -39,19 +48,37 @@ export default function UploadProcedure({ navigation }) {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
-  const handleSendForm = () =>{
+  const handleSendForm = () => {
+
+    
     let errMssg = errorMssg();
     if(errMssg.length >0){
       alert(errMssg);
     }else{
       alert("Validación OK!!");
+      
+      
       //TODO: AGREGAR LOCIGA
     }
   }
+  
+  const handleSendProcedure = () => {
+    const payload = { cuit , cuil , gender , creationDate }
+    dispatch(requestProcedure(payload));
 
-  const [cuil, setCUIL] = useState("");
-  const [cuit, setCUIT] = useState("");
-  const [gender, setGender] = useState(MALE_GENDER);
+    Toast.show({
+      text: PROCEDURE_SEND_SUCCESS,
+      buttonText: OK,
+      position: POSITION_BOTTOM,
+      type: SUCCESS_TYPE,
+      duration: 3000
+    })
+    setCUIL(null);
+    setCUIT(null);
+    //setPhoto(null);
+    
+  }
+
 
   var _textInput, _textInput1;
 
@@ -79,13 +106,7 @@ export default function UploadProcedure({ navigation }) {
     return EMPTY_MESSAGE;
   }
 
-  // const handleShow = () => {
-  // }
-
-  // const handleHide = () => {
-  // }
-
-  const pickImage = async () => {
+   const pickImage = async () => {
     try {
       // ImagePicker.launchCameraAsync(options)
 
@@ -114,7 +135,7 @@ export default function UploadProcedure({ navigation }) {
             <Form style={{ margin: 24 }}>
               <Text style={{ marginBottom: 16, textAlign: 'center', fontWeight: 'bold' }}>INICIAR NUEVO TRAMITE</Text>
               <Item>
-                <TextInputMask
+                <TextInputMask 
                   type={'custom'}
                   options={{
                     mask: '99-99999999-9'
@@ -131,7 +152,7 @@ export default function UploadProcedure({ navigation }) {
               </Item>
               <Item>
                 <Switch style={{ marginBottom: 16, marginTop: 16, }} />
-                <Text>Alta multiple de la misma empresa</Text>
+                <Text>Alta múltiple de la misma empresa</Text>
               </Item>
               <Item>
                 <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', padding: 5 }}>
@@ -164,7 +185,7 @@ export default function UploadProcedure({ navigation }) {
                   }}
                   value={cuil}
                   onChangeText={text => handleChangeCUIL(text)}
-                  placeholder = "Completa el CUIL"
+                  placeholder = "Completá el CUIL"
                   style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12 }}
                 />
               </Item>
@@ -185,17 +206,17 @@ export default function UploadProcedure({ navigation }) {
                   </CardItem>
                 </Card>
               </Item>
-              <Button warning style={{ margin: 10, backgroundColor: '#fff', borderRadius: 4 }} onPress={pickImage}>
-                <AntDesign name="camera" size={24} color="black" />
-                <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase', color:'black'}}>cargar una imagen</Text>
+              <Button warning style={{ margin: 10, backgroundColor: '#fff', borderRadius: 4, flexDirection: 'row'}} onPress={pickImage}>
+                <AntDesign style={{flex: 1, textAlign: 'center'}} name="camera" size={24} color="black" />
+                  {/* <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase', color:'black'}}>cargar una imagen</Text> */}
               </Button>
-              <Button warning style={{ margin: 10, backgroundColor: '#f16820', borderRadius: 4 }} onPress={() => { _textInput.setNativeProps({ height: '100%', width: '100%', opacity: 100 }); }}>
-                <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase', }}>comenzar tramite</Text>
+              <Button warning style={{ margin: 10, backgroundColor: '#f16820', borderRadius: 4 }} onPress={() => handleSendProcedure() }>
+                <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase', }}>comenzar trámite</Text>
               </Button>
               <Button dark bordered warning style={{ margin: 10, borderColor: '#f16820', borderRadius: 4 }} onPress={() => { _textInput1.setNativeProps({ height: '100%', width: '100%', opacity: 100 }); }}>
                 <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase', color: '#f16820', }}>tutorial: foto</Text>
               </Button>
-              <Button light style={{ margin: 10, backgroundColor: 'gray', borderRadius: 4 }} onPress={handleSendForm}>
+              <Button disabled light style={{ margin: 10, backgroundColor: 'gray', borderRadius: 4 }} onPress={() => handleSendForm() }>
                 <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase', color: 'white', }}>enviar formulario</Text>
               </Button>
             </Form>

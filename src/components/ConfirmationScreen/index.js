@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styles from './style';
-import { Text, Button, Container, Content } from 'native-base';
+import { Text, Button, Container, Content, View } from 'native-base';
 import { logOut } from '../../redux/ducks/authenticateDucks';
 import { useDispatch } from 'react-redux';
 
@@ -19,14 +19,17 @@ export default function Confirmation ({navigation}){
 
   return (
     <Container style={styles.container}>
-      <Text>
-      </Text>
-        <Button onPress={() => handleYes()}>
-          <Text>Si</Text>
+      <View>
+        <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>¿ Está seguro de cerrar la sesión ? </Text>
+      </View>
+      <View style={{ flexDirection: 'row', marginTop: 50 }}>
+        <Button warning style={{ width: 100 , margin: 10, backgroundColor: '#f16921', }} onPress={() => handleYes()}>
+          <Text style={{ flex: 1, textAlign: 'center' }}>Si</Text>
         </Button>
-        <Button onPress={() => handleNo()}>
-          <Text>No</Text>
+        <Button warning style={{ width: 100, margin: 10, backgroundColor: '#f16921', }} onPress={() => handleNo()}>
+          <Text style={{ flex: 1, textAlign: 'center' }}>No</Text>
         </Button>
+      </View>
     </Container>
   )
 }

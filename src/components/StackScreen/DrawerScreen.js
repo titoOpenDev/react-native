@@ -5,11 +5,12 @@ import UploadProcedure from '../UploadProcedure';
 import NotificationFilters from '../../views/NotificationFilters'
 import CalculatorResults from '../../views/CalculatorResults';
 import Confirmation from '../ConfirmationScreen';
+import { Text, StyleSheet } from "react-native";
+
 import { HOME_TITLE,
         NOTIFICATION_FILTERS_TITLE,
         CALCULATOR_RESULTS_TITLE,
         SYSTEM_LOGOUT_TITLE} from '../../consts';
-
 export default ({navigation}) => {
 
   const Drawer = createDrawerNavigator();
@@ -29,12 +30,6 @@ export default ({navigation}) => {
           color="black" size={23} />
         )
         })}
-      />
-      <Drawer.Screen name="consultaProspecto"
-        component={() => (<Text>Mis Prospectos</Text>)}
-        options={({ navigation, route }) => ({
-          title: 'Consulta Prospectos'
-          })}
       />
       <Drawer.Screen name="NotificationFilters"
         component={NotificationFilters}
