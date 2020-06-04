@@ -4,6 +4,7 @@ import UploadProcedure from '../UploadProcedure';
 import NotificationFilters from '../../views/NotificationFilters'
 import CalculatorResults from '../../views/CalculatorResults';
 import Confirmation from '../ConfirmationScreen';
+import { Text, StyleSheet } from "react-native";
 
 export default ({navigation}) => {
 
@@ -25,12 +26,6 @@ export default ({navigation}) => {
         )
         })}
       />
-      <Drawer.Screen name="consultaProspecto"
-        component={() => (<Text>Mis Prospectos</Text>)}
-        options={({ navigation, route }) => ({
-          title: 'Consulta Prospectos'
-          })}
-      />
       <Drawer.Screen name="NotificationFilters"
         component={NotificationFilters}
         options={({ navigation, route }) => ({
@@ -45,7 +40,7 @@ export default ({navigation}) => {
       />
       <Drawer.Screen name="salirDelSistema"
         options={({ navigation, route }) => ({
-        title: 'Salir del Sistema'
+        title: 'Cerrar sesión'
         })}
         component={Confirmation}
       />

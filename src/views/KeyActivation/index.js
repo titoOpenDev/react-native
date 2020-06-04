@@ -80,7 +80,7 @@ export default function KeyActivation({route, navigation}){
                             }
                                 <Text style={{ width: '75%', fontSize: 14 }}> Si llegaste hasta esta pantalla es porque recibiste el link de activación de tu cuenta.</Text>
                                                                                 
-                                <Text style={{ margin: 16, width: '75%', fontSize: 14, }}>Ingresá el código de activación que te enviamos por E-Mail.</Text>
+                                <Text style={{ margin: 16, width: '75%', fontSize: 14, }}>Ingresá el código de activación que te enviamos por email.</Text>
                             </View>
                             <Form style={{ margin: 24, }}>
                                 <Item last>

@@ -4,7 +4,8 @@ import Constants from 'expo-constants';
 const ENV = {
     dev: {
         API_HOST: 'http://localhost:8080',
-        EXECUTIVE_API_HOST: 'http://192.168.0.218:8000/api/ejecutivos'
+        EXECUTIVE_API_HOST: 'http://192.168.0.218:8080/api/ejecutivos',
+        PROCEDURE_API_HOST: 'http://192.168.0.218:8081/api/tramites'
     },
     test: {
         API_HOST: '',

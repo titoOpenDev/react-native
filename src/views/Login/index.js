@@ -105,13 +105,13 @@ export default function Login({ navigation }) {
                             </View>
                             <View style={{ margin: 10, }}>
                                 <Button warning style={{ margin: 10, backgroundColor: '#f16921', }} onPress={handleLoginPress}>
-                                    <Text style={{ flex: 1, textAlign: 'center' }}>Iniciar sesion</Text>
+                                    <Text style={{ flex: 1, textAlign: 'center' }}>Iniciar sesión</Text>
                                 </Button>
                                 <Button light style={{ margin: 10, backgroundColor: 'gray', }} onPress={handleRegistry}>
                                     <Text style={{ color: 'white', flex: 1, textAlign: 'center' }}>No tengo cuenta</Text>
                                 </Button>
                                 <Button dark bordered warning style={{ margin: 10, borderColor: 'orange'}} onPress={handlePasswordRecovery}>
-                                    <Text style={{ color: '#f16921', flex: 1, textAlign: 'center' }}>Olvide mi clave</Text>
+                                    <Text style={{ color: '#f16921', flex: 1, textAlign: 'center' }}>Olvidé mi clave</Text>
                                 </Button>
                             </View>
                         </View>

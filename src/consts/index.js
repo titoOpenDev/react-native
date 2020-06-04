@@ -44,6 +44,11 @@ export const WRONG_CUIL = "El Cuil ingresado no es válido.";
 export const EMPTY_CUIL = "El Cuil se encuentra vacío.";
 export const WRONG_CUIT = "El Cuit ingresado no es válido.";
 export const EMPTY_CUIT = "El Cuit se encuentra vacío.";
+export const PROCEDURE_SEND_SUCCESS = "El trámite fue enviado!"
 
 export const MALE_GENDER = "M";
 export const FEMALE_GENDER = "F";
+
+export const SUCCESS_TYPE = 'success';
+export const POSITION_BOTTOM = 'bottom';
+export const OK = 'OK';

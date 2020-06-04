@@ -33,7 +33,6 @@ export default function RegistrationBegin({ navigation }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setlastName] = useState("");
   const [cuil, setCUIL] = useState("");
-
   const [gender, setGender] = useState(MALE_GENDER);
 
   useEffect(() => {
@@ -62,7 +61,7 @@ export default function RegistrationBegin({ navigation }) {
       alert(mssg);
       return;
     }else{
-      const payload = { lastName, firstName, email, cuil }
+      const payload = { lastName, firstName, email, cuil, gender }
       dispatch(buildExecutive(payload))
       navigation.navigate(REGISTRATION_END);
     }
@@ -112,8 +111,8 @@ export default function RegistrationBegin({ navigation }) {
             <View style={{ backgroundColor: 'white', flex: 1, alignContent: 'center', }}>
               <View style={{ margin: 10 }}>
                 <Text style={{ textAlign: 'center', margin: 10, fontWeight: 'bold', }}>REGISTRO 1/2</Text>
-                <Text style={{ margin: 10, fontSize: 12 }}>Bienvenido a la App de ventas de ASE. Creando tu cuenta podras realizar las consultas, acelerar el proceso de alta de nuevos Afiliados enviando la info y obteniendo respuesta en pocos minutos</Text>
-                <Text style={{ margin: 10, fontSize: 12 }}>Registrate con unos pocos datos y comenza a disfrutar de los beneficios de ASE Ventas</Text>
+                <Text style={{ margin: 10, fontSize: 12 }}>Bienvenido a la App de ventas de ASE. Creando tu cuenta podrás realizar las consultas, acelerar el proceso de alta de nuevos afiliados enviando la info y obteniendo respuesta en pocos minutos</Text>
+                <Text style={{ margin: 10, fontSize: 12 }}>Registrate con unos pocos datos y comenzá a disfrutar de los beneficios de ASE Ventas</Text>
                 <Form>
                   <Item last>
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', padding: 5 }}>

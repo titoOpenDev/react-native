@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Provider } from 'react-redux';
 import * as Font from 'expo-font';
-import { Spinner } from 'native-base';
+import { Spinner , Root } from 'native-base';
 import { NavigationContainer } from '@react-navigation/native';
 import StackScreen from './components/StackScreen';
 import IdleContainer from './components/IdleContainer';
@@ -36,11 +36,13 @@ export default () => {
   }
 
   return (
+    <Root>
     <Provider store={store}>
         <NavigationContainer initialRouteName="Home">
           <IdleContainer></IdleContainer>
             <StackScreen/>
         </NavigationContainer>
     </Provider>
+    </Root>
   );
 }
