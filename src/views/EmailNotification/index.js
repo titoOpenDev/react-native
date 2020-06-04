@@ -1,30 +1,20 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
-    Platform,
-    Dimensions,
-    StyleSheet,
-    SafeAreaView,
-    ScrollView,
     Image,
-    View,
-    Switch,
-    TouchableOpacity,
-    KeyboardAvoidingView,
+    View
 } from 'react-native';
-import { Container, Content, Grid, Form, Text, Button, Item, Icon } from 'native-base';
+import { Container, Content, Text, Button, Icon } from 'native-base';
 import { useSelector } from 'react-redux';
 
-import genericStyles from '../../styles';
 import styles from './style';
 
 import { requestExecutive } from '../../redux/ducks/executiveDucks';
-import { KEY_ACTIVATION, ERROR_MSSG } from '../../consts';
+import { KEY_ACTIVATION  } from '../../consts';
 
 
 export default function EmailNotification({ route, navigation }) {
 
     const email = useSelector(store => store.executive.email);
-    const error = useSelector(store => store.executive.err);
 
     const handleSend = () => {
         //TODO: SOLO CON EL EMAIL ALCANZA PARA HACER EL REQUEST ??
