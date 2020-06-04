@@ -20,12 +20,12 @@ export const validateCUIT =(cuit) =>{
     if(((companyCode != 30) &&  (companyCode != 33)) && (companyCode != 34) ){
       return false;
     }
-    return validate(code);
+    return validate(cuit);
   }
 
 export const validateCUIL =(cuil,gender) =>{
     let genderCode = cuil.split('-')[0];
-    if((genderCode != 20 && gender === MALE_GENDER) || (genderCode != 27 && gender === FEMALE_GENDER) ){
+    if(gender && ((genderCode != 20 && gender === MALE_GENDER) || (genderCode != 27 && gender === FEMALE_GENDER)) ){
       return false;
     }
     return validate(cuil);

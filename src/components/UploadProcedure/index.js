@@ -100,7 +100,7 @@ export default function UploadProcedure({ navigation }) {
     if(!cuit.trim()){
       return EMPTY_CUIT;
     }
-    if(!validateCUIT(cuil)){
+    if(!validateCUIT(cuit)){
       return WRONG_CUIT;
     }
     return EMPTY_MESSAGE;
