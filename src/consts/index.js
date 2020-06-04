@@ -50,14 +50,14 @@ export const MALE_GENDER = "M";
 export const FEMALE_GENDER = "F";
 
 //NAVIGATOR TITLE SCREENS
-LOGIN_TITLE = 'Login';
-REGISTRATION_BEGIN_TITLE = 'No tengo cuenta';
-REGISTRATION_END_TITLE = 'Fin Registración';
-SYSTEM_LOGOUT_TITLE = 'Salir del Sistema';
-EMAIL_NOTIFICATION_TITLE = 'Email de Activación';
-KEY_ACTIVATION_TITLE = 'Activación Clave';
-PASSWORD_RECOVERY_TITLE = 'Recupero de Password';
-PASSWORD_CONFIRM_TITLE = 'Confirmación de Password';
-HOME_TITLE = 'Alta (nuevo trámite)';
-NOTIFICATION_FILTERS_TITLE = 'Notificaciones';
-CALCULATOR_RESULTS_TITLE = 'Calculadora Aportes';
+export const LOGIN_TITLE = 'Login';
+export const REGISTRATION_BEGIN_TITLE = 'No tengo cuenta';
+export const REGISTRATION_END_TITLE = 'Fin Registración';
+export const SYSTEM_LOGOUT_TITLE = 'Salir del Sistema';
+export const EMAIL_NOTIFICATION_TITLE = 'Email de Activación';
+export const KEY_ACTIVATION_TITLE = 'Activación Clave';
+export const PASSWORD_RECOVERY_TITLE = 'Recupero de Password';
+export const PASSWORD_CONFIRM_TITLE = 'Confirmación de Password';
+export const HOME_TITLE = 'Alta (nuevo trámite)';
+export const NOTIFICATION_FILTERS_TITLE = 'Notificaciones';
+export const CALCULATOR_RESULTS_TITLE = 'Calculadora Aportes';
