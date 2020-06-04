@@ -62,6 +62,7 @@ export const PASSWORD_CONFIRM_TITLE = 'Confirmación de Password';
 export const HOME_TITLE = 'Alta (nuevo trámite)';
 export const NOTIFICATION_FILTERS_TITLE = 'Notificaciones';
 export const CALCULATOR_RESULTS_TITLE = 'Calculadora Aportes';
+export const PROSPECT_CONSULTS_TITLE = 'Consulta Prospecto';
 
 export const SUCCESS_TYPE = 'success';
 export const POSITION_BOTTOM = 'bottom';

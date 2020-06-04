@@ -5,12 +5,13 @@ import UploadProcedure from '../UploadProcedure';
 import NotificationFilters from '../../views/NotificationFilters'
 import CalculatorResults from '../../views/CalculatorResults';
 import Confirmation from '../ConfirmationScreen';
-import { Text, StyleSheet } from "react-native";
+import ProspectConsults from '../../views/ProspectConsults';
 
 import { HOME_TITLE,
         NOTIFICATION_FILTERS_TITLE,
         CALCULATOR_RESULTS_TITLE,
-        SYSTEM_LOGOUT_TITLE} from '../../consts';
+        SYSTEM_LOGOUT_TITLE,
+        PROSPECT_CONSULTS_TITLE} from '../../consts';
 export default ({navigation}) => {
 
   const Drawer = createDrawerNavigator();
@@ -29,6 +30,12 @@ export default ({navigation}) => {
           onPress={() => console.log('Menu Button') }
           color="black" size={23} />
         )
+        })}
+      />
+      <Drawer.Screen name="ProspectConsults"
+        component={ProspectConsults}
+        options={({ navigation, route }) => ({
+          title: PROSPECT_CONSULTS_TITLE
         })}
       />
       <Drawer.Screen name="NotificationFilters"
