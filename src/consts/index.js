@@ -45,5 +45,19 @@ export const EMPTY_CUIL = "El Cuil se encuentra vacío.";
 export const WRONG_CUIT = "El Cuit ingresado no es válido.";
 export const EMPTY_CUIT = "El Cuit se encuentra vacío.";
 
+//GENDER 
 export const MALE_GENDER = "M";
 export const FEMALE_GENDER = "F";
+
+//NAVIGATOR TITLE SCREENS
+LOGIN_TITLE = 'Login';
+REGISTRATION_BEGIN_TITLE = 'No tengo cuenta';
+REGISTRATION_END_TITLE = 'Fin Registración';
+SYSTEM_LOGOUT_TITLE = 'Salir del Sistema';
+EMAIL_NOTIFICATION_TITLE = 'Email de Activación';
+KEY_ACTIVATION_TITLE = 'Activación Clave';
+PASSWORD_RECOVERY_TITLE = 'Recupero de Password';
+PASSWORD_CONFIRM_TITLE = 'Confirmación de Password';
+HOME_TITLE = 'Alta (nuevo trámite)';
+NOTIFICATION_FILTERS_TITLE = 'Notificaciones';
+CALCULATOR_RESULTS_TITLE = 'Calculadora Aportes';

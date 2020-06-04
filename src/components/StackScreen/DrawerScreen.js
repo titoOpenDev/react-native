@@ -1,9 +1,14 @@
-import React from 'react'
+import React from 'react';
+
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import UploadProcedure from '../UploadProcedure';
 import NotificationFilters from '../../views/NotificationFilters'
 import CalculatorResults from '../../views/CalculatorResults';
 import Confirmation from '../ConfirmationScreen';
+import { HOME_TITLE,
+        NOTIFICATION_FILTERS_TITLE,
+        CALCULATOR_RESULTS_TITLE,
+        SYSTEM_LOGOUT_TITLE} from '../../consts';
 
 export default ({navigation}) => {
 
@@ -13,7 +18,7 @@ export default ({navigation}) => {
     <Drawer.Navigator initialRouteName="Home">
       <Drawer.Screen name="Home" component={UploadProcedure} 
         options={({ navigation, route }) => ({
-        title: 'Alta (nuevo trámite)',
+        title: HOME_TITLE,
         headerRight: () => (
           <AntDesign name="infocirlceo"
             onPress={() => console.log('Info Button')}
@@ -34,18 +39,18 @@ export default ({navigation}) => {
       <Drawer.Screen name="NotificationFilters"
         component={NotificationFilters}
         options={({ navigation, route }) => ({
-          title: 'Notificaciones'
+          title: NOTIFICATION_FILTERS_TITLE
         })}
       />
       <Drawer.Screen name="CalculatorResults"
         component={CalculatorResults}
         options={({ navigation, route }) => ({
-        title: 'Calculadora Aportes'
+        title: CALCULATOR_RESULTS_TITLE
         })}
       />
-      <Drawer.Screen name="salirDelSistema"
+      <Drawer.Screen name="SystemLogout"
         options={({ navigation, route }) => ({
-        title: 'Salir del Sistema'
+        title: SYSTEM_LOGOUT_TITLE
         })}
         component={Confirmation}
       />
