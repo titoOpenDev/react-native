@@ -1,23 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     Platform,
     Dimensions,
-    StyleSheet,
     SafeAreaView,
     ScrollView,
     Image,
     View,
-    Switch,
-    TouchableOpacity,
     KeyboardAvoidingView,
   } from "react-native";
-import { Container, Content, Text, Grid, Button, Form, Item, Input, Card, CardItem, Picker } from "native-base";
-import { Header, Left, Body, Right, Icon, Title } from 'native-base';
+import {  Text, Button, Form, Item, Input } from "native-base";
 import { Ionicons } from '@expo/vector-icons';
 import Constants from "expo-constants";
 
 import styles from './style';
-import genericStyles from '../../styles';
 import {REGISTRATION_END, LOGIN,PASSWORD_CONFIRM} from '../../consts';
 
 export default function KeyActivation({route, navigation}){
@@ -98,7 +93,7 @@ export default function KeyActivation({route, navigation}){
                                         style={{ backgroundColor: '#F16921', borderColor: '#f16820' }}
                                         disabled={disabled}
                                     >
-                                        <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase' }} >INGRESAR </Text>
+                                        <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase', color:'white' }} >INGRESAR </Text>
                                     </Button>
                                 ):(
                                     <Button 
@@ -107,7 +102,7 @@ export default function KeyActivation({route, navigation}){
                                         style={{ backgroundColor: '#F16921', borderColor: '#f16820' }}
                                         disabled={disabled}
                                     >
-                                        <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase' }} >VALIDAR CÓDIGO </Text>
+                                        <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase', color:'white' }} >VALIDAR CÓDIGO </Text>
                                     </Button>
                                 )
                             }

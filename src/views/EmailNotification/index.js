@@ -4,7 +4,7 @@ import {
     View
 } from 'react-native';
 import { Container, Content, Text, Button, Icon } from 'native-base';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import styles from './style';
 
@@ -13,6 +13,8 @@ import { KEY_ACTIVATION  } from '../../consts';
 
 
 export default function EmailNotification({ route, navigation }) {
+
+    const dispatch = useDispatch();
 
     const email = useSelector(store => store.executive.email);
 
