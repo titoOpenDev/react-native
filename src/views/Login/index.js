@@ -32,7 +32,7 @@ export default function Login({ navigation }) {
 
     useEffect(() => {
         if(error){
-            alert(ERROR_MSSG)
+            alert(ERROR_MSSG);
             console.log(error);
         }
     },[error]);

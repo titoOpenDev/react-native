@@ -25,6 +25,7 @@ export default function RegistrationEnd({ navigation }) {
   const [password, setPassword] = useState('');
   const [passwordRepeated, setPasswordRepeated] = useState('');
   const [disabled, setDisabled] = useState(true);
+  const [errMssg, setErrMssg] = useState("");
 
   const dispatch = useDispatch();
   const firstName = useSelector(store => store.executive.firstName);
@@ -50,13 +51,14 @@ export default function RegistrationEnd({ navigation }) {
 
   const handleSend = () => {
     if(passwordsAreEquals()){   
+      setErrMssg("");
       const payload = { lastName, firstName, cuil, password, email, gender, network, filialZone, active, locked };
       dispatch(requestExecutive(payload));
       let params = {};
       params.sourceView = REGISTRATION_END;
       navigation.navigate(EMAIL_NOTIFICATION, params);
     }else{
-      alert(PASSWORDS_MUST_BE_EQUALS);
+      setErrMssg(PASSWORDS_MUST_BE_EQUALS);
     }
   }
 
@@ -158,6 +160,14 @@ export default function RegistrationEnd({ navigation }) {
                 </Form>
               </View>
               <View style={{ flex: 0.5, justifyContent: 'flex-end', }}>
+                { 
+                  (errMssg.length >0) && (
+                                          <>    
+                                            <Text style={{ textAlign: 'center', fontWeight: 'bold',color:'red' }}>{WARNING}</Text>
+                                            <Text style={{ textAlign: 'center', fontWeight: 'bold', color:'red' }}>{errMssg}</Text>
+                                          </>
+                                         )
+                } 
                 <Button style={{ backgroundColor: '#F16921', margin: 24, }} onPress= {handleSend} disabled={disabled} >
                   <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase' }}>registrarme</Text>
                 </Button>
