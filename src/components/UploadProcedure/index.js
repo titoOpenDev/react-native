@@ -6,8 +6,8 @@ import { View, Form, Item, Input, Label, Body, ListItem, CheckBox, Button, Image
 import genericStyles from "../../styles";
 import MenuBar from '../MenuBar'
 import { uploadImage } from '../../redux/api';
-import Axios from "axios";
 import { AntDesign } from '@expo/vector-icons'; 
+import { stringify } from "qs";
 
 export default function UploadProcedure ({navigation}) {
 
@@ -51,43 +51,14 @@ export default function UploadProcedure ({navigation}) {
 
   const handleSubmit = async () => {
     try {
-
-      let body = new FormData();
-      body.append('photo', {
-        uri: photo.uri, 
-        name: photo.image.uri.substr(photo.image.uri.lastIndexOf('/') + 1)
-
-      });
-      // body.append('Content-Type', 'image/jpg');
-
-      fetch('http://192.168.1.39:3000/api/upload',{ method: 'POST',headers:{  
-        'content-type': 'multipart/form-data'
-          } , body :body} )
-
-      // const result = await uploadImage('http://localhost:3000/api/upload','POST', photo)
-      // const photoOptions = {
-      //   uri: photo.uri,
-      //   type: 'image/png',
-      //   name: photo.image.uri.substr(photo.image.uri.lastIndexOf('/') + 1)
-      // };
-      // console.log('filename: ',  photo.image.uri.substr(photo.image.uri.lastIndexOf('/') + 1))
-      // const form = new FormData();
-      // form.append("ProfilePicture", photoOptions);
-      // form.append('Content-Type', 'image/jpg');
-      // let form = new FormData();
-      // form.append('photo', {uri: photo.uri, name: photo.image.uri.substr(photo.image.uri.lastIndexOf('/') + 1),filename :photo.image.uri.substr(photo.image.uri.lastIndexOf('/') + 1),type: 'image/jpg'});
-      // form.append('Content-Type', 'image/jpg');
-      // Axios('http://192.168.1.39:3000/api/upload', {method:'POST', body: form})
-      // // fetch('http://localhost:3000/')
-      // // uploadImage('http://192.168.1.39:3000/api/upload','POST', photo)
+      uploadImage('http://192.168.1.39:3000/api/upload', 'post', photo.image.uri)
       .then((result) => {
-        console.log('response: ', result)
+        console.log('result: ', stringify(result));
       })
-      .catch((e) => {
-        console.log('error nuevo: ', e);
-      })
+      .catch((e) => { console.log('request error: ', e);})
+      // console.log('result: ', result);
     } catch (error) {
-      console.log('axios error: ', error);
+      // console.log('error: ', error);
     }
   }
 

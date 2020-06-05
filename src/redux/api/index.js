@@ -16,8 +16,12 @@ export default async (url, method, data) => {
     return axios(object);
 }
 
-export async function uploadImage(url, method, photo) {
-  const requestBuilder = buildImageRequest(url, method, photo);
-  return axios(requestBuilder);
+export async function uploadImage(url, method, photoUri) {
+  const body = buildImageRequest(photoUri);
+  return fetch(url,
+              {
+                method,
+                body
+              })
 }
 
