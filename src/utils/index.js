@@ -74,6 +74,10 @@ export const validateEmail= (email) => {
     return (reg.test(email) !== false);
 }
 
+export  const passwordsAreEquals = (password, secondPassword)=>{
+    return (password === secondPassword);
+}
+
 export const getItem = async(keyName)=>{
     try {
         return await AsyncStorage.getItem(keyName);

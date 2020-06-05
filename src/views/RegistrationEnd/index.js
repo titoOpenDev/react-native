@@ -9,8 +9,11 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   EMAIL_NOTIFICATION,
   REGISTRATION_END,
-  PASSWORDS_MUST_BE_EQUALS
+  PASSWORDS_MUST_BE_EQUALS,
+  WARNING
 } from "../../consts";
+
+import {passwordsAreEquals} from '../../utils';
 
 export default function RegistrationEnd({ navigation }) {
 
@@ -50,7 +53,7 @@ export default function RegistrationEnd({ navigation }) {
   }
 
   const handleSend = () => {
-    if(passwordsAreEquals()){   
+    if(passwordsAreEquals(password, passwordRepeated)){   
       setErrMssg("");
       const payload = { lastName, firstName, cuil, password, email, gender, network, filialZone, active, locked };
       dispatch(requestExecutive(payload));
@@ -63,6 +66,7 @@ export default function RegistrationEnd({ navigation }) {
   }
 
   const handleChangePassword = (password)=>{
+    setErrMssg("");
     if((!password.trim()) || (!passwordRepeated.trim())){
         setDisabled(true);
     }else{
@@ -71,11 +75,9 @@ export default function RegistrationEnd({ navigation }) {
     setPassword(password);
   }
 
-    const passwordsAreEquals = ()=>{
-        return (password === passwordRepeated);
-    }
-
+    
     const handleChangePasswordRepeated = (password)=>{
+      setErrMssg("");
       if((!password.trim()) || (!passwordRepeated.trim())){
           setDisabled(true);
       }else{

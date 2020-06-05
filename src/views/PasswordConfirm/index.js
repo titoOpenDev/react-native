@@ -18,6 +18,8 @@ import styles from './style';
 import {LOGIN,UPDATE_PASSWORD_SUCCESS, PASSWORDS_MUST_BE_EQUALS, ERROR_MSSG } from '../../consts';
 import {updatePassword} from '../../redux/ducks/executiveDucks';
 
+import {passwordsAreEquals} from '../../utils';
+
 export default function PasswordConfirm({navigation}){
 
     const [eye, setEye] = useState('md-eye');
@@ -58,7 +60,7 @@ export default function PasswordConfirm({navigation}){
     //TODO: NO PUEDO HACER QUE SI PINCHE ENTRE EN UN CATCH
     //POR MAS QUE LO PONGO EN UN TRY CATCH Y LA FUNCION LA DEFINO ASYNC
     const handleSaveNewPass = ()=>{
-        if(passwordsAreEquals()){
+        if(passwordsAreEquals(password, passwordRepeated)){
             let payload = {password};
             dispatch(updatePassword(payload)); 
         }else{
@@ -74,10 +76,6 @@ export default function PasswordConfirm({navigation}){
             setDisabled(false);
         }
         setPassword(password);
-    }
-
-    const passwordsAreEquals = ()=>{
-        return (password=== passwordRepeated);
     }
 
     const handleChangePasswordRepeated = (password)=>{
