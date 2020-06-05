@@ -1,15 +1,13 @@
 import React, {useState} from 'react';
-import {Image, Text} from 'react-native';
-import { Container, Content, Grid, Item, Form, Picker, Button,  Icon,  Input, View } from 'native-base';
+import {Text} from 'react-native';
+import { Container, Content, Grid, Item, Form, Picker, Button,  Icon,  Input } from 'native-base';
+import { TextInputMask} from 'react-native-masked-text';
 
 import genericStyles from '../../styles';
 import styles from './style';
-import MenuBar from '../../components/MenuBar'
+import MenuBar from '../../components/MenuBar';
 
-
-//TODO: hacer los handlers de los pickers, las variables de los pickers,
-// las validaciones y el metodo para submitear el form
-
+import {validateCUIL,validateCUIT} from '../../utils';
 
 export default function NotificationFilters({navigation}){
 
@@ -19,12 +17,12 @@ export default function NotificationFilters({navigation}){
     const [workflow, setWorkflow] = useState("");
 
 
-    const handleChangeCuit = tex =>{
-        setCuit(tex);
+    const handleChangeCUIT = text =>{
+        setCuit(text);
     };
 
-    const handleChangecuil = value =>{
-        setCuil(value);
+    const handleChangeCUIL = text =>{
+        setCuil(text);
     };
 
     const handleChangeProcedureNumber = value =>{
@@ -49,17 +47,30 @@ export default function NotificationFilters({navigation}){
                     <Form style={genericStyles.form}>
                         <Text style={styles.subtitle}>Aplicar Filtros en Notificaciones</Text>
                         <Item >
-                            <Input 
-                                placeholder="Por Cuit o Empresa" 
-                                placeholderTextColor="white"
-                                onChangeText={handleChangeCuit}
+                            <TextInputMask
+                                type={'custom'}
+                                options={{
+                                mask: '99-99999999-9'
+                    
+                                }}
+                                value={cuit}
+                                onChangeText={text => handleChangeCUIT(text)}
+                                placeholder = "Por Cuit o Empresa"
+                                placeholderTextColor = "white"
+                                style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12 }}
                             />
                         </Item>
                         <Item >
-                            <Input 
-                                placeholder="Por CUIL" 
-                                placeholderTextColor="white"
-                                onChangeText={handleChangecuil}
+                            <TextInputMask
+                                type={'custom'}
+                                options={{
+                                mask: '99-99999999-9'
+                                }}
+                                value={cuil}
+                                onChangeText={text => handleChangeCUIL(text)}
+                                placeholder = "Por CUIL"
+                                placeholderTextColor = "white"
+                                style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12 }}
                             />
                         </Item >
                             <Text style={genericStyles.textWhite}>Estado</Text>   

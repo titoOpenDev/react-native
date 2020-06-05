@@ -1,39 +1,54 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Platform,
   Dimensions,
-  StyleSheet,
   SafeAreaView,
   ScrollView,
   Image,
   View,
-  Switch,
-  TouchableOpacity,
   KeyboardAvoidingView,
 } from "react-native";
-import { Container, Content, Text, Grid, Button, Form, Item, Input, Card, CardItem, Picker } from "native-base";
-import { Header, Left, Body, Right, Icon, Title } from 'native-base';
+import {  Text, Button, Form, Item, Input } from "native-base";
 import { Ionicons } from '@expo/vector-icons';
 import Constants from "expo-constants";
 
-import genericStyles from "../../styles";
+import styles from './style';
 
-import styles from './style'
+import {EMAIL_NOTIFICATION,WRONG_FORMAT_EMAIL, PASSWORD_RECOVERY} from '../../consts';
+import {passwordRecovery} from '../../redux/ducks/executiveDucks';
+import {validateEmail} from '../../utils';
 
 export default function PasswordRecovery({ navigation }) {
 
-  const [email, setEmail] = useState("")
+  const [email, setEmail] = useState("");
+  const [disabled, setDisabled] = useState(true);
 
-  useEffect(() => {
+  const error = useSelector(store=>store.executive.err);
 
-  });
+  const dispatch = useDispatch();
 
   const handleChangeEmail = (text) => {
+    if(text.trim()){
+      setDisabled(false);
+    }else{
+      setDisabled(true);
+    }
     setEmail(text);
   }
 
   const handleSendEmail = () => {
-
+    //TODO: ALCANZA SOLO CON EL EMAIL ??
+    if(validateEmail(email)){
+      const payload = {email}
+      dispatch(passwordRecovery(payload));
+      setEmail("");
+      let params= {};
+      params.sourceView = PASSWORD_RECOVERY
+      navigation.navigate(EMAIL_NOTIFICATION, params);
+    }else{
+      alert(WRONG_FORMAT_EMAIL);
+    }
   }
 
   const handleGoBack = () => {
@@ -63,12 +78,12 @@ export default function PasswordRecovery({ navigation }) {
               </View>
               <Form style={{ margin: 24, }}>
                 <Item last>
-                  <Input placeholder="E-MAIL" onChangeText={text => handleChangeEmail(text)}/>
+                  <Input placeholder="E-MAIL" onChangeText={text => handleChangeEmail(text)} value={email}/>
                 </Item>
               </Form>
             </View>
             <View style={{ flex: 0.1, justifyContent: 'flex-end', margin: 32, }}>
-              <Button style={{ backgroundColor: '#F16921', borderColor: '#f16820' }} onPress={handleSendEmail}>
+              <Button style={{ backgroundColor: '#F16921', borderColor: '#f16820' }} onPress={handleSendEmail} disabled={disabled}>
                 <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase' }}>enviar</Text>
               </Button>
             </View>

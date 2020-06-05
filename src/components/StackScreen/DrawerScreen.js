@@ -4,8 +4,12 @@ import UploadProcedure from '../UploadProcedure';
 import NotificationFilters from '../../views/NotificationFilters'
 import CalculatorResults from '../../views/CalculatorResults';
 import Confirmation from '../ConfirmationScreen';
-import { Text } from 'react-native'
+import { Text, StyleSheet } from "react-native";
 
+import { HOME_TITLE,
+        NOTIFICATION_FILTERS_TITLE,
+        CALCULATOR_RESULTS_TITLE,
+        SYSTEM_LOGOUT_TITLE} from '../../consts';
 export default ({navigation}) => {
 
   const Drawer = createDrawerNavigator();
@@ -14,7 +18,7 @@ export default ({navigation}) => {
     <Drawer.Navigator initialRouteName="Home">
       <Drawer.Screen name="Home" component={UploadProcedure} 
         options={({ navigation, route }) => ({
-        title: 'Alta (nuevo trámite)',
+        title: HOME_TITLE,
         headerRight: () => (
           <AntDesign name="infocirlceo"
             onPress={() => console.log('Info Button')}
@@ -26,33 +30,21 @@ export default ({navigation}) => {
         )
         })}
       />
-      <Drawer.Screen name="misTramites"
-        options={({ navigation, route }) => ({
-        title: 'Mis tramites'
-        })}
-        component={() => (<Text>Mis tramites</Text>)}
-      />
-      <Drawer.Screen name="consultaProspecto"
-        component={() => (<Text>Mis Prospectos</Text>)}
-        options={({ navigation, route }) => ({
-          title: 'Consulta Prospectos'
-          })}
-      />
       <Drawer.Screen name="NotificationFilters"
         component={NotificationFilters}
         options={({ navigation, route }) => ({
-          title: 'Notificaciones'
+          title: NOTIFICATION_FILTERS_TITLE
         })}
       />
       <Drawer.Screen name="CalculatorResults"
         component={CalculatorResults}
         options={({ navigation, route }) => ({
-        title: 'Calculadora Aportes'
+        title: CALCULATOR_RESULTS_TITLE
         })}
       />
-      <Drawer.Screen name="salirDelSistema"
+      <Drawer.Screen name="SystemLogout"
         options={({ navigation, route }) => ({
-        title: 'Salir del Sistema'
+        title: SYSTEM_LOGOUT_TITLE
         })}
         component={Confirmation}
       />
