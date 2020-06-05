@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Image, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, ScrollView, View, Platform, Dimensions } from "react-native";
 import { Text, Button, Form, Item, Input } from "native-base";
@@ -13,7 +13,8 @@ import {
     REGISTRATION_BEGIN,
     EMPTY_PASSWORD,
     EMPTY_USERNAME,
-    EMPTY_MESSAGE
+    EMPTY_MESSAGE,
+    WARNING
 } from "../../consts";
 
 export default function Login({ navigation }) {
@@ -27,11 +28,11 @@ export default function Login({ navigation }) {
     const [eye, setEye] = useState('md-eye')
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [disabled, setDisabled] = useState(true);
+    const [errMssg, setErrMssg] = useState('');
 
     useEffect(() => {
         if(error){
-            alert(ERROR_MSSG)
+            alert(ERROR_MSSG);
             console.log(error);
         }
     },[error]);
@@ -39,7 +40,7 @@ export default function Login({ navigation }) {
     const handleLoginPress = async () => {
         let mssg = errorMssg();
         if(mssg.length >0){
-            alert(mssg);
+            setErrMssg(mssg);
             return;
         }else{
             dispatch(login({username , password}));
@@ -64,12 +65,12 @@ export default function Login({ navigation }) {
 
     const handleChangeUsername = (text) => {
         setUsername(text);
+        setErrMssg('');
     }
 
     const handleChangePassword = (text) => {
-        const activated = text.length > 4 ? false : true;
-        setDisabled(activated)
-        setPassword(text)
+        setPassword(text);
+        setErrMssg('');
     }
 
     const handleRegistry = () => {
@@ -81,9 +82,9 @@ export default function Login({ navigation }) {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView  style={styles.container}>
             <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS == "ios" ? "padding" : "height"} keyboardVerticalOffset={Platform.OS == "ios" ? 50 : -100}>
-                <ScrollView style={styles.scrollView} bounces={false}>
+                <ScrollView keyboardShouldPersistTaps = 'always' style={styles.scrollView} bounces={false}>
                     <View style={{ backgroundColor: 'green', minHeight: height }}>
                         <View style={{ backgroundColor: '#7a7e7f', flex: 1, justifyContent: 'center', alignContent: 'center', alignItems: 'center', }}>
                             <Image source={require('../../../assets/ase_nacional_imagen_app.png')} style={{ width: 180, height: 60 }} />
@@ -103,11 +104,19 @@ export default function Login({ navigation }) {
                                     </Item>
                                 </Form>
                             </View>
-                            <View style={{ margin: 10, }}>
-                                <Button warning style={{ margin: 10, backgroundColor: '#f16921', }} onPress={handleLoginPress}>
+                            <View style={{ margin: 10 }}>
+                                { 
+                                    (errMssg.length >0) && (
+                                                            <>    
+                                                                <Text style={{ textAlign: 'center', fontWeight: 'bold',color:'red' }}>{WARNING}</Text>
+                                                                <Text style={{ textAlign: 'center', fontWeight: 'bold', color:'red' }}>{errMssg}</Text>
+                                                            </>
+                                                    )
+                                } 
+                                <Button warning style={{ margin: 10, backgroundColor: '#f16921' }} onPress={handleLoginPress}>
                                     <Text style={{ flex: 1, textAlign: 'center' }}>Iniciar sesión</Text>
                                 </Button>
-                                <Button light style={{ margin: 10, backgroundColor: 'gray', }} onPress={handleRegistry}>
+                                <Button light style={{ margin: 10, backgroundColor: 'gray' }} onPress={handleRegistry}>
                                     <Text style={{ color: 'white', flex: 1, textAlign: 'center' }}>No tengo cuenta</Text>
                                 </Button>
                                 <Button dark bordered warning style={{ margin: 10, borderColor: 'orange'}} onPress={handlePasswordRecovery}>

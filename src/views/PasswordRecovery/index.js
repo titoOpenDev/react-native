@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   Platform,
   Dimensions,
@@ -15,7 +15,8 @@ import Constants from "expo-constants";
 
 import styles from './style';
 
-import {EMAIL_NOTIFICATION,WRONG_FORMAT_EMAIL, PASSWORD_RECOVERY} from '../../consts';
+import {EMAIL_NOTIFICATION,WRONG_FORMAT_EMAIL, PASSWORD_RECOVERY, WARNING} from '../../consts';
+
 import {passwordRecovery} from '../../redux/ducks/executiveDucks';
 import {validateEmail} from '../../utils';
 
@@ -23,12 +24,12 @@ export default function PasswordRecovery({ navigation }) {
 
   const [email, setEmail] = useState("");
   const [disabled, setDisabled] = useState(true);
-
-  const error = useSelector(store=>store.executive.err);
+  const [errMssg, setErrMssg] = useState('');
 
   const dispatch = useDispatch();
 
   const handleChangeEmail = (text) => {
+    setErrMssg('');
     if(text.trim()){
       setDisabled(false);
     }else{
@@ -43,11 +44,12 @@ export default function PasswordRecovery({ navigation }) {
       const payload = {email}
       dispatch(passwordRecovery(payload));
       setEmail("");
+      setErrMssg("");
       let params= {};
       params.sourceView = PASSWORD_RECOVERY
       navigation.navigate(EMAIL_NOTIFICATION, params);
     }else{
-      alert(WRONG_FORMAT_EMAIL);
+      setErrMssg(WRONG_FORMAT_EMAIL);
     }
   }
 
@@ -60,7 +62,7 @@ export default function PasswordRecovery({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS == "ios" ? "padding" : "height"} keyboardVerticalOffset={Platform.OS == "ios" ? 0 : -100}>
-        <ScrollView style={{ flex: 1 }}>
+        <ScrollView keyboardShouldPersistTaps = 'always' style={{ flex: 1 }}>
           <View style={{ minHeight: height-Constants.statusBarHeight }}>
             <View style={{ backgroundColor: '#7a7e7f', flex: 1, justifyContent: 'center', }}>
               <View style={{ alignItems: 'flex-start', top: -20 }}>
@@ -83,6 +85,15 @@ export default function PasswordRecovery({ navigation }) {
               </Form>
             </View>
             <View style={{ flex: 0.1, justifyContent: 'flex-end', margin: 32, }}>
+              { 
+                (errMssg.length >0) && (
+                                        <>    
+                                          <Text style={{ textAlign: 'center', fontWeight: 'bold',color:'red' }}>{WARNING}</Text>
+                                          <Text style={{ textAlign: 'center', fontWeight: 'bold', color:'red' }}>{errMssg}</Text>
+                                        </>
+                                       )
+              } 
+              
               <Button style={{ backgroundColor: '#F16921', borderColor: '#f16820' }} onPress={handleSendEmail} disabled={disabled}>
                 <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase' }}>enviar</Text>
               </Button>

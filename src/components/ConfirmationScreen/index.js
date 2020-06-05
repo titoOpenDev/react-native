@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React  from 'react';
+import { Text, Button, Container, View } from 'native-base';
+
 import styles from './style';
-import { Text, Button, Container, Content, View } from 'native-base';
-import { logOut } from '../../redux/ducks/authenticateDucks';
+
 import { useDispatch } from 'react-redux';
+import { logOut } from '../../redux/ducks/authenticateDucks';
+import { LOGIN, HOME } from '../../consts';
 
 export default function Confirmation ({navigation}){
 
@@ -10,11 +13,11 @@ export default function Confirmation ({navigation}){
 
   const handleYes = async () => {
     await dispatch(logOut());
-    navigation.navigate('Login');
+    navigation.navigate(LOGIN);
   }
 
   const handleNo = async () => {
-    navigation.navigate('Home');
+    navigation.navigate(HOME);
   }
 
   return (

@@ -70,8 +70,12 @@ const parseCode = (code) =>{
 }
 
 export const validateEmail= (email) => {
-    let reg = /^\w+([\.-]?\w+)*@\w+(\.com)$/;
+    let reg = /^\w+([\.-]?\w+)*@\w+(\.com)(\.ar)?$/;
     return (reg.test(email) !== false);
+}
+
+export  const passwordsAreEquals = (password, secondPassword)=>{
+    return (password === secondPassword);
 }
 
 export const getItem = async(keyName)=>{

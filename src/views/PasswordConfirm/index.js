@@ -15,8 +15,10 @@ import { Ionicons } from '@expo/vector-icons';
 import Constants from "expo-constants";
 
 import styles from './style';
-import {LOGIN,UPDATE_PASSWORD_SUCCESS, PASSWORDS_MUST_BE_EQUALS, ERROR_MSSG } from '../../consts';
+import {LOGIN,UPDATE_PASSWORD_SUCCESS, PASSWORDS_MUST_BE_EQUALS, ERROR_MSSG, WARNING } from '../../consts';
 import {updatePassword} from '../../redux/ducks/executiveDucks';
+
+import {passwordsAreEquals} from '../../utils';
 
 export default function PasswordConfirm({navigation}){
 
@@ -30,6 +32,8 @@ export default function PasswordConfirm({navigation}){
     const [passwordRepeated, setPasswordRepeated] = useState('');
 
     const [disabled, setDisabled] = useState(true);
+
+    const [errMssg, setErrMssg] = useState('');
 
     const dispatch = useDispatch();
     
@@ -58,16 +62,17 @@ export default function PasswordConfirm({navigation}){
     //TODO: NO PUEDO HACER QUE SI PINCHE ENTRE EN UN CATCH
     //POR MAS QUE LO PONGO EN UN TRY CATCH Y LA FUNCION LA DEFINO ASYNC
     const handleSaveNewPass = ()=>{
-        if(passwordsAreEquals()){
+        if(passwordsAreEquals(password, passwordRepeated)){
+            setErrMssg("");
             let payload = {password};
             dispatch(updatePassword(payload)); 
         }else{
-            alert(PASSWORDS_MUST_BE_EQUALS);
+            setErrMssg(PASSWORDS_MUST_BE_EQUALS);
         }
-        
     }
 
     const handleChangePassword = (password)=>{
+        setErrMssg("");
         if((!password.trim()) || (!passwordRepeated.trim())){
             setDisabled(true);
         }else{
@@ -76,11 +81,8 @@ export default function PasswordConfirm({navigation}){
         setPassword(password);
     }
 
-    const passwordsAreEquals = ()=>{
-        return (password=== passwordRepeated);
-    }
-
     const handleChangePasswordRepeated = (password)=>{
+        setErrMssg("");
         if((!password.trim()) || (!passwordRepeated.trim())){
             setDisabled(true);
         }else{
@@ -105,7 +107,7 @@ export default function PasswordConfirm({navigation}){
     return (
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS == "ios" ? "padding" : "height"} keyboardVerticalOffset={Platform.OS == "ios" ? 0 : -100}>
-                <ScrollView style={{ flex: 1 }}>
+                <ScrollView keyboardShouldPersistTaps = 'always' style={{ flex: 1 }}>
                     <View style={{ minHeight: height-Constants.statusBarHeight }}>
                         <View style={{ backgroundColor: '#7a7e7f', flex: 1, justifyContent: 'center', }}>
                             <View style={{ alignItems: 'flex-start', top: -20 }}>
@@ -136,6 +138,14 @@ export default function PasswordConfirm({navigation}){
                             </Form>
                         </View>
                         <View style={{ flex: 0.1, justifyContent: 'flex-end', margin: 32, }}>
+                            { 
+                                (errMssg.length >0) && (
+                                                            <>    
+                                                                <Text style={{ textAlign: 'center', fontWeight: 'bold',color:'red' }}>{WARNING}</Text>
+                                                                <Text style={{ textAlign: 'center', fontWeight: 'bold', color:'red' }}>{errMssg}</Text>
+                                                            </>
+                                                        )
+                            } 
                             <Button style={{ backgroundColor: '#F16921', borderColor: '#f16820' }} onPress={handleSaveNewPass} disabled={disabled} >
                                 <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase' }}>GUARDAR NUEVA CLAVE</Text>
                             </Button>

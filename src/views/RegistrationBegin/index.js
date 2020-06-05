@@ -22,7 +22,8 @@ import {
   MALE_GENDER,
   FEMALE_GENDER,
   WRONG_CUIL,
-  EMPTY_CUIL
+  EMPTY_CUIL,
+  WARNING
 } from "../../consts";
 
 export default function RegistrationBegin({ navigation }) {
@@ -34,35 +35,41 @@ export default function RegistrationBegin({ navigation }) {
   const [lastName, setlastName] = useState("");
   const [cuil, setCUIL] = useState("");
   const [gender, setGender] = useState(MALE_GENDER);
+  const [errMssg, setErrMssg] = useState("");
 
   useEffect(() => {
 
   });
 
   const handleChangeEmail = (text) => {
+    setErrMssg("");
     setEmail(text);
   }
 
   const handleChangeFirstName = (text) => {
-    setFirstName(text)
+    setErrMssg("");
+    setFirstName(text);
   }
 
   const handleChangeLastName = (text) => {
+    setErrMssg("");
     setlastName(text);
   }
 
   const handleChangeCUIL = (text) => {
+    setErrMssg("");
     setCUIL(text);
   }
 
   const handleNext = () => {
     let mssg = errorMssg();
     if(mssg.length > 0){
-      alert(mssg);
+      setErrMssg(mssg);
       return;
     }else{
-      const payload = { lastName, firstName, email, cuil, gender }
-      dispatch(buildExecutive(payload))
+      setErrMssg("");
+      const payload = { lastName, firstName, email, cuil, gender };
+      dispatch(buildExecutive(payload));
       navigation.navigate(REGISTRATION_END);
     }
   }
@@ -72,6 +79,12 @@ export default function RegistrationBegin({ navigation }) {
   }
 
    const errorMssg =() =>{
+    if(!cuil.trim()){
+      return EMPTY_CUIL;
+    }
+    if(!validateCUIL(cuil,gender)){
+      return WRONG_CUIL;
+    }
     if(!firstName.trim()){
       return EMPTY_USER_NAME;
     }
@@ -84,12 +97,6 @@ export default function RegistrationBegin({ navigation }) {
     if(!validateEmail(email)){
       return WRONG_FORMAT_EMAIL;
     }
-    if(!cuil.trim()){
-      return EMPTY_CUIL;
-    }
-    if(!validateCUIL(cuil,gender)){
-      return WRONG_CUIL;
-    }
     return EMPTY_MESSAGE;
   }
 
@@ -98,7 +105,7 @@ export default function RegistrationBegin({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS == "ios" ? "padding" : "height"} keyboardVerticalOffset={Platform.OS == "ios" ? 0 : -100}>
-        <ScrollView style={{ flex: 1, }}>
+        <ScrollView keyboardShouldPersistTaps = 'always' style={{ flex: 1, }}>
           <View style={{ minHeight: 700 }}>
             <View style={{ backgroundColor: '#7a7e7f', justifyContent: 'center', minHeight: 200 }}>
               <View style={{ alignItems: 'flex-start', top: -20, }}>
@@ -141,6 +148,14 @@ export default function RegistrationBegin({ navigation }) {
                 </Form>
               </View>
               <View style={{ margin: 10, }}>
+                { 
+                  (errMssg.length >0) && (
+                                           <>    
+                                            <Text style={{ textAlign: 'center', fontWeight: 'bold',color:'red' }}>{WARNING}</Text>
+                                            <Text style={{ textAlign: 'center', fontWeight: 'bold', color:'red' }}>{errMssg}</Text>
+                                           </>
+                                         )
+                } 
                 <Button style={{ backgroundColor: '#F16921', margin: 10, }} onPress={handleNext} >
                   <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase' }}>siguiente</Text>
                 </Button>
