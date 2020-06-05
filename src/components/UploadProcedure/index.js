@@ -131,7 +131,7 @@ export default function UploadProcedure({ navigation }) {
       <MenuBar onPress={() => navigation.openDrawer()} />
       <Content contentContainerStyle={{ flex: 1 }}>
         <View style={{ flex: 1, }}>
-          <ScrollView style={{ flex: 1 }}>
+          <ScrollView keyboardShouldPersistTaps = 'always' style={{ flex: 1 }}>
             <Form style={{ margin: 24 }}>
               <Text style={{ marginBottom: 16, textAlign: 'center', fontWeight: 'bold' }}>INICIAR NUEVO TRAMITE</Text>
               <Item>

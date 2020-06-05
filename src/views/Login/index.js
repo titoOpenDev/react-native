@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Image, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, ScrollView, View, Platform, Dimensions } from "react-native";
 import { Text, Button, Form, Item, Input } from "native-base";
@@ -81,9 +81,9 @@ export default function Login({ navigation }) {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView  style={styles.container}>
             <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS == "ios" ? "padding" : "height"} keyboardVerticalOffset={Platform.OS == "ios" ? 50 : -100}>
-                <ScrollView style={styles.scrollView} bounces={false}>
+                <ScrollView keyboardShouldPersistTaps = 'always' style={styles.scrollView} bounces={false}>
                     <View style={{ backgroundColor: 'green', minHeight: height }}>
                         <View style={{ backgroundColor: '#7a7e7f', flex: 1, justifyContent: 'center', alignContent: 'center', alignItems: 'center', }}>
                             <Image source={require('../../../assets/ase_nacional_imagen_app.png')} style={{ width: 180, height: 60 }} />
