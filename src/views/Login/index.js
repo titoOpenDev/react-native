@@ -13,7 +13,8 @@ import {
     REGISTRATION_BEGIN,
     EMPTY_PASSWORD,
     EMPTY_USERNAME,
-    EMPTY_MESSAGE
+    EMPTY_MESSAGE,
+    WARNING
 } from "../../consts";
 
 export default function Login({ navigation }) {
@@ -107,7 +108,7 @@ export default function Login({ navigation }) {
                                 { 
                                     (errMssg.length >0) && (
                                                             <>    
-                                                                <Text style={{ textAlign: 'center', fontWeight: 'bold',color:'red' }}>ATENCIÓN</Text>
+                                                                <Text style={{ textAlign: 'center', fontWeight: 'bold',color:'red' }}>{WARNING}</Text>
                                                                 <Text style={{ textAlign: 'center', fontWeight: 'bold', color:'red' }}>{errMssg}</Text>
                                                             </>
                                                     )

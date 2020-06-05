@@ -28,6 +28,8 @@ export const WHITE = "#FFF";
 //Http Methods
 export const POST_METHOD = "POST";
 
+export const WARNING = "ATENCIÓN";
+
 //Mssg
 export const ERROR_MSSG= "Ha ocurrido un error.";
 export const TIME_OUT_MESSAGE = "Sesión vencida. Por favor volvé a loguearte.";
@@ -44,7 +46,7 @@ export const WRONG_CUIL = "El Cuil ingresado no es válido.";
 export const EMPTY_CUIL = "El Cuil se encuentra vacío.";
 export const WRONG_CUIT = "El Cuit ingresado no es válido.";
 export const EMPTY_CUIT = "El Cuit se encuentra vacío.";
-export const PROCEDURE_SEND_SUCCESS = "El trámite fue enviado!"
+export const PROCEDURE_SEND_SUCCESS = "El trámite fue enviado!";
 
 //GENDER 
 export const MALE_GENDER = "M";
