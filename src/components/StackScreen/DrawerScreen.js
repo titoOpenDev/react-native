@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import UploadProcedure from '../UploadProcedure';
 import NotificationFilters from '../../views/NotificationFilters'

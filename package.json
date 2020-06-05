@@ -20,6 +20,7 @@
     "expo-camera": "^8.2.0",
     "expo-constants": "~8.0.0",
     "expo-image-picker": "^8.1.0",
+    "form-data": "^3.0.0",
     "moment": "^2.24.0",
     "native-base": "2.13.8",
     "react": "~16.9.0",

@@ -22,8 +22,6 @@ export default function Home({ navigation }) {
   const handleGoBack = () => {
     navigation.goBack();
   }
-      // {/* <UploadProcedure /> */}
-      // {/* <PhotoUpload /> */}
   return (
           <UploadProcedure />
   );
