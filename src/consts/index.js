@@ -46,8 +46,22 @@ export const WRONG_CUIT = "El Cuit ingresado no es válido.";
 export const EMPTY_CUIT = "El Cuit se encuentra vacío.";
 export const PROCEDURE_SEND_SUCCESS = "El trámite fue enviado!"
 
+//GENDER 
 export const MALE_GENDER = "M";
 export const FEMALE_GENDER = "F";
+
+//NAVIGATOR TITLE SCREENS
+export const LOGIN_TITLE = 'Login';
+export const REGISTRATION_BEGIN_TITLE = 'No tengo cuenta';
+export const REGISTRATION_END_TITLE = 'Fin Registración';
+export const SYSTEM_LOGOUT_TITLE = 'Salir del Sistema';
+export const EMAIL_NOTIFICATION_TITLE = 'Email de Activación';
+export const KEY_ACTIVATION_TITLE = 'Activación Clave';
+export const PASSWORD_RECOVERY_TITLE = 'Recupero de Password';
+export const PASSWORD_CONFIRM_TITLE = 'Confirmación de Password';
+export const HOME_TITLE = 'Alta (nuevo trámite)';
+export const NOTIFICATION_FILTERS_TITLE = 'Notificaciones';
+export const CALCULATOR_RESULTS_TITLE = 'Calculadora Aportes';
 
 export const SUCCESS_TYPE = 'success';
 export const POSITION_BOTTOM = 'bottom';
