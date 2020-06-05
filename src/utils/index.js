@@ -122,3 +122,14 @@ const buildHeaders = async() =>{
         console.log(error);
     }
 }
+
+export const buildImageRequest = (photoUri) =>{
+  const body = new FormData();
+  body.append('photo', {
+    uri:  Platform.OS === "android" ? photoUri : photoUri.replace("file://", ""),
+    name: photoUri.substr(photoUri.lastIndexOf('/') + 1),
+    type: 'image/jpg'
+  });
+
+  return body;
+}
