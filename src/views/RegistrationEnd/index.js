@@ -101,7 +101,7 @@ export default function RegistrationEnd({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS == "ios" ? "padding" : "height"} keyboardVerticalOffset={Platform.OS == "ios" ? 0 : -100}>
-        <ScrollView style={{ flex: 1 }}>
+        <ScrollView keyboardShouldPersistTaps = 'always' style={{ flex: 1 }}>
           <View style={{ minHeight: 700 }}>
             <View style={{ backgroundColor: '#7a7e7f', justifyContent: 'center', minHeight: 200, }}>
               <View style={{ alignItems: 'flex-start', top: -20, }}>

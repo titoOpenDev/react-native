@@ -105,7 +105,7 @@ export default function PasswordConfirm({navigation}){
     return (
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS == "ios" ? "padding" : "height"} keyboardVerticalOffset={Platform.OS == "ios" ? 0 : -100}>
-                <ScrollView style={{ flex: 1 }}>
+                <ScrollView keyboardShouldPersistTaps = 'always' style={{ flex: 1 }}>
                     <View style={{ minHeight: height-Constants.statusBarHeight }}>
                         <View style={{ backgroundColor: '#7a7e7f', flex: 1, justifyContent: 'center', }}>
                             <View style={{ alignItems: 'flex-start', top: -20 }}>
