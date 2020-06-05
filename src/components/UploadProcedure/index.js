@@ -21,7 +21,8 @@ import {EMPTY_MESSAGE,
         PROCEDURE_SEND_SUCCESS,
         POSITION_BOTTOM,
         SUCCESS_TYPE,
-        OK} from '../../consts';
+        OK,
+        WARNING} from '../../consts';
 
 import {validateCUIL, validateCUIT} from '../../utils';
 
@@ -36,6 +37,7 @@ export default function UploadProcedure({ navigation }) {
   const [cuit, setCUIT] = useState("");
   const [gender, setGender] = useState(MALE_GENDER);
   const [creationDate, setCreationDate] = useState(new Date());
+  const [errMssg, setErrMssg] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -49,59 +51,56 @@ export default function UploadProcedure({ navigation }) {
   };
 
   const handleSendForm = () => {
-
+    //TODO: QUE HACE ESTO ??
     
-    let errMssg = errorMssg();
-    if(errMssg.length >0){
-      alert(errMssg);
-    }else{
-      alert("Validación OK!!");
-      
-      
-      //TODO: AGREGAR LOCIGA
-    }
   }
   
   const handleSendProcedure = () => {
-    const payload = { cuit , cuil , gender , creationDate }
-    dispatch(requestProcedure(payload));
+    let mssg = errorMssg();
+    if(mssg.length >0){
+      setErrMssg(mssg);
+    }else{
+      const payload = { cuit , cuil , gender , creationDate };
+      dispatch(requestProcedure(payload));
 
-    Toast.show({
-      text: PROCEDURE_SEND_SUCCESS,
-      buttonText: OK,
-      position: POSITION_BOTTOM,
-      type: SUCCESS_TYPE,
-      duration: 3000
-    })
-    setCUIL(null);
-    setCUIT(null);
-    //setPhoto(null);
-    
+      Toast.show({
+        text: PROCEDURE_SEND_SUCCESS,
+        buttonText: OK,
+        position: POSITION_BOTTOM,
+        type: SUCCESS_TYPE,
+        duration: 3000
+      })
+      setCUIL(null);
+      setCUIT(null);
+      //setPhoto(null);
+    }
   }
 
 
   var _textInput, _textInput1;
 
   const handleChangeCUIT = (text) => {
+    setErrMssg("");
     setCUIT(text);
   }
 
   const handleChangeCUIL = (text) => {
+    setErrMssg("");
     setCUIL(text);
   }
 
   const errorMssg =() =>{
-    if(!cuil.trim()){
-      return EMPTY_CUIL;
-    }
-    if(!validateCUIL(cuil,gender)){
-      return WRONG_CUIL;
-    }
     if(!cuit.trim()){
       return EMPTY_CUIT;
     }
     if(!validateCUIT(cuit)){
       return WRONG_CUIT;
+    }
+    if(!cuil.trim()){
+      return EMPTY_CUIL;
+    }
+    if(!validateCUIL(cuil,gender)){
+      return WRONG_CUIL;
     }
     return EMPTY_MESSAGE;
   }
@@ -210,6 +209,15 @@ export default function UploadProcedure({ navigation }) {
                 <AntDesign style={{flex: 1, textAlign: 'center'}} name="camera" size={24} color="black" />
                   {/* <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase', color:'black'}}>cargar una imagen</Text> */}
               </Button>
+              { 
+                (errMssg.length >0) && (
+                                          <>    
+                                            <Text style={{ textAlign: 'center', fontWeight: 'bold',color:'red' }}>{WARNING}</Text>
+                                            <Text style={{ textAlign: 'center', fontWeight: 'bold', color:'red' }}>{errMssg}</Text>
+                                          </>
+                                       )
+              } 
+              
               <Button warning style={{ margin: 10, backgroundColor: '#f16820', borderRadius: 4 }} onPress={() => handleSendProcedure() }>
                 <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase', }}>comenzar trámite</Text>
               </Button>
