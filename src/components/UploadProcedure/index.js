@@ -74,9 +74,9 @@ export default function UploadProcedure({ navigation }) {
     setCUIL(null);
     setCUIT(null);
     //setPhoto(null);
+    }
   }
-
-
+  
   var _textInput, _textInput1;
 
   const handleChangeCUIT = (text) => {
