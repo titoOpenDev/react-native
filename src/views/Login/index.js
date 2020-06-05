@@ -27,7 +27,7 @@ export default function Login({ navigation }) {
     const [eye, setEye] = useState('md-eye')
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [disabled, setDisabled] = useState(true);
+    const [errMssg, setErrMssg] = useState('');
 
     useEffect(() => {
         if(error){
@@ -39,7 +39,7 @@ export default function Login({ navigation }) {
     const handleLoginPress = async () => {
         let mssg = errorMssg();
         if(mssg.length >0){
-            alert(mssg);
+            setErrMssg(mssg);
             return;
         }else{
             dispatch(login({username , password}));
@@ -64,12 +64,12 @@ export default function Login({ navigation }) {
 
     const handleChangeUsername = (text) => {
         setUsername(text);
+        setErrMssg('');
     }
 
     const handleChangePassword = (text) => {
-        const activated = text.length > 4 ? false : true;
-        setDisabled(activated)
-        setPassword(text)
+        setPassword(text);
+        setErrMssg('');
     }
 
     const handleRegistry = () => {
@@ -103,11 +103,19 @@ export default function Login({ navigation }) {
                                     </Item>
                                 </Form>
                             </View>
-                            <View style={{ margin: 10, }}>
-                                <Button warning style={{ margin: 10, backgroundColor: '#f16921', }} onPress={handleLoginPress}>
+                            <View style={{ margin: 10 }}>
+                                { 
+                                    (errMssg.length >0) && (
+                                                            <>    
+                                                                <Text style={{ textAlign: 'center', fontWeight: 'bold',color:'red' }}>ATENCIÓN</Text>
+                                                                <Text style={{ textAlign: 'center', fontWeight: 'bold', color:'red' }}>{errMssg}</Text>
+                                                            </>
+                                                    )
+                                } 
+                                <Button warning style={{ margin: 10, backgroundColor: '#f16921' }} onPress={handleLoginPress}>
                                     <Text style={{ flex: 1, textAlign: 'center' }}>Iniciar sesión</Text>
                                 </Button>
-                                <Button light style={{ margin: 10, backgroundColor: 'gray', }} onPress={handleRegistry}>
+                                <Button light style={{ margin: 10, backgroundColor: 'gray' }} onPress={handleRegistry}>
                                     <Text style={{ color: 'white', flex: 1, textAlign: 'center' }}>No tengo cuenta</Text>
                                 </Button>
                                 <Button dark bordered warning style={{ margin: 10, borderColor: 'orange'}} onPress={handlePasswordRecovery}>
