@@ -41,7 +41,7 @@ export default function EmailNotification({ route, navigation }) {
                     </View>
                 </View>
                 <Button bordered full style={{ borderColor: 'white', margin: 24, borderRadius: 5, }} onPress={() => handleEntryCode()}>
-                    <Text style={{ color: 'white', textTransform: 'uppercase' }}>INGRESAR CDIGO</Text>
+                    <Text style={{ color: 'white', textTransform: 'uppercase' }}>VALIDAR CÓDIGO</Text>
                 </Button>
 
                 <Button bordered full style={{ borderColor: 'white', margin: 24, borderRadius: 5, }} onPress={() => handleSend()}>
