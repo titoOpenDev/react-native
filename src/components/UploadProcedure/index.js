@@ -66,6 +66,8 @@ export default function UploadProcedure({ navigation }) {
     const payload = { cuit , cuil , gender , creationDate }
     dispatch(requestProcedure(payload));
 
+
+    //TODO: REEMPLAZAR POR MODAL-POPUP
     Toast.show({
       text: PROCEDURE_SEND_SUCCESS,
       buttonText: OK,
@@ -133,7 +135,7 @@ export default function UploadProcedure({ navigation }) {
         <View style={{ flex: 1, }}>
           <ScrollView style={{ flex: 1 }}>
             <Form style={{ margin: 24 }}>
-              <Text style={{ marginBottom: 16, textAlign: 'center', fontWeight: 'bold' }}>INICIAR NUEVO TRAMITE</Text>
+              <Text style={{ marginBottom: 16, textAlign: 'center', fontWeight: 'bold' }}>INICIAR NUEVO TRÁMITE</Text>
               <Item>
                 <TextInputMask 
                   type={'custom'}
@@ -143,7 +145,7 @@ export default function UploadProcedure({ navigation }) {
                   }}
                   value={cuit}
                   onChangeText={text => handleChangeCUIT(text)}
-                  placeholder = "Completa el CUIT"
+                  placeholder = "Completá el CUIT"
                   style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12 }}
                 />
                 <TouchableOpacity>
