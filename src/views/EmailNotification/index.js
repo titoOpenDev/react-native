@@ -24,25 +24,13 @@ export default function EmailNotification({ route, navigation }) {
         dispatch(requestExecutive(payload));
     }
 
-    const handleForwardPress = () => {
+    const handleEntryCode = () => {
         navigation.navigate(KEY_ACTIVATION, route.params);
     }
 
     return (
         <Container>
             <Content contentContainerStyle={styles.content}>
-                {/* TODO: ESTO ES TEMPORAL, DSP SACARLO EL BUTTON */}
-                <Button
-                    transparent
-                    style={styles.forwardButton}
-                    onPress={handleForwardPress}>
-                    <Icon
-                        android="md-arrow-forward"
-                        ios="ios-arrow-forward"
-                        style={styles.forwardIcon}
-                    />
-                </Button>
-
                 <View style={{ flex: 1, alignItems: 'center', }}>
                     <View style={{ width: '75%', height: '90%', justifyContent: 'space-between' }}>
                         <Image source={require('../../../assets/ase_nacional_imagen_app.png')} style={{ marginTop: 50, width: 180, height: 60, alignSelf: 'center', tintColor: 'white' }} />
@@ -52,6 +40,9 @@ export default function EmailNotification({ route, navigation }) {
                         <Text style={{ color: 'white' }}>Si no recibiste el e-mail, solicitalo nuevamente. Y si no lo recibís contactate con el 4223-2233.</Text>
                     </View>
                 </View>
+                <Button bordered full style={{ borderColor: 'white', margin: 24, borderRadius: 5, }} onPress={() => handleEntryCode()}>
+                    <Text style={{ color: 'white', textTransform: 'uppercase' }}>INGRESAR CDIGO</Text>
+                </Button>
 
                 <Button bordered full style={{ borderColor: 'white', margin: 24, borderRadius: 5, }} onPress={() => handleSend()}>
                     <Text style={{ color: 'white', textTransform: 'uppercase' }}>SOLICITAR NUEVO E-MAIL</Text>
