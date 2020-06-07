@@ -7,16 +7,17 @@ import { Ionicons,AntDesign,Entypo } from '@expo/vector-icons';
 import { Camera } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
 import { requestProcedure } from '../../redux/ducks/procedureDucks';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import MenuBar from '../MenuBar';
 
-import {EMPTY_MESSAGE,
+import {
         MALE_GENDER,
         FEMALE_GENDER,
         PROCEDURE_SEND_SUCCESS,
         POSITION_BOTTOM,
         SUCCESS_TYPE,
+        ERROR_MSSG,
         OK,
         WARNING} from '../../consts';
 
@@ -35,12 +36,17 @@ export default function UploadProcedure({ navigation }) {
   const [creationDate, setCreationDate] = useState(new Date());
   const [errMssg, setErrMssg] = useState("");
 
+  const error = useSelector(store => store.procedure.err);
+
   useEffect(() => {
+    if(error){
+      alert(ERROR_MSSG);
+    }
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
       setHasPermission(status === 'granted');
     })();
-  }, []);
+  }, [error]);
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -61,13 +67,13 @@ export default function UploadProcedure({ navigation }) {
       dispatch(requestProcedure(payload));
 
     //TODO: REEMPLAZAR POR MODAL-POPUP
-    Toast.show({
-      text: PROCEDURE_SEND_SUCCESS,
-      buttonText: OK,
-      position: POSITION_BOTTOM,
-      type: SUCCESS_TYPE,
-      duration: 3000
-    })
+    // Toast.show({
+    //   text: PROCEDURE_SEND_SUCCESS,
+    //   buttonText: OK,
+    //   position: POSITION_BOTTOM,
+    //   type: SUCCESS_TYPE,
+    //   duration: 3000
+    // })
     setCUIL(null);
     setCUIT(null);
     //setPhoto(null);
