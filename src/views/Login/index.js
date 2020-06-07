@@ -11,6 +11,8 @@ import styles from "./style";
 import {
     PASSWORD_RECOVERY,
     REGISTRATION_BEGIN,
+    EMPTY_PASSWORD,
+    EMPTY_USERNAME,
     WARNING
 } from "../../consts";
 import { buildErrMssg } from "../../utils";
@@ -83,13 +85,38 @@ export default function Login({ navigation }) {
                                 <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>INGRESO</Text>
                                 <Form>
                                     <Item last>
-                                        <Input placeholder="Usuario" onChangeText={text => handleChangeUsername(text)}/>
+                                        {
+                                            (errMssg === EMPTY_USERNAME ) ? 
+                                            (
+                                                <>
+                                                    <Input placeholder="Usuario" onChangeText={text => handleChangeUsername(text)} style={{ borderColor:'red', borderWidth:1}}/>
+                                                </>
+                                            ):
+                                            (
+                                                <Input placeholder="Usuario" onChangeText={text => handleChangeUsername(text)}/>
+                                            )
+                                        }   
                                     </Item>
                                     <Item last>
-                                        <Input placeholder="Clave" onChangeText={text => handleChangePassword(text)} secureTextEntry={secureTextEntry}/>
-                                        <TouchableOpacity onPress={handleTouchableOpacity}>
-                                            <Ionicons name={eye} size={24} color="gray" />
-                                        </TouchableOpacity>
+                                    {
+                                        (errMssg === EMPTY_PASSWORD ) ? 
+                                        (
+                                            <>
+                                                <Input placeholder="Clave" onChangeText={text => handleChangePassword(text)} secureTextEntry={secureTextEntry} style={{ borderColor:'red', borderWidth:1}} />
+                                                <TouchableOpacity onPress={handleTouchableOpacity}>
+                                                    <Ionicons name={eye} size={24} color="gray" />
+                                                </TouchableOpacity>
+                                            </>
+                                        ):
+                                        (
+                                            <>
+                                                <Input placeholder="Clave" onChangeText={text => handleChangePassword(text)} secureTextEntry={secureTextEntry}/>
+                                                <TouchableOpacity onPress={handleTouchableOpacity}>
+                                                    <Ionicons name={eye} size={24} color="gray" />
+                                                </TouchableOpacity>
+                                            </>
+                                        )
+                                    }
                                     </Item>
                                 </Form>
                             </View>
