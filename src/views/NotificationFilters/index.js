@@ -7,8 +7,6 @@ import genericStyles from '../../styles';
 import styles from './style';
 import MenuBar from '../../components/MenuBar';
 
-import {validateCUIL,validateCUIT} from '../../utils';
-
 export default function NotificationFilters({navigation}){
 
     const [cuit, setCuit] = useState("");

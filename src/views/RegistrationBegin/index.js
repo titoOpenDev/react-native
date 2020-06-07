@@ -10,19 +10,12 @@ import styles from './style'
 import { useDispatch } from "react-redux";
 
 import { buildExecutive } from '../../redux/ducks/executiveDucks';
-import {validateEmail,validateCUIL} from '../../utils';
+import {buildErrMssg} from '../../utils';
 
 import {
   REGISTRATION_END,
-  EMPTY_USER_SURNAME,
-  EMPTY_USER_NAME,
-  EMPTY_MESSAGE,
-  EMPTY_USER_EMAIL,
-  WRONG_FORMAT_EMAIL,
   MALE_GENDER,
   FEMALE_GENDER,
-  WRONG_CUIL,
-  EMPTY_CUIL,
   WARNING
 } from "../../consts";
 
@@ -62,7 +55,8 @@ export default function RegistrationBegin({ navigation }) {
   }
 
   const handleNext = () => {
-    let mssg = errorMssg();
+    let form = {cuil,firstName, lastName, email, gender};
+    let mssg = buildErrMssg(form);
     if(mssg.length > 0){
       setErrMssg(mssg);
       return;
@@ -76,28 +70,6 @@ export default function RegistrationBegin({ navigation }) {
 
   const handleGoBack = () => {
     navigation.goBack();
-  }
-
-   const errorMssg =() =>{
-    if(!cuil.trim()){
-      return EMPTY_CUIL;
-    }
-    if(!validateCUIL(cuil,gender)){
-      return WRONG_CUIL;
-    }
-    if(!firstName.trim()){
-      return EMPTY_USER_NAME;
-    }
-    if(!lastName.trim()){
-      return EMPTY_USER_SURNAME;
-    }
-    if(!email.trim()){
-      return EMPTY_USER_EMAIL;
-    }
-    if(!validateEmail(email)){
-      return WRONG_FORMAT_EMAIL;
-    }
-    return EMPTY_MESSAGE;
   }
 
   const { height } = Dimensions.get('window');

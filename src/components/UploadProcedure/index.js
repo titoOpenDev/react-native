@@ -14,17 +14,13 @@ import MenuBar from '../MenuBar';
 import {EMPTY_MESSAGE,
         MALE_GENDER,
         FEMALE_GENDER,
-        WRONG_CUIL,
-        EMPTY_CUIL,
-        WRONG_CUIT,
-        EMPTY_CUIT,
         PROCEDURE_SEND_SUCCESS,
         POSITION_BOTTOM,
         SUCCESS_TYPE,
         OK,
         WARNING} from '../../consts';
 
-import {validateCUIL, validateCUIT} from '../../utils';
+import {buildErrMssg} from '../../utils';
 
 export default function UploadProcedure({ navigation }) {
 
@@ -56,7 +52,8 @@ export default function UploadProcedure({ navigation }) {
   }
   
   const handleSendProcedure = () => {
-    let mssg = errorMssg();
+    let form = {cuit,cuil,gender}
+    let mssg = buildErrMssg(form);
     if(mssg.length >0){
       setErrMssg(mssg);
     }else{
@@ -89,23 +86,7 @@ export default function UploadProcedure({ navigation }) {
     setCUIL(text);
   }
 
-  const errorMssg =() =>{
-    if(!cuit.trim()){
-      return EMPTY_CUIT;
-    }
-    if(!validateCUIT(cuit)){
-      return WRONG_CUIT;
-    }
-    if(!cuil.trim()){
-      return EMPTY_CUIL;
-    }
-    if(!validateCUIL(cuil,gender)){
-      return WRONG_CUIL;
-    }
-    return EMPTY_MESSAGE;
-  }
-
-   const pickImage = async () => {
+  const pickImage = async () => {
     try {
       // ImagePicker.launchCameraAsync(options)
 

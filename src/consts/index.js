@@ -68,3 +68,10 @@ export const CALCULATOR_RESULTS_TITLE = 'Calculadora Aportes';
 export const SUCCESS_TYPE = 'success';
 export const POSITION_BOTTOM = 'bottom';
 export const OK = 'OK';
+
+//Input fields
+export const CUIL = 'cuil';
+export const CUIT = 'cuit';
+export const EMAIL = 'email';
+export const FIRST_NAME = 'firstName';
+export const LAST_NAME = 'lastName';
