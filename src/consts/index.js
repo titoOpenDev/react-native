@@ -75,3 +75,5 @@ export const CUIT = 'cuit';
 export const EMAIL = 'email';
 export const FIRST_NAME = 'firstName';
 export const LAST_NAME = 'lastName';
+export const USER_NAME = 'username';
+export const PASSWORD = 'password';

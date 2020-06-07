@@ -11,12 +11,16 @@ import {
         EMPTY_MESSAGE,
         EMPTY_USER_SURNAME,
         EMPTY_USER_NAME,
+        EMPTY_PASSWORD,
+        EMPTY_USERNAME,
         EMPTY_CUIL,
         EMPTY_CUIT,
         WRONG_CUIT,
         WRONG_CUIL,
         WRONG_FORMAT_EMAIL,
-        EMPTY_USER_EMAIL
+        EMPTY_USER_EMAIL,
+        USER_NAME,
+        PASSWORD,
        } from '../consts';
 
 export const saveItem = async(keyName, keyValue) =>{
@@ -49,13 +53,19 @@ export const validateField = (form,field) =>{
             errMssg= wrongCUIT(form[field]);
             break;
         case LAST_NAME:
-            errMssg= emptyLastName(form[field]);
+            errMssg= emptyField(form[field],EMPTY_USER_SURNAME);
             break;
         case FIRST_NAME:
-            errMssg= emptyFirstName(form[field]);
+            errMssg= emptyField(form[field],EMPTY_USER_NAME);
             break;
         case EMAIL:
             errMssg = wrongEmail(form[field]);
+            break;
+        case USER_NAME:
+            errMssg= emptyField(form[field],EMPTY_USERNAME);
+            break;
+        case PASSWORD:
+            errMssg= emptyField(form[field],EMPTY_PASSWORD);
             break;
         default:
             break;
@@ -99,17 +109,9 @@ const wrongEmail = (email) =>{
     }
 }
 
-const emptyLastName = (lastName) =>{
-    if(!lastName.trim()){
-        return EMPTY_USER_SURNAME;
-    }else{
-        return EMPTY_MESSAGE;
-    }
-}
-
-const emptyFirstName = (firstName) =>{
-    if(!firstName.trim()){
-        return EMPTY_USER_NAME;
+const emptyField = (value, mssg) =>{
+    if(!value.trim()){
+        return mssg;
     }else{
         return EMPTY_MESSAGE;
     }

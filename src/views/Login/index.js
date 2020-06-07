@@ -11,11 +11,9 @@ import styles from "./style";
 import {
     PASSWORD_RECOVERY,
     REGISTRATION_BEGIN,
-    EMPTY_PASSWORD,
-    EMPTY_USERNAME,
-    EMPTY_MESSAGE,
     WARNING
 } from "../../consts";
+import { buildErrMssg } from "../../utils";
 
 export default function Login({ navigation }) {
     const dispatch = useDispatch();
@@ -38,7 +36,8 @@ export default function Login({ navigation }) {
     },[error]);
 
     const handleLoginPress = async () => {
-        let mssg = errorMssg();
+        let form = {username, password}
+        let mssg = buildErrMssg(form);
         if(mssg.length >0){
             setErrMssg(mssg);
             return;
@@ -46,16 +45,6 @@ export default function Login({ navigation }) {
             dispatch(login({username , password}));
         }
     };
-
-    const errorMssg = () =>{
-        if(!username.trim()){
-            return EMPTY_USERNAME;
-        }
-        if(!password.trim()){
-            return EMPTY_PASSWORD;
-        }
-        return EMPTY_MESSAGE;
-    }
 
     const handleTouchableOpacity = async () => {
         const eyeName = secureTextEntry ? 'md-eye-off' : 'md-eye';
