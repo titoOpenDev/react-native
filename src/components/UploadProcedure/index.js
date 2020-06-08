@@ -136,7 +136,7 @@ export default function UploadProcedure({ navigation }) {
                           value={cuit}
                           onChangeText={text => handleChangeCUIT(text)}
                           placeholder = "Completá el CUIT"
-                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12, borderColor:'red', borderWidth:1 }}
+                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12, width:'75%', borderColor:'red', borderWidth:1 }}
                         />
                       </>
                   ):(
@@ -149,7 +149,7 @@ export default function UploadProcedure({ navigation }) {
                           value={cuit}
                           onChangeText={text => handleChangeCUIT(text)}
                           placeholder = "Completá el CUIT"
-                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12 }}
+                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12, width:'75%'}}
                         />
                       </>
                   )
@@ -197,7 +197,7 @@ export default function UploadProcedure({ navigation }) {
                           value={cuil}
                           onChangeText={text => handleChangeCUIL(text)}
                           placeholder = "Completá el CUIL"
-                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12, borderColor:'red', borderWidth:1 }}
+                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12, width:'75%', borderColor:'red', borderWidth:1 }}
                         />
                       </>
                   ):(
@@ -210,7 +210,7 @@ export default function UploadProcedure({ navigation }) {
                           value={cuil}
                           onChangeText={text => handleChangeCUIL(text)}
                           placeholder = "Completá el CUIL"
-                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12 }}
+                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', width:'75%', marginTop: 12, marginBottom: 12 }}
                         />
                       </>
                   )
