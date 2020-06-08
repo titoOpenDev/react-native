@@ -7,24 +7,25 @@ import { Ionicons,AntDesign,Entypo } from '@expo/vector-icons';
 import { Camera } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
 import { requestProcedure } from '../../redux/ducks/procedureDucks';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import MenuBar from '../MenuBar';
 
-import {EMPTY_MESSAGE,
+import {
         MALE_GENDER,
         FEMALE_GENDER,
-        WRONG_CUIL,
-        EMPTY_CUIL,
-        WRONG_CUIT,
-        EMPTY_CUIT,
         PROCEDURE_SEND_SUCCESS,
         POSITION_BOTTOM,
         SUCCESS_TYPE,
+        WRONG_CUIT,
+        EMPTY_CUIT,
+        ERROR_MSSG,
+        EMPTY_CUIL,
+        WRONG_CUIL,
         OK,
         WARNING} from '../../consts';
 
-import {validateCUIL, validateCUIT} from '../../utils';
+import {buildErrMssg} from '../../utils';
 
 export default function UploadProcedure({ navigation }) {
 
@@ -39,12 +40,17 @@ export default function UploadProcedure({ navigation }) {
   const [creationDate, setCreationDate] = useState(new Date());
   const [errMssg, setErrMssg] = useState("");
 
+  const error = useSelector(store => store.procedure.err);
+
   useEffect(() => {
+    if(error){
+      alert(ERROR_MSSG);
+    }
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
       setHasPermission(status === 'granted');
     })();
-  }, []);
+  }, [error]);
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -56,7 +62,8 @@ export default function UploadProcedure({ navigation }) {
   }
   
   const handleSendProcedure = () => {
-    let mssg = errorMssg();
+    let form = {cuit,cuil,gender}
+    let mssg = buildErrMssg(form);
     if(mssg.length >0){
       setErrMssg(mssg);
     }else{
@@ -64,13 +71,13 @@ export default function UploadProcedure({ navigation }) {
       dispatch(requestProcedure(payload));
 
     //TODO: REEMPLAZAR POR MODAL-POPUP
-    Toast.show({
-      text: PROCEDURE_SEND_SUCCESS,
-      buttonText: OK,
-      position: POSITION_BOTTOM,
-      type: SUCCESS_TYPE,
-      duration: 3000
-    })
+    // Toast.show({
+    //   text: PROCEDURE_SEND_SUCCESS,
+    //   buttonText: OK,
+    //   position: POSITION_BOTTOM,
+    //   type: SUCCESS_TYPE,
+    //   duration: 3000
+    // })
     setCUIL(null);
     setCUIT(null);
     //setPhoto(null);
@@ -89,23 +96,7 @@ export default function UploadProcedure({ navigation }) {
     setCUIL(text);
   }
 
-  const errorMssg =() =>{
-    if(!cuit.trim()){
-      return EMPTY_CUIT;
-    }
-    if(!validateCUIT(cuit)){
-      return WRONG_CUIT;
-    }
-    if(!cuil.trim()){
-      return EMPTY_CUIL;
-    }
-    if(!validateCUIL(cuil,gender)){
-      return WRONG_CUIL;
-    }
-    return EMPTY_MESSAGE;
-  }
-
-   const pickImage = async () => {
+  const pickImage = async () => {
     try {
       // ImagePicker.launchCameraAsync(options)
 
@@ -134,20 +125,35 @@ export default function UploadProcedure({ navigation }) {
             <Form style={{ margin: 24 }}>
               <Text style={{ marginBottom: 16, textAlign: 'center', fontWeight: 'bold' }}>INICIAR NUEVO TRÁMITE</Text>
               <Item>
-                <TextInputMask 
-                  type={'custom'}
-                  options={{
-                    mask: '99-99999999-9'
-                    
-                  }}
-                  value={cuit}
-                  onChangeText={text => handleChangeCUIT(text)}
-                  placeholder = "Completá el CUIT"
-                  style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12 }}
-                />
-                <TouchableOpacity>
-                  <Entypo name='cross' size={24} color="gray" />
-                </TouchableOpacity> 
+                {
+                  (errMssg === EMPTY_CUIT  || errMssg === WRONG_CUIT) ? (
+                      <>
+                        <TextInputMask 
+                          type={'custom'}
+                          options={{
+                            mask: '99-99999999-9'
+                          }}
+                          value={cuit}
+                          onChangeText={text => handleChangeCUIT(text)}
+                          placeholder = "Completá el CUIT"
+                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12, width:'100%', borderColor:'red', borderWidth:1 }}
+                        />
+                      </>
+                  ):(
+                      <>
+                        <TextInputMask 
+                          type={'custom'}
+                          options={{
+                            mask: '99-99999999-9'
+                          }}
+                          value={cuit}
+                          onChangeText={text => handleChangeCUIT(text)}
+                          placeholder = "Completá el CUIT"
+                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12, width:'100%'}}
+                        />
+                      </>
+                  )
+                }
               </Item>
               <Item>
                 <Switch style={{ marginBottom: 16, marginTop: 16, }} />
@@ -155,38 +161,57 @@ export default function UploadProcedure({ navigation }) {
               </Item>
               <Item>
                 <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', padding: 5 }}>
-                    <Text>Sexo</Text>
-                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', alignContent: 'flex-end', paddingRight: 16, }}>
-                      <RadioButton
+                  <Text>Sexo</Text>
+                  <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', alignContent: 'flex-end', paddingRight: 16, }}>
+                    <RadioButton
                         value={gender}
                         status={gender === MALE_GENDER ? 'checked' : 'unchecked'}
                         onPress={() => { setGender(MALE_GENDER) }}
                         color = {'red'}
                         uncheckedColor={'black'}
-                      />
-                      <Text>{MALE_GENDER}</Text>
-                      <RadioButton
-                        value={gender}
-                        status={gender === FEMALE_GENDER ? 'checked' : 'unchecked'}
-                        onPress={() => { setGender(FEMALE_GENDER) }}
-                        color = {'red'}
-                        uncheckedColor={'black'}
-                      />
+                    />
+                    <Text>{MALE_GENDER}</Text>
+                    <RadioButton
+                      value={gender}
+                      status={gender === FEMALE_GENDER ? 'checked' : 'unchecked'}
+                      onPress={() => { setGender(FEMALE_GENDER) }}
+                      color = {'red'}
+                      uncheckedColor={'black'}
+                    />
                     <Text>{FEMALE_GENDER}</Text>  
                   </View>
                 </View>
               </Item>
               <Item>
-                <TextInputMask
-                  type={'custom'}
-                  options={{
-                    mask: '99-99999999-9'
-                  }}
-                  value={cuil}
-                  onChangeText={text => handleChangeCUIL(text)}
-                  placeholder = "Completá el CUIL"
-                  style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12 }}
-                />
+                {
+                  (errMssg === EMPTY_CUIL  || errMssg === WRONG_CUIL) ? (
+                      <>
+                        <TextInputMask
+                          type={'custom'}
+                          options={{
+                            mask: '99-99999999-9'
+                          }}
+                          value={cuil}
+                          onChangeText={text => handleChangeCUIL(text)}
+                          placeholder = "Completá el CUIL"
+                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12, width:'100%', borderColor:'red', borderWidth:1 }}
+                        />
+                      </>
+                  ):(
+                      <>
+                        <TextInputMask
+                          type={'custom'}
+                          options={{
+                            mask: '99-99999999-9'
+                          }}
+                          value={cuil}
+                          onChangeText={text => handleChangeCUIL(text)}
+                          placeholder = "Completá el CUIL"
+                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', width:'100%', marginTop: 12, marginBottom: 12 }}
+                        />
+                      </>
+                  )
+                }
               </Item>
               <Item last>
                 <Card style={{ height: 200, flex: 1, alignItems: 'center', alignContent: 'center', justifyContent: 'center', borderColor: 'black' }}>

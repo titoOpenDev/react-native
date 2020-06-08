@@ -2,7 +2,25 @@ import {AsyncStorage} from 'react-native';
 
 import {
         MALE_GENDER,
-        FEMALE_GENDER
+        FEMALE_GENDER,
+        CUIL,
+        CUIT,
+        EMAIL,
+        FIRST_NAME,
+        LAST_NAME,
+        EMPTY_MESSAGE,
+        EMPTY_USER_SURNAME,
+        EMPTY_USER_NAME,
+        EMPTY_PASSWORD,
+        EMPTY_USERNAME,
+        EMPTY_CUIL,
+        EMPTY_CUIT,
+        WRONG_CUIT,
+        WRONG_CUIL,
+        WRONG_FORMAT_EMAIL,
+        EMPTY_USER_EMAIL,
+        USER_NAME,
+        PASSWORD,
        } from '../consts';
 
 export const saveItem = async(keyName, keyValue) =>{
@@ -11,6 +29,91 @@ export const saveItem = async(keyName, keyValue) =>{
         return true;
     }catch(error){  
         return false;
+    }
+}
+
+export const buildErrMssg = (form) =>{
+    let errMssg = "";
+    for(let field of Object.keys(form)){
+        errMssg = validateField(form,field);
+        if(errMssg.length >0){
+            break;
+        }
+    }
+    return errMssg;
+}
+
+export const validateField = (form,field) =>{
+    let errMssg = "";
+    switch(field){
+        case CUIL:
+            errMssg = wrongCUIL(form[field], form['gender']);
+            break;
+        case CUIT:
+            errMssg= wrongCUIT(form[field]);
+            break;
+        case LAST_NAME:
+            errMssg= emptyField(form[field],EMPTY_USER_SURNAME);
+            break;
+        case FIRST_NAME:
+            errMssg= emptyField(form[field],EMPTY_USER_NAME);
+            break;
+        case EMAIL:
+            errMssg = wrongEmail(form[field]);
+            break;
+        case USER_NAME:
+            errMssg= emptyField(form[field],EMPTY_USERNAME);
+            break;
+        case PASSWORD:
+            errMssg= emptyField(form[field],EMPTY_PASSWORD);
+            break;
+        default:
+            break;
+    }
+    return errMssg;
+}
+
+const wrongCUIL = (cuil,gender) =>{
+    if(!cuil.trim()){
+        return EMPTY_CUIL;
+    }else {
+        if(!validateCUIL(cuil,gender)){
+            return WRONG_CUIL;
+        }else{
+            return EMPTY_MESSAGE;
+        }
+    }    
+}
+
+const wrongCUIT = (cuit) =>{
+    if(!cuit.trim()){
+        return EMPTY_CUIT;
+    }else {
+        if(!validateCUIT(cuit)){
+            return WRONG_CUIT;
+        }else{
+            return EMPTY_MESSAGE;
+        }
+    }
+}
+
+const wrongEmail = (email) =>{
+    if(!email.trim()){
+        return EMPTY_USER_EMAIL;
+    }else {
+        if(!validateEmail(email)){
+            return WRONG_FORMAT_EMAIL;
+        }else{
+            return EMPTY_MESSAGE;
+        }
+    }
+}
+
+const emptyField = (value, mssg) =>{
+    if(!value.trim()){
+        return mssg;
+    }else{
+        return EMPTY_MESSAGE;
     }
 }
 
@@ -26,7 +129,7 @@ export const validateCUIT =(cuit) =>{
 export const validateCUIL =(cuil,gender) =>{
     let genderCode = cuil.split('-')[0];
     if(gender && ((genderCode != 20 && gender === MALE_GENDER) || (genderCode != 27 && gender === FEMALE_GENDER)) ){
-      return false;
+        return false;
     }
     return validate(cuil);
 }

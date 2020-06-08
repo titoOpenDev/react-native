@@ -13,9 +13,9 @@ import {
     REGISTRATION_BEGIN,
     EMPTY_PASSWORD,
     EMPTY_USERNAME,
-    EMPTY_MESSAGE,
     WARNING
 } from "../../consts";
+import { buildErrMssg } from "../../utils";
 
 export default function Login({ navigation }) {
     const dispatch = useDispatch();
@@ -38,7 +38,8 @@ export default function Login({ navigation }) {
     },[error]);
 
     const handleLoginPress = async () => {
-        let mssg = errorMssg();
+        let form = {username, password}
+        let mssg = buildErrMssg(form);
         if(mssg.length >0){
             setErrMssg(mssg);
             return;
@@ -46,16 +47,6 @@ export default function Login({ navigation }) {
             dispatch(login({username , password}));
         }
     };
-
-    const errorMssg = () =>{
-        if(!username.trim()){
-            return EMPTY_USERNAME;
-        }
-        if(!password.trim()){
-            return EMPTY_PASSWORD;
-        }
-        return EMPTY_MESSAGE;
-    }
 
     const handleTouchableOpacity = async () => {
         const eyeName = secureTextEntry ? 'md-eye-off' : 'md-eye';
@@ -94,13 +85,38 @@ export default function Login({ navigation }) {
                                 <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>INGRESO</Text>
                                 <Form>
                                     <Item last>
-                                        <Input placeholder="Usuario" onChangeText={text => handleChangeUsername(text)}/>
+                                        {
+                                            (errMssg === EMPTY_USERNAME ) ? 
+                                            (
+                                                <>
+                                                    <Input placeholder="Usuario" onChangeText={text => handleChangeUsername(text)} style={{ borderColor:'red', borderWidth:1}}/>
+                                                </>
+                                            ):
+                                            (
+                                                <Input placeholder="Usuario" onChangeText={text => handleChangeUsername(text)}/>
+                                            )
+                                        }   
                                     </Item>
                                     <Item last>
-                                        <Input placeholder="Clave" onChangeText={text => handleChangePassword(text)} secureTextEntry={secureTextEntry}/>
-                                        <TouchableOpacity onPress={handleTouchableOpacity}>
-                                            <Ionicons name={eye} size={24} color="gray" />
-                                        </TouchableOpacity>
+                                    {
+                                        (errMssg === EMPTY_PASSWORD ) ? 
+                                        (
+                                            <>
+                                                <Input placeholder="Clave" onChangeText={text => handleChangePassword(text)} secureTextEntry={secureTextEntry} style={{ borderColor:'red', borderWidth:1}} />
+                                                <TouchableOpacity onPress={handleTouchableOpacity}>
+                                                    <Ionicons name={eye} size={24} color="gray" />
+                                                </TouchableOpacity>
+                                            </>
+                                        ):
+                                        (
+                                            <>
+                                                <Input placeholder="Clave" onChangeText={text => handleChangePassword(text)} secureTextEntry={secureTextEntry}/>
+                                                <TouchableOpacity onPress={handleTouchableOpacity}>
+                                                    <Ionicons name={eye} size={24} color="gray" />
+                                                </TouchableOpacity>
+                                            </>
+                                        )
+                                    }
                                     </Item>
                                 </Form>
                             </View>

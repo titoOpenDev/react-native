@@ -10,19 +10,18 @@ import styles from './style'
 import { useDispatch } from "react-redux";
 
 import { buildExecutive } from '../../redux/ducks/executiveDucks';
-import {validateEmail,validateCUIL} from '../../utils';
+import {buildErrMssg} from '../../utils';
 
 import {
   REGISTRATION_END,
-  EMPTY_USER_SURNAME,
-  EMPTY_USER_NAME,
-  EMPTY_MESSAGE,
-  EMPTY_USER_EMAIL,
-  WRONG_FORMAT_EMAIL,
   MALE_GENDER,
   FEMALE_GENDER,
-  WRONG_CUIL,
+  EMPTY_USER_NAME,
+  EMPTY_USER_SURNAME,
+  EMPTY_USER_EMAIL,
+  WRONG_FORMAT_EMAIL,
   EMPTY_CUIL,
+  WRONG_CUIL,
   WARNING
 } from "../../consts";
 
@@ -62,7 +61,8 @@ export default function RegistrationBegin({ navigation }) {
   }
 
   const handleNext = () => {
-    let mssg = errorMssg();
+    let form = {cuil,firstName, lastName, email, gender};
+    let mssg = buildErrMssg(form);
     if(mssg.length > 0){
       setErrMssg(mssg);
       return;
@@ -76,28 +76,6 @@ export default function RegistrationBegin({ navigation }) {
 
   const handleGoBack = () => {
     navigation.goBack();
-  }
-
-   const errorMssg =() =>{
-    if(!cuil.trim()){
-      return EMPTY_CUIL;
-    }
-    if(!validateCUIL(cuil,gender)){
-      return WRONG_CUIL;
-    }
-    if(!firstName.trim()){
-      return EMPTY_USER_NAME;
-    }
-    if(!lastName.trim()){
-      return EMPTY_USER_SURNAME;
-    }
-    if(!email.trim()){
-      return EMPTY_USER_EMAIL;
-    }
-    if(!validateEmail(email)){
-      return WRONG_FORMAT_EMAIL;
-    }
-    return EMPTY_MESSAGE;
   }
 
   const { height } = Dimensions.get('window');
@@ -133,17 +111,60 @@ export default function RegistrationBegin({ navigation }) {
                     </View>
                   </Item>
                   <Item last>
-                    <TextInputMask type={'custom'} options={{ mask: '99-99999999-9' }} value={cuil} onChangeText={text => handleChangeCUIL(text)} placeholder="CUIL" style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12 }} placeholderTextColor='dimgrey' />
-                    {/* <Input placeholder="CUIL" value={cuil}  maxLength={13} onChangeText={text => handleChangeCUIL(text)} /> */}
+                    {
+                      (errMssg === WRONG_CUIL || errMssg === EMPTY_CUIL) ? (
+                            <>
+                              <TextInputMask type={'custom'} options={{ mask: '99-99999999-9' }} value={cuil} onChangeText={text => handleChangeCUIL(text)} placeholder="CUIL" style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start',width:'100%', height:'80%', marginTop: 12, marginBottom: 12, borderColor:'red', borderWidth:1 }} placeholderTextColor='dimgrey' />
+                            </>
+                        )
+                        :(
+                            <>
+                              <TextInputMask type={'custom'} options={{ mask: '99-99999999-9' }} value={cuil} onChangeText={text => handleChangeCUIL(text)} placeholder="CUIL" style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start',width:'100%', marginTop: 12, marginBottom: 12 }} placeholderTextColor='dimgrey' />
+                            </>
+                         )
+                    }
                   </Item>
                   <Item last>
-                    <Input placeholder="Nombre" value={firstName} maxLength={30} onChangeText={text => handleChangeFirstName(text)} />
+                  {
+                    (errMssg === EMPTY_USER_NAME) ? (
+                          <>
+                            <Input placeholder="Nombre" value={firstName} maxLength={30} onChangeText={text => handleChangeFirstName(text)} style={{borderColor:'red',borderWidth:1}} />
+                          </>
+                      )
+                      :(
+                          <>
+                            <Input placeholder="Nombre" value={firstName} maxLength={30} onChangeText={text => handleChangeFirstName(text)} />
+                          </>
+                       )
+                  }
                   </Item>
                   <Item last>
-                    <Input placeholder="Apellido" value={lastName} maxLength={30} onChangeText={text => handleChangeLastName(text)} />
+                    {
+                      (errMssg === EMPTY_USER_SURNAME) ? (
+                          <>
+                            <Input placeholder="Apellido" value={lastName} maxLength={30} onChangeText={text => handleChangeLastName(text)} style={{borderColor:'red',borderWidth:1}} />
+                          </>
+                        )
+                       :(
+                          <>
+                            <Input placeholder="Apellido" value={lastName} maxLength={30} onChangeText={text => handleChangeLastName(text)} />
+                          </>
+                       )
+                    }
                   </Item>
                   <Item last>
-                    <Input placeholder="Email" value={email} onChangeText={text => handleChangeEmail(text)} />
+                    {
+                      (errMssg === EMPTY_USER_EMAIL || errMssg === WRONG_FORMAT_EMAIL) ? (
+                          <>
+                            <Input placeholder="Email" value={email} onChangeText={text => handleChangeEmail(text)}  style={{borderColor:'red',borderWidth:1}}/>
+                          </>
+                        )
+                       :(
+                          <>
+                            <Input placeholder="Email" value={email} onChangeText={text => handleChangeEmail(text)} />
+                          </>
+                       )
+                    }
                   </Item>
                 </Form>
               </View>

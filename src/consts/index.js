@@ -41,7 +41,7 @@ export const EMPTY_MESSAGE = "";
 export const EMPTY_USER_NAME = "El nombre se encuentra vacío.";
 export const EMPTY_USER_SURNAME = "El apellido se encuentra vacío.";
 export const EMPTY_USER_EMAIL = "El e-mail se encuentra vacío.";
-export const WRONG_FORMAT_EMAIL = "Ingresá un formato de email correcto: tudireccion@server.com";
+export const WRONG_FORMAT_EMAIL = "Ingresá un formato de email correcto: tudireccion@server.com o tudireccion@server.com.ar";
 export const WRONG_CUIL = "El Cuil ingresado no es válido.";
 export const EMPTY_CUIL = "El Cuil se encuentra vacío.";
 export const WRONG_CUIT = "El Cuit ingresado no es válido.";
@@ -68,3 +68,12 @@ export const CALCULATOR_RESULTS_TITLE = 'Calculadora Aportes';
 export const SUCCESS_TYPE = 'success';
 export const POSITION_BOTTOM = 'bottom';
 export const OK = 'OK';
+
+//Input fields
+export const CUIL = 'cuil';
+export const CUIT = 'cuit';
+export const EMAIL = 'email';
+export const FIRST_NAME = 'firstName';
+export const LAST_NAME = 'lastName';
+export const USER_NAME = 'username';
+export const PASSWORD = 'password';
