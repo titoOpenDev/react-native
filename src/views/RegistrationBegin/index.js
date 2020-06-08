@@ -16,6 +16,12 @@ import {
   REGISTRATION_END,
   MALE_GENDER,
   FEMALE_GENDER,
+  EMPTY_USER_NAME,
+  EMPTY_USER_SURNAME,
+  EMPTY_USER_EMAIL,
+  WRONG_FORMAT_EMAIL,
+  EMPTY_CUIL,
+  WRONG_CUIL,
   WARNING
 } from "../../consts";
 
@@ -105,17 +111,60 @@ export default function RegistrationBegin({ navigation }) {
                     </View>
                   </Item>
                   <Item last>
-                    <TextInputMask type={'custom'} options={{ mask: '99-99999999-9' }} value={cuil} onChangeText={text => handleChangeCUIL(text)} placeholder="CUIL" style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12 }} placeholderTextColor='dimgrey' />
-                    {/* <Input placeholder="CUIL" value={cuil}  maxLength={13} onChangeText={text => handleChangeCUIL(text)} /> */}
+                    {
+                      (errMssg === WRONG_CUIL || errMssg === EMPTY_CUIL) ? (
+                            <>
+                              <TextInputMask type={'custom'} options={{ mask: '99-99999999-9' }} value={cuil} onChangeText={text => handleChangeCUIL(text)} placeholder="CUIL" style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start',width:'100%', marginTop: 12, marginBottom: 12, borderColor:'red', borderWidth:1 }} placeholderTextColor='dimgrey' />
+                            </>
+                        )
+                        :(
+                            <>
+                              <TextInputMask type={'custom'} options={{ mask: '99-99999999-9' }} value={cuil} onChangeText={text => handleChangeCUIL(text)} placeholder="CUIL" style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start',width:'100%', marginTop: 12, marginBottom: 12 }} placeholderTextColor='dimgrey' />
+                            </>
+                         )
+                    }
                   </Item>
                   <Item last>
-                    <Input placeholder="Nombre" value={firstName} maxLength={30} onChangeText={text => handleChangeFirstName(text)} />
+                  {
+                    (errMssg === EMPTY_USER_NAME) ? (
+                          <>
+                            <Input placeholder="Nombre" value={firstName} maxLength={30} onChangeText={text => handleChangeFirstName(text)} style={{borderColor:'red',borderWidth:1}} />
+                          </>
+                      )
+                      :(
+                          <>
+                            <Input placeholder="Nombre" value={firstName} maxLength={30} onChangeText={text => handleChangeFirstName(text)} />
+                          </>
+                       )
+                  }
                   </Item>
                   <Item last>
-                    <Input placeholder="Apellido" value={lastName} maxLength={30} onChangeText={text => handleChangeLastName(text)} />
+                    {
+                      (errMssg === EMPTY_USER_SURNAME) ? (
+                          <>
+                            <Input placeholder="Apellido" value={lastName} maxLength={30} onChangeText={text => handleChangeLastName(text)} style={{borderColor:'red',borderWidth:1}} />
+                          </>
+                        )
+                       :(
+                          <>
+                            <Input placeholder="Apellido" value={lastName} maxLength={30} onChangeText={text => handleChangeLastName(text)} />
+                          </>
+                       )
+                    }
                   </Item>
                   <Item last>
-                    <Input placeholder="Email" value={email} onChangeText={text => handleChangeEmail(text)} />
+                    {
+                      (errMssg === EMPTY_USER_EMAIL || errMssg === WRONG_FORMAT_EMAIL) ? (
+                          <>
+                            <Input placeholder="Email" value={email} onChangeText={text => handleChangeEmail(text)}  style={{borderColor:'red',borderWidth:1}}/>
+                          </>
+                        )
+                       :(
+                          <>
+                            <Input placeholder="Email" value={email} onChangeText={text => handleChangeEmail(text)} />
+                          </>
+                       )
+                    }
                   </Item>
                 </Form>
               </View>
