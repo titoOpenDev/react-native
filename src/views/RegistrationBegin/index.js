@@ -114,7 +114,7 @@ export default function RegistrationBegin({ navigation }) {
                     {
                       (errMssg === WRONG_CUIL || errMssg === EMPTY_CUIL) ? (
                             <>
-                              <TextInputMask type={'custom'} options={{ mask: '99-99999999-9' }} value={cuil} onChangeText={text => handleChangeCUIL(text)} placeholder="CUIL" style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start',width:'100%', marginTop: 12, marginBottom: 12, borderColor:'red', borderWidth:1 }} placeholderTextColor='dimgrey' />
+                              <TextInputMask type={'custom'} options={{ mask: '99-99999999-9' }} value={cuil} onChangeText={text => handleChangeCUIL(text)} placeholder="CUIL" style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start',width:'100%', height:'80%', marginTop: 12, marginBottom: 12, borderColor:'red', borderWidth:1 }} placeholderTextColor='dimgrey' />
                             </>
                         )
                         :(
