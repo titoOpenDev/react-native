@@ -17,7 +17,11 @@ import {
         PROCEDURE_SEND_SUCCESS,
         POSITION_BOTTOM,
         SUCCESS_TYPE,
+        WRONG_CUIT,
+        EMPTY_CUIT,
         ERROR_MSSG,
+        EMPTY_CUIL,
+        WRONG_CUIL,
         OK,
         WARNING} from '../../consts';
 
@@ -121,17 +125,35 @@ export default function UploadProcedure({ navigation }) {
             <Form style={{ margin: 24 }}>
               <Text style={{ marginBottom: 16, textAlign: 'center', fontWeight: 'bold' }}>INICIAR NUEVO TRÁMITE</Text>
               <Item>
-                <TextInputMask 
-                  type={'custom'}
-                  options={{
-                    mask: '99-99999999-9'
-                    
-                  }}
-                  value={cuit}
-                  onChangeText={text => handleChangeCUIT(text)}
-                  placeholder = "Completá el CUIT"
-                  style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12 }}
-                />
+                {
+                  (errMssg === EMPTY_CUIT  || errMssg === WRONG_CUIT) ? (
+                      <>
+                        <TextInputMask 
+                          type={'custom'}
+                          options={{
+                            mask: '99-99999999-9'
+                          }}
+                          value={cuit}
+                          onChangeText={text => handleChangeCUIT(text)}
+                          placeholder = "Completá el CUIT"
+                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12, borderColor:'red', borderWidth:1 }}
+                        />
+                      </>
+                  ):(
+                      <>
+                        <TextInputMask 
+                          type={'custom'}
+                          options={{
+                            mask: '99-99999999-9'
+                          }}
+                          value={cuit}
+                          onChangeText={text => handleChangeCUIT(text)}
+                          placeholder = "Completá el CUIT"
+                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12 }}
+                        />
+                      </>
+                  )
+                }
                 <TouchableOpacity>
                   <Entypo name='cross' size={24} color="gray" />
                 </TouchableOpacity> 
@@ -142,38 +164,57 @@ export default function UploadProcedure({ navigation }) {
               </Item>
               <Item>
                 <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', padding: 5 }}>
-                    <Text>Sexo</Text>
-                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', alignContent: 'flex-end', paddingRight: 16, }}>
-                      <RadioButton
+                  <Text>Sexo</Text>
+                  <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', alignContent: 'flex-end', paddingRight: 16, }}>
+                    <RadioButton
                         value={gender}
                         status={gender === MALE_GENDER ? 'checked' : 'unchecked'}
                         onPress={() => { setGender(MALE_GENDER) }}
                         color = {'red'}
                         uncheckedColor={'black'}
-                      />
-                      <Text>{MALE_GENDER}</Text>
-                      <RadioButton
-                        value={gender}
-                        status={gender === FEMALE_GENDER ? 'checked' : 'unchecked'}
-                        onPress={() => { setGender(FEMALE_GENDER) }}
-                        color = {'red'}
-                        uncheckedColor={'black'}
-                      />
+                    />
+                    <Text>{MALE_GENDER}</Text>
+                    <RadioButton
+                      value={gender}
+                      status={gender === FEMALE_GENDER ? 'checked' : 'unchecked'}
+                      onPress={() => { setGender(FEMALE_GENDER) }}
+                      color = {'red'}
+                      uncheckedColor={'black'}
+                    />
                     <Text>{FEMALE_GENDER}</Text>  
                   </View>
                 </View>
               </Item>
               <Item>
-                <TextInputMask
-                  type={'custom'}
-                  options={{
-                    mask: '99-99999999-9'
-                  }}
-                  value={cuil}
-                  onChangeText={text => handleChangeCUIL(text)}
-                  placeholder = "Completá el CUIL"
-                  style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12 }}
-                />
+                {
+                  (errMssg === EMPTY_CUIL  || errMssg === WRONG_CUIL) ? (
+                      <>
+                        <TextInputMask
+                          type={'custom'}
+                          options={{
+                            mask: '99-99999999-9'
+                          }}
+                          value={cuil}
+                          onChangeText={text => handleChangeCUIL(text)}
+                          placeholder = "Completá el CUIL"
+                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12, borderColor:'red', borderWidth:1 }}
+                        />
+                      </>
+                  ):(
+                      <>
+                        <TextInputMask
+                          type={'custom'}
+                          options={{
+                            mask: '99-99999999-9'
+                          }}
+                          value={cuil}
+                          onChangeText={text => handleChangeCUIL(text)}
+                          placeholder = "Completá el CUIL"
+                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12 }}
+                        />
+                      </>
+                  )
+                }
               </Item>
               <Item last>
                 <Card style={{ height: 200, flex: 1, alignItems: 'center', alignContent: 'center', justifyContent: 'center', borderColor: 'black' }}>
