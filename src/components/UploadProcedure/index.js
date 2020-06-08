@@ -136,7 +136,7 @@ export default function UploadProcedure({ navigation }) {
                           value={cuit}
                           onChangeText={text => handleChangeCUIT(text)}
                           placeholder = "Completá el CUIT"
-                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12, width:'75%', borderColor:'red', borderWidth:1 }}
+                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12, width:'100%', borderColor:'red', borderWidth:1 }}
                         />
                       </>
                   ):(
@@ -149,14 +149,11 @@ export default function UploadProcedure({ navigation }) {
                           value={cuit}
                           onChangeText={text => handleChangeCUIT(text)}
                           placeholder = "Completá el CUIT"
-                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12, width:'75%'}}
+                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12, width:'100%'}}
                         />
                       </>
                   )
                 }
-                <TouchableOpacity>
-                  <Entypo name='cross' size={24} color="gray" />
-                </TouchableOpacity> 
               </Item>
               <Item>
                 <Switch style={{ marginBottom: 16, marginTop: 16, }} />
@@ -197,7 +194,7 @@ export default function UploadProcedure({ navigation }) {
                           value={cuil}
                           onChangeText={text => handleChangeCUIL(text)}
                           placeholder = "Completá el CUIL"
-                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12, width:'75%', borderColor:'red', borderWidth:1 }}
+                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12, width:'100%', borderColor:'red', borderWidth:1 }}
                         />
                       </>
                   ):(
@@ -210,7 +207,7 @@ export default function UploadProcedure({ navigation }) {
                           value={cuil}
                           onChangeText={text => handleChangeCUIL(text)}
                           placeholder = "Completá el CUIL"
-                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', width:'75%', marginTop: 12, marginBottom: 12 }}
+                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', width:'100%', marginTop: 12, marginBottom: 12 }}
                         />
                       </>
                   )
