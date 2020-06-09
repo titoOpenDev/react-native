@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { View, Button as NativeButton, ScrollView, TouchableOpacity, Switch, Image } from "react-native"
 import { Body, Container, Content, Text, Toast, Button, Form, Item, Card, CardItem } from "native-base";
-import { TextInputMask} from 'react-native-masked-text';
+import { TextInputMask } from 'react-native-masked-text';
 import { RadioButton } from 'react-native-paper';
-import { Ionicons,AntDesign,Entypo } from '@expo/vector-icons';
+import { Ionicons, AntDesign, Entypo } from '@expo/vector-icons';
 import { Camera } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
 import { requestProcedure } from '../../redux/ducks/procedureDucks';
@@ -12,24 +12,27 @@ import Modal from 'react-native-modal';
 
 import MenuBar from '../MenuBar';
 
-import {
-        MALE_GENDER,
-        FEMALE_GENDER,
-        PROCEDURE_SEND_SUCCESS,
-        WRONG_CUIT,
-        EMPTY_CUIT,
-        ERROR_MSSG,
-        EMPTY_CUIL,
-        WRONG_CUIL,
-        WARNING} from '../../consts';
+import styles from './style';
 
-import {buildErrMssg} from '../../utils';
+import {
+  MALE_GENDER,
+  FEMALE_GENDER,
+  PROCEDURE_SEND_SUCCESS,
+  WRONG_CUIT,
+  EMPTY_CUIT,
+  ERROR_MSSG,
+  EMPTY_CUIL,
+  WRONG_CUIL,
+  WARNING
+} from '../../consts';
+
+import { buildErrMssg } from '../../utils';
 
 export default function UploadProcedure({ navigation }) {
 
   const dispatch = useDispatch();
 
-  const [state, setState] = useState({multipleCreate: false});
+  const [state, setState] = useState({ multipleCreate: false });
   const [hasPermission, setHasPermission] = useState(null);
   const [photo, setPhoto] = useState({});
   const [cuil, setCUIL] = useState("");
@@ -44,17 +47,17 @@ export default function UploadProcedure({ navigation }) {
   const success = useSelector(store => store.procedure.success);
 
   useEffect(() => {
-    if(error){
+    if (error) {
       setIsErrModal(true);
     }
-    if(success){
+    if (success) {
       setIsSuccessModal(true);
     }
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
       setHasPermission(status === 'granted');
     })();
-  }, [error,success]);
+  }, [error, success]);
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -62,23 +65,23 @@ export default function UploadProcedure({ navigation }) {
 
   const handleSendForm = () => {
     //TODO: QUE HACE ESTO ??
-    
+
   }
-  
+
   const handleSendProcedure = () => {
-    let form = {cuit,cuil,gender}
+    let form = { cuit, cuil, gender }
     let mssg = buildErrMssg(form);
-    if(mssg.length >0){
+    if (mssg.length > 0) {
       setErrMssg(mssg);
-    }else{
-      const payload = { cuit , cuil , gender , creationDate };
+    } else {
+      const payload = { cuit, cuil, gender, creationDate };
       dispatch(requestProcedure(payload));
 
       setCUIL(null);
       setCUIT(null);
     }
   }
-  
+
   var _textInput, _textInput1;
 
   const handleChangeCUIT = (text) => {
@@ -123,38 +126,38 @@ export default function UploadProcedure({ navigation }) {
       <MenuBar onPress={() => navigation.openDrawer()} />
       <Content contentContainerStyle={{ flex: 1 }}>
         <View style={{ flex: 1, }}>
-          <ScrollView keyboardShouldPersistTaps = 'always' style={{ flex: 1 }}>
+          <ScrollView keyboardShouldPersistTaps='always' style={{ flex: 1 }}>
             <Form style={{ margin: 24 }}>
               <Text style={{ marginBottom: 16, textAlign: 'center', fontWeight: 'bold' }}>INICIAR NUEVO TRÁMITE</Text>
               <Item>
                 {
-                  (errMssg === EMPTY_CUIT  || errMssg === WRONG_CUIT) ? (
+                  (errMssg === EMPTY_CUIT || errMssg === WRONG_CUIT) ? (
+                    <>
+                      <TextInputMask
+                        type={'custom'}
+                        options={{
+                          mask: '99-99999999-9'
+                        }}
+                        value={cuit}
+                        onChangeText={text => handleChangeCUIT(text)}
+                        placeholder="Completá el CUIT"
+                        style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12, width: '100%', borderColor: 'red', borderWidth: 1 }}
+                      />
+                    </>
+                  ) : (
                       <>
-                        <TextInputMask 
+                        <TextInputMask
                           type={'custom'}
                           options={{
                             mask: '99-99999999-9'
                           }}
                           value={cuit}
                           onChangeText={text => handleChangeCUIT(text)}
-                          placeholder = "Completá el CUIT"
-                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12, width:'100%', borderColor:'red', borderWidth:1 }}
+                          placeholder="Completá el CUIT"
+                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12, width: '100%' }}
                         />
                       </>
-                  ):(
-                      <>
-                        <TextInputMask 
-                          type={'custom'}
-                          options={{
-                            mask: '99-99999999-9'
-                          }}
-                          value={cuit}
-                          onChangeText={text => handleChangeCUIT(text)}
-                          placeholder = "Completá el CUIT"
-                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12, width:'100%'}}
-                        />
-                      </>
-                  )
+                    )
                 }
               </Item>
               <Item>
@@ -166,27 +169,40 @@ export default function UploadProcedure({ navigation }) {
                   <Text>Sexo</Text>
                   <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', alignContent: 'flex-end', paddingRight: 16, }}>
                     <RadioButton
-                        value={gender}
-                        status={gender === MALE_GENDER ? 'checked' : 'unchecked'}
-                        onPress={() => { setGender(MALE_GENDER) }}
-                        color = {'red'}
-                        uncheckedColor={'black'}
+                      value={gender}
+                      status={gender === MALE_GENDER ? 'checked' : 'unchecked'}
+                      onPress={() => { setGender(MALE_GENDER) }}
+                      color={'red'}
+                      uncheckedColor={'black'}
                     />
                     <Text>{MALE_GENDER}</Text>
                     <RadioButton
                       value={gender}
                       status={gender === FEMALE_GENDER ? 'checked' : 'unchecked'}
                       onPress={() => { setGender(FEMALE_GENDER) }}
-                      color = {'red'}
+                      color={'red'}
                       uncheckedColor={'black'}
                     />
-                    <Text>{FEMALE_GENDER}</Text>  
+                    <Text>{FEMALE_GENDER}</Text>
                   </View>
                 </View>
               </Item>
               <Item>
                 {
-                  (errMssg === EMPTY_CUIL  || errMssg === WRONG_CUIL) ? (
+                  (errMssg === EMPTY_CUIL || errMssg === WRONG_CUIL) ? (
+                    <>
+                      <TextInputMask
+                        type={'custom'}
+                        options={{
+                          mask: '99-99999999-9'
+                        }}
+                        value={cuil}
+                        onChangeText={text => handleChangeCUIL(text)}
+                        placeholder="Completá el CUIL"
+                        style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12, width: '100%', borderColor: 'red', borderWidth: 1 }}
+                      />
+                    </>
+                  ) : (
                       <>
                         <TextInputMask
                           type={'custom'}
@@ -195,24 +211,11 @@ export default function UploadProcedure({ navigation }) {
                           }}
                           value={cuil}
                           onChangeText={text => handleChangeCUIL(text)}
-                          placeholder = "Completá el CUIL"
-                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', marginTop: 12, marginBottom: 12, width:'100%', borderColor:'red', borderWidth:1 }}
+                          placeholder="Completá el CUIL"
+                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', width: '100%', marginTop: 12, marginBottom: 12 }}
                         />
                       </>
-                  ):(
-                      <>
-                        <TextInputMask
-                          type={'custom'}
-                          options={{
-                            mask: '99-99999999-9'
-                          }}
-                          value={cuil}
-                          onChangeText={text => handleChangeCUIL(text)}
-                          placeholder = "Completá el CUIL"
-                          style={{ margin: 5, fontSize: 17, justifyContent: 'flex-start', width:'100%', marginTop: 12, marginBottom: 12 }}
-                        />
-                      </>
-                  )
+                    )
                 }
               </Item>
               <Item last>
@@ -224,49 +227,49 @@ export default function UploadProcedure({ navigation }) {
                   </CardItem>
                   <CardItem>
                     {
-                      (photo.image)?
-                      (<Image source={{uri: photo.image.uri}} style={{height: 200, width: null, flex: 1}}/>)
-                      :
-                      (<Text>No hay foto</Text>)
+                      (photo.image) ?
+                        (<Image source={{ uri: photo.image.uri }} style={{ height: 200, width: null, flex: 1 }} />)
+                        :
+                        (<Text>No hay foto</Text>)
                     }
                   </CardItem>
                 </Card>
               </Item>
               <Modal isVisible={isErrModal}>
-                <View style={{flex: 1}}>
-                  <Text>{ERROR_MSSG}</Text>
-                  <Button  onPress={toggleErrModal} style={{backgroundColor:'red'}} >
+                <View style={styles.content}>
+                  <Text style={styles.contentTitle}>{ERROR_MSSG}</Text>
+                  <Button onPress={toggleErrModal} style={{ backgroundColor: 'red' }} >
                     <Text>OK</Text>
                   </Button>
                 </View>
               </Modal>
               <Modal isVisible={isSuccessModal}>
-                <View style={{flex: 1}}>
-                  <Text>{PROCEDURE_SEND_SUCCESS}</Text>
-                  <Button  onPress={toggleSuccessModal} style={{backgroundColor:'red'}} >
+                <View style={styles.content}>
+                  <Text style={styles.contentTitle}>{PROCEDURE_SEND_SUCCESS}</Text>
+                  <Button onPress={toggleSuccessModal} style={{ backgroundColor: 'red' }} >
                     <Text>ACEPTAR</Text>
                   </Button>
                 </View>
               </Modal>
-              <Button warning style={{ margin: 10, backgroundColor: '#fff', borderRadius: 4, flexDirection: 'row'}} onPress={pickImage}>
-                <AntDesign style={{flex: 1, textAlign: 'center'}} name="camera" size={24} color="black" />
+              <Button warning style={{ margin: 10, backgroundColor: '#fff', borderRadius: 4, flexDirection: 'row' }} onPress={pickImage}>
+                <AntDesign style={{ flex: 1, textAlign: 'center' }} name="camera" size={24} color="black" />
               </Button>
-              { 
-                (errMssg.length >0) && (
-                                          <>    
-                                            <Text style={{ textAlign: 'center', fontWeight: 'bold',color:'red' }}>{WARNING}</Text>
-                                            <Text style={{ textAlign: 'center', fontWeight: 'bold', color:'red' }}>{errMssg}</Text>
-                                          </>
-                                       )
-              } 
-              
-              <Button warning style={{ margin: 10, backgroundColor: '#f16820', borderRadius: 4 }} onPress={() => handleSendProcedure() }>
+              {
+                (errMssg.length > 0) && (
+                  <>
+                    <Text style={{ textAlign: 'center', fontWeight: 'bold', color: 'red' }}>{WARNING}</Text>
+                    <Text style={{ textAlign: 'center', fontWeight: 'bold', color: 'red' }}>{errMssg}</Text>
+                  </>
+                )
+              }
+
+              <Button warning style={{ margin: 10, backgroundColor: '#f16820', borderRadius: 4 }} onPress={() => handleSendProcedure()}>
                 <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase', }}>comenzar trámite</Text>
               </Button>
               <Button dark bordered warning style={{ margin: 10, borderColor: '#f16820', borderRadius: 4 }} onPress={() => { _textInput1.setNativeProps({ height: '100%', width: '100%', opacity: 100 }); }}>
                 <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase', color: '#f16820', }}>tutorial: foto</Text>
               </Button>
-              <Button disabled light style={{ margin: 10, backgroundColor: 'gray', borderRadius: 4 }} onPress={() => handleSendForm() }>
+              <Button disabled light style={{ margin: 10, backgroundColor: 'gray', borderRadius: 4 }} onPress={() => handleSendForm()}>
                 <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase', color: 'white', }}>enviar formulario</Text>
               </Button>
             </Form>
