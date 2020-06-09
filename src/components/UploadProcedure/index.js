@@ -8,6 +8,7 @@ import { Camera } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
 import { requestProcedure } from '../../redux/ducks/procedureDucks';
 import { useDispatch, useSelector } from "react-redux";
+import Modal from 'react-native-modal';
 
 import MenuBar from '../MenuBar';
 
@@ -15,14 +16,11 @@ import {
         MALE_GENDER,
         FEMALE_GENDER,
         PROCEDURE_SEND_SUCCESS,
-        POSITION_BOTTOM,
-        SUCCESS_TYPE,
         WRONG_CUIT,
         EMPTY_CUIT,
         ERROR_MSSG,
         EMPTY_CUIL,
         WRONG_CUIL,
-        OK,
         WARNING} from '../../consts';
 
 import {buildErrMssg} from '../../utils';
@@ -39,18 +37,24 @@ export default function UploadProcedure({ navigation }) {
   const [gender, setGender] = useState(MALE_GENDER);
   const [creationDate, setCreationDate] = useState(new Date());
   const [errMssg, setErrMssg] = useState("");
+  const [isErrModal, setIsErrModal] = useState(false);
+  const [isSuccessModal, setIsSuccessModal] = useState(false);
 
   const error = useSelector(store => store.procedure.err);
+  const success = useSelector(store => store.procedure.success);
 
   useEffect(() => {
     if(error){
-      alert(ERROR_MSSG);
+      setIsErrModal(true);
+    }
+    if(success){
+      setIsSuccessModal(true);
     }
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
       setHasPermission(status === 'granted');
     })();
-  }, [error]);
+  }, [error,success]);
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -70,17 +74,8 @@ export default function UploadProcedure({ navigation }) {
       const payload = { cuit , cuil , gender , creationDate };
       dispatch(requestProcedure(payload));
 
-    //TODO: REEMPLAZAR POR MODAL-POPUP
-    // Toast.show({
-    //   text: PROCEDURE_SEND_SUCCESS,
-    //   buttonText: OK,
-    //   position: POSITION_BOTTOM,
-    //   type: SUCCESS_TYPE,
-    //   duration: 3000
-    // })
-    setCUIL(null);
-    setCUIT(null);
-    //setPhoto(null);
+      setCUIL(null);
+      setCUIT(null);
     }
   }
   
@@ -96,9 +91,16 @@ export default function UploadProcedure({ navigation }) {
     setCUIL(text);
   }
 
+  const toggleErrModal = () => {
+    setIsErrModal(false);
+  };
+
+  const toggleSuccessModal = () => {
+    setIsSuccessModal(false);
+  };
+
   const pickImage = async () => {
     try {
-      // ImagePicker.launchCameraAsync(options)
 
       let result = await ImagePicker.launchCameraAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -230,9 +232,24 @@ export default function UploadProcedure({ navigation }) {
                   </CardItem>
                 </Card>
               </Item>
+              <Modal isVisible={isErrModal}>
+                <View style={{flex: 1}}>
+                  <Text>{ERROR_MSSG}</Text>
+                  <Button  onPress={toggleErrModal} style={{backgroundColor:'red'}} >
+                    <Text>OK</Text>
+                  </Button>
+                </View>
+              </Modal>
+              <Modal isVisible={isSuccessModal}>
+                <View style={{flex: 1}}>
+                  <Text>{PROCEDURE_SEND_SUCCESS}</Text>
+                  <Button  onPress={toggleSuccessModal} style={{backgroundColor:'red'}} >
+                    <Text>ACEPTAR</Text>
+                  </Button>
+                </View>
+              </Modal>
               <Button warning style={{ margin: 10, backgroundColor: '#fff', borderRadius: 4, flexDirection: 'row'}} onPress={pickImage}>
                 <AntDesign style={{flex: 1, textAlign: 'center'}} name="camera" size={24} color="black" />
-                  {/* <Text style={{ flex: 1, textAlign: 'center', textTransform: 'uppercase', color:'black'}}>cargar una imagen</Text> */}
               </Button>
               { 
                 (errMssg.length >0) && (
